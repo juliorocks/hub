@@ -1,33 +1,41 @@
 /**
  * main.js — Hub do Estudante
  * Entry point: importa e inicializa todos os módulos
- * Nenhuma lógica de negócio aqui — apenas orquestração
  */
 
 import { initSearch } from './search.js';
-import { initAffiliate } from './affiliate.js';
-import { initAnalytics } from './analytics.js';
-import { initLazyLoad } from './lazyload.js';
-import { initFAQ } from './faq.js';
-import { initTOC } from './toc.js';
-import { initMegaMenu } from './menu.js';
 
-/**
- * Inicializa todos os módulos quando o DOM está pronto.
- * Módulos verificam internamente se o elemento necessário existe
- * antes de agir — seguro rodar em todas as páginas.
- */
 function init() {
-  initMegaMenu();
   initSearch();
-  initAffiliate();
-  initAnalytics();
-  initLazyLoad();
-  initFAQ();
-  initTOC();
+  wrapArticleTables();
 }
 
-// Aguarda DOM pronto
+/**
+ * Envolve todas as <table> dentro de .article-content em um wrapper
+ * com overflow-x: auto para scroll horizontal seguro em mobile.
+ * Também protege .comparison-table fora de .article-content.
+ * Aplicado via JS para não precisar editar cada HTML individualmente.
+ */
+function wrapArticleTables() {
+  // Tabelas dentro de article-content
+  document.querySelectorAll('.article-content table').forEach(table => {
+    if (table.closest('.table-scroll-wrapper')) return;
+    const wrapper = document.createElement('div');
+    wrapper.className = 'table-scroll-wrapper';
+    table.parentNode.insertBefore(wrapper, table);
+    wrapper.appendChild(table);
+  });
+
+  // comparison-table fora de article-content (ex: sidebar, seções)
+  document.querySelectorAll('.comparison-table').forEach(table => {
+    if (table.closest('.comparison-table-wrapper') || table.closest('.table-scroll-wrapper')) return;
+    const wrapper = document.createElement('div');
+    wrapper.className = 'comparison-table-wrapper';
+    table.parentNode.insertBefore(wrapper, table);
+    wrapper.appendChild(table);
+  });
+}
+
 if (document.readyState === 'loading') {
   document.addEventListener('DOMContentLoaded', init);
 } else {
