@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+
+  <!-- Sitemap principal — páginas estáticas -->
+  <sitemap>
+    <loc>https://melhores-cursos.com.br/sitemaps/main-sitemap.xml</loc>
+    <lastmod>2026-04-11</lastmod>
+  </sitemap>
+
+  <!-- Graduação -->
+  <sitemap>
+    <loc>https://melhores-cursos.com.br/sitemaps/graduacao-sitemap.xml</loc>
+    <lastmod>2026-04-11</lastmod>
+  </sitemap>
+
+  <!-- Pós-graduação -->
+  <sitemap>
+    <loc>https://melhores-cursos.com.br/sitemaps/pos-graduacao-sitemap.xml</loc>
+    <lastmod>2026-04-11</lastmod>
+  </sitemap>
+
+  <!-- Cursos Técnicos -->
+  <sitemap>
+    <loc>https://melhores-cursos.com.br/sitemaps/cursos-tecnicos-sitemap.xml</loc>
+    <lastmod>2026-04-11</lastmod>
+  </sitemap>
+
+  <!-- Cursos Livres -->
+  <sitemap>
+    <loc>https://melhores-cursos.com.br/sitemaps/cursos-livres-sitemap.xml</loc>
+    <lastmod>2026-04-11</lastmod>
+  </sitemap>
+
+  <!-- Carreiras & Salários -->
+  <sitemap>
+    <loc>https://melhores-cursos.com.br/sitemaps/carreiras-sitemap.xml</loc>
+    <lastmod>2026-04-11</lastmod>
+  </sitemap>
+
+  <!-- Notícias / Atualidades -->
+  <sitemap>
+    <loc>https://melhores-cursos.com.br/sitemaps/noticias-sitemap.xml</loc>
+    <lastmod>2026-04-11</lastmod>
+  </sitemap>
+
+</sitemapindex>

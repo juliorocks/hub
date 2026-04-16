@@ -1,0 +1,488 @@
+/*
+ * institution.css — Hub do Estudante
+ * Estilos específicos para páginas de instituição/universidade
+ * Depende de: base.css, layout.css, components.css
+ */
+
+/* =============================================
+   1. HERO DA INSTITUIÇÃO
+   ============================================= */
+.institution-hero {
+  background: linear-gradient(135deg, var(--inst-color, var(--color-primary-dark)) 0%, color-mix(in srgb, var(--inst-color, var(--color-primary)), black 30%) 100%);
+  padding-block: var(--space-16) var(--space-12);
+  position: relative;
+  overflow: hidden;
+  color: white;
+}
+
+.institution-hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at 80% 50%, rgba(255,255,255,0.08) 0%, transparent 60%);
+}
+
+.institution-hero .container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: var(--space-10);
+}
+
+.institution-hero__logo-wrap {
+  flex-shrink: 0;
+  width: 160px;
+  height: 100px;
+  background-color: white;
+  border-radius: var(--radius-xl);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-4);
+  box-shadow: var(--shadow-xl);
+}
+
+.institution-hero__logo {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+.institution-hero__info { flex: 1; }
+
+.institution-hero__group {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-1) var(--space-3);
+  border-radius: var(--radius-full);
+  background-color: rgba(255,255,255,0.15);
+  font-size: var(--text-xs);
+  font-weight: var(--weight-bold);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: rgba(255,255,255,0.9);
+  margin-bottom: var(--space-3);
+}
+
+.institution-hero__name {
+  font-family: var(--font-display);
+  font-size: var(--text-4xl);
+  font-weight: var(--weight-bold);
+  color: white;
+  line-height: var(--leading-tight);
+  margin-bottom: var(--space-3);
+}
+
+.institution-hero__desc {
+  font-size: var(--text-lg);
+  color: rgba(255,255,255,0.85);
+  max-width: 560px;
+  line-height: var(--leading-relaxed);
+  margin-bottom: var(--space-6);
+}
+
+.institution-hero__badges {
+  display: flex;
+  gap: var(--space-2);
+  flex-wrap: wrap;
+}
+
+.institution-hero__badge {
+  padding: var(--space-1) var(--space-3);
+  border-radius: var(--radius-full);
+  background-color: rgba(255,255,255,0.2);
+  font-size: var(--text-xs);
+  font-weight: var(--weight-semibold);
+  color: white;
+}
+
+.institution-hero__cta {
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.institution-hero__cta-note {
+  font-size: var(--text-xs);
+  color: rgba(255,255,255,0.7);
+  text-align: center;
+}
+
+/* =============================================
+   2. STATS DA INSTITUIÇÃO
+   ============================================= */
+.institution-stats {
+  background-color: var(--color-bg-white);
+  border-bottom: 1px solid var(--color-border);
+  padding-block: var(--space-6);
+}
+
+.institution-stats .container {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+}
+
+.institution-stat {
+  flex: 1;
+  text-align: center;
+  padding: var(--space-4);
+  border-right: 1px solid var(--color-border);
+}
+
+.institution-stat:last-child { border-right: none; }
+
+.institution-stat__value {
+  font-family: var(--font-display);
+  font-size: var(--text-2xl);
+  font-weight: var(--weight-bold);
+  color: var(--color-text);
+  line-height: 1;
+  margin-bottom: var(--space-1);
+}
+
+.institution-stat__label {
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  font-weight: var(--weight-semibold);
+}
+
+/* =============================================
+   3. FILTROS DE CURSOS
+   ============================================= */
+.courses-filters {
+  padding-block: var(--space-6);
+  background-color: var(--color-bg-gray);
+  border-bottom: 1px solid var(--color-border);
+  position: sticky;
+  top: 60px;
+  z-index: 10;
+}
+
+.courses-filters .container {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  flex-wrap: wrap;
+}
+
+.courses-filters__label {
+  font-size: var(--text-sm);
+  font-weight: var(--weight-semibold);
+  color: var(--color-text-secondary);
+  white-space: nowrap;
+}
+
+/* =============================================
+   4. GRID DE CURSOS
+   ============================================= */
+.courses-section {
+  padding-block: var(--space-12);
+}
+
+.courses-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-5);
+}
+
+/* Card de curso individual */
+.course-item {
+  background-color: var(--color-bg-white);
+  border: 1.5px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  padding: var(--space-5);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  transition: all var(--transition-base);
+  text-decoration: none;
+}
+
+.course-item:hover {
+  border-color: var(--color-primary);
+  box-shadow: var(--shadow-card-hover);
+  transform: translateY(-2px);
+}
+
+.course-item__area {
+  font-size: var(--text-xs);
+  font-weight: var(--weight-bold);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--color-text-muted);
+}
+
+.course-item__name {
+  font-family: var(--font-display);
+  font-size: var(--text-md);
+  font-weight: var(--weight-bold);
+  color: var(--color-text);
+  line-height: var(--leading-snug);
+}
+
+.course-item:hover .course-item__name {
+  color: var(--color-primary-dark);
+}
+
+.course-item__details {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+  margin-top: auto;
+}
+
+.course-item__detail {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+}
+
+.course-item__detail svg {
+  width: 12px;
+  height: 12px;
+}
+
+.course-item__cta {
+  margin-top: var(--space-2);
+  padding-top: var(--space-3);
+  border-top: 1px solid var(--color-border);
+  font-size: var(--text-xs);
+  font-weight: var(--weight-bold);
+  color: var(--color-primary);
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+  transition: gap var(--transition-fast);
+}
+
+.course-item:hover .course-item__cta {
+  gap: var(--space-2);
+}
+
+/* =============================================
+   5. SEÇÃO "SOBRE A INSTITUIÇÃO"
+   ============================================= */
+.institution-about {
+  padding-block: var(--space-12);
+  background-color: var(--color-bg);
+  border-top: 1px solid var(--color-border);
+}
+
+.institution-about__grid {
+  display: grid;
+  grid-template-columns: 1fr 340px;
+  gap: var(--space-12);
+  align-items: start;
+}
+
+.institution-about__title {
+  font-family: var(--font-display);
+  font-size: var(--text-2xl);
+  color: var(--color-text);
+  margin-bottom: var(--space-5);
+}
+
+.institution-about__text {
+  font-size: var(--text-base);
+  color: var(--color-text-secondary);
+  line-height: var(--leading-loose);
+  margin-bottom: var(--space-4);
+}
+
+/* Card de CTA lateral */
+.institution-cta-card {
+  background: linear-gradient(135deg, var(--inst-color, var(--color-primary)), color-mix(in srgb, var(--inst-color, var(--color-primary)), black 25%));
+  border-radius: var(--radius-2xl);
+  padding: var(--space-8);
+  color: white;
+  position: sticky;
+  top: calc(60px + var(--space-6));
+}
+
+.institution-cta-card__title {
+  font-family: var(--font-display);
+  font-size: var(--text-xl);
+  color: white;
+  margin-bottom: var(--space-3);
+  line-height: var(--leading-snug);
+}
+
+.institution-cta-card__text {
+  font-size: var(--text-sm);
+  color: rgba(255,255,255,0.85);
+  line-height: var(--leading-relaxed);
+  margin-bottom: var(--space-6);
+}
+
+.institution-cta-card__note {
+  font-size: var(--text-xs);
+  color: rgba(255,255,255,0.65);
+  margin-top: var(--space-3);
+  text-align: center;
+}
+
+/* =============================================
+   6. ÍNDICE DE INSTITUIÇÕES (listing)
+   ============================================= */
+.institutions-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-6);
+}
+
+.institution-card {
+  background-color: var(--color-bg-white);
+  border: 1.5px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  transition: all var(--transition-base);
+  display: flex;
+  flex-direction: column;
+  text-decoration: none;
+}
+
+.institution-card:hover {
+  border-color: var(--color-primary);
+  box-shadow: var(--shadow-card-hover);
+  transform: translateY(-3px);
+}
+
+.institution-card__header {
+  height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-5);
+  background-color: var(--color-bg-gray);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.institution-card__logo {
+  max-height: 60px;
+  max-width: 180px;
+  object-fit: contain;
+  display: block;
+  margin: 0 auto;
+}
+
+.institution-card__body {
+  padding: var(--space-5);
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.institution-card__name {
+  font-family: var(--font-display);
+  font-size: var(--text-lg);
+  font-weight: var(--weight-bold);
+  color: var(--color-text);
+}
+
+.institution-card__group {
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+  font-weight: var(--weight-medium);
+}
+
+.institution-card__desc {
+  font-size: var(--text-sm);
+  color: var(--color-text-secondary);
+  line-height: var(--leading-relaxed);
+  flex: 1;
+}
+
+.institution-card__footer {
+  padding: var(--space-4) var(--space-5);
+  border-top: 1px solid var(--color-border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+}
+
+.institution-card__count {
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+  font-weight: var(--weight-medium);
+}
+
+.institution-card__link {
+  font-size: var(--text-xs);
+  font-weight: var(--weight-bold);
+  color: var(--color-primary);
+}
+
+/* =============================================
+   7. RESPONSIVO
+   ============================================= */
+@media (max-width: 1024px) {
+  .institution-about__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .institution-cta-card {
+    position: static;
+  }
+
+  .courses-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .institutions-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .institution-hero .container {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-6);
+  }
+
+  .institution-hero__logo-wrap {
+    width: 120px;
+    height: 80px;
+  }
+
+  .institution-hero__name {
+    font-size: var(--text-2xl);
+  }
+
+  .institution-hero__cta {
+    width: 100%;
+  }
+
+  .institution-hero__cta .btn {
+    width: 100%;
+  }
+
+  .institution-stats .container {
+    flex-wrap: wrap;
+  }
+
+  .institution-stat {
+    flex: 1 1 calc(50% - var(--space-1));
+    border-right: none;
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .courses-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .institutions-grid {
+    grid-template-columns: 1fr;
+  }
+}

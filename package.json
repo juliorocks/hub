@@ -1,0 +1,15 @@
+{
+  "name": "hub-do-estudante",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "test:logos": "playwright test test-logos.spec.js"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.45.0",
+    "http-server": "^14.1.1"
+  },
+  "dependencies": {
+    "fuse.js": "^7.3.0"
+  }
+}

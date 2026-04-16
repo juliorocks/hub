@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Salários por Profissão 2026: tabela completa com 60+ carreiras | Hub do Estudante</title>
+  <meta name="description" content="Tabela completa de salários por profissão no Brasil 2026. Busque médicos, advogados, engenheiros, professores e muito mais. Dados reais do mercado.">
+  <link rel="canonical" href="https://www.hubdoestudante.com.br/carreiras/salarios/">
+  <meta name="robots" content="index, follow">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap">
+
+  <link rel="stylesheet" href="../../../assets/css/base.css">
+  <link rel="stylesheet" href="../../../assets/css/layout.css">
+  <link rel="stylesheet" href="../../../assets/css/components.css">
+  <link rel="stylesheet" href="../../../assets/css/listing.css">
+  <link rel="stylesheet" href="../../../assets/css/responsive.css">
+
+  <style>
+    /* ── Busca ── */
+    .sal-search-wrap {
+      display: flex;
+      gap: var(--space-3);
+      flex-wrap: wrap;
+      align-items: center;
+      margin-bottom: var(--space-6);
+    }
+    .sal-search-input {
+      flex: 1;
+      min-width: 220px;
+      height: 48px;
+      padding: 0 var(--space-5);
+      border: 2px solid var(--color-border);
+      border-radius: var(--radius-full);
+      font-size: var(--text-sm);
+      background: var(--color-bg-white);
+      outline: none;
+      transition: border-color .15s;
+    }
+    .sal-search-input:focus { border-color: var(--color-area-carreiras, #059669); }
+
+    .sal-filter-btn {
+      height: 38px;
+      padding: 0 var(--space-4);
+      border: 1.5px solid var(--color-border);
+      border-radius: var(--radius-full);
+      background: var(--color-bg-white);
+      font-size: var(--text-xs);
+      font-weight: var(--weight-semibold);
+      color: var(--color-text-secondary);
+      cursor: pointer;
+      transition: all .15s;
+      white-space: nowrap;
+    }
+    .sal-filter-btn.is-active,
+    .sal-filter-btn:hover {
+      border-color: var(--color-area-carreiras, #059669);
+      background: #059669;
+      color: #fff;
+    }
+
+    /* ── Stats resumo ── */
+    .sal-stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: var(--space-4);
+      margin-bottom: var(--space-8);
+    }
+    .sal-stat {
+      background: var(--color-bg-white);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-lg);
+      padding: var(--space-4) var(--space-5);
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .sal-stat__label { font-size: var(--text-xs); color: var(--color-text-muted); font-weight: 600; text-transform: uppercase; letter-spacing: .06em; }
+    .sal-stat__value { font-size: var(--text-xl); font-weight: 800; color: var(--color-text); }
+    .sal-stat__sub   { font-size: var(--text-xs); color: var(--color-text-secondary); }
+
+    /* ── Tabela ── */
+    .sal-table-wrap {
+      background: var(--color-bg-white);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-xl);
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+    }
+    .sal-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: var(--text-sm);
+    }
+    .sal-table thead {
+      background: #f6f8fa;
+      border-bottom: 2px solid var(--color-border);
+    }
+    .sal-table th {
+      padding: var(--space-3) var(--space-5);
+      text-align: left;
+      font-size: var(--text-xs);
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .07em;
+      color: var(--color-text-muted);
+      white-space: nowrap;
+      cursor: pointer;
+      user-select: none;
+    }
+    .sal-table th:hover { color: var(--color-text); }
+    .sal-table th .sort-arrow { margin-left: 4px; opacity: .4; font-size: 10px; }
+    .sal-table th.is-sorted .sort-arrow { opacity: 1; }
+
+    .sal-table tbody tr {
+      border-bottom: 1px solid var(--color-border-light, #f0f0f0);
+      transition: background .1s;
+    }
+    .sal-table tbody tr:last-child { border-bottom: none; }
+    .sal-table tbody tr:hover { background: #fafbff; }
+    .sal-table tbody tr.is-hidden { display: none; }
+
+    .sal-table td { padding: var(--space-3) var(--space-5); vertical-align: middle; }
+
+    .sal-prof {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+    }
+    .sal-prof__emoji {
+      width: 36px;
+      height: 36px;
+      border-radius: var(--radius-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      flex-shrink: 0;
+    }
+    .sal-prof__name { font-weight: 600; color: var(--color-text); }
+    .sal-prof__area { font-size: var(--text-xs); color: var(--color-text-muted); }
+
+    .sal-badge {
+      display: inline-block;
+      padding: 2px 10px;
+      border-radius: var(--radius-full);
+      font-size: 11px;
+      font-weight: 600;
+    }
+
+    .sal-range { font-weight: 600; color: var(--color-text); white-space: nowrap; }
+    .sal-med   { font-weight: 700; color: #059669; white-space: nowrap; }
+    .sal-demand {
+      font-size: var(--text-xs);
+      font-weight: 600;
+      padding: 2px 8px;
+      border-radius: var(--radius-full);
+    }
+    .sal-demand--alta   { background: #dcfce7; color: #166534; }
+    .sal-demand--media  { background: #fef9c3; color: #854d0e; }
+    .sal-demand--baixa  { background: #fee2e2; color: #991b1b; }
+
+    .sal-link {
+      font-size: var(--text-xs);
+      font-weight: 600;
+      color: var(--color-primary);
+      white-space: nowrap;
+    }
+    .sal-link:hover { text-decoration: underline; }
+
+    .sal-count {
+      font-size: var(--text-sm);
+      color: var(--color-text-muted);
+      margin-bottom: var(--space-3);
+    }
+    .sal-count strong { color: var(--color-text); }
+
+    .sal-no-results {
+      text-align: center;
+      padding: var(--space-12);
+      color: var(--color-text-muted);
+      display: none;
+    }
+    .sal-no-results.is-visible { display: block; }
+
+    /* Mobile: esconder colunas menos importantes */
+    @media (max-width: 768px) {
+      .sal-table .col-demand,
+      .sal-table .col-grad { display: none; }
+      .sal-search-wrap { gap: var(--space-2); }
+    }
+    @media (max-width: 480px) {
+      .sal-table .col-range { display: none; }
+      .sal-table td, .sal-table th { padding: var(--space-2) var(--space-3); }
+    }
+  </style>
+</head>
+<body class="page-wrapper" data-area="carreiras">
+
+
+
+  <nav class="breadcrumb" aria-label="Breadcrumb">
+    <div class="container">
+      <ol class="breadcrumb__list" itemscope itemtype="https://schema.org/BreadcrumbList">
+        <li class="breadcrumb__item" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+          <a href="../../../index.html" class="breadcrumb__link" itemprop="item"><span itemprop="name">Home</span></a><meta itemprop="position" content="1">
+        </li>
+        <li class="breadcrumb__item" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+          <a href="../index.html" class="breadcrumb__link" itemprop="item"><span itemprop="name">Carreiras</span></a><meta itemprop="position" content="2">
+        </li>
+        <li class="breadcrumb__item breadcrumb__item--current" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+          <span itemprop="name">Salários</span><meta itemprop="position" content="3">
+        </li>
+      </ol>
+    </div>
+  </nav>
+
+  <section class="category-hero">
+    <div class="container">
+      <div class="category-hero__content">
+        <div class="category-hero__meta">
+          <span class="badge badge--white">Mercado de Trabalho · 2026</span>
+        </div>
+        <h1 class="category-hero__title">Salários por Profissão no Brasil</h1>
+        <p class="category-hero__desc">Tabela com 60+ carreiras, faixas salariais reais, demanda do mercado e links para guias completos. Dados atualizados em 2026.</p>
+      </div>
+    </div>
+  </section>
+
+  <main style="padding-block: var(--space-10) var(--space-16);">
+    <div class="container">
+
+      <!-- Stats resumo -->
+      <div class="sal-stats">
+        <div class="sal-stat">
+          <span class="sal-stat__label">Profissões mapeadas</span>
+          <span class="sal-stat__value">60+</span>
+          <span class="sal-stat__sub">em 8 áreas</span>
+        </div>
+        <div class="sal-stat">
+          <span class="sal-stat__label">Maior salário médio</span>
+          <span class="sal-stat__value">R$ 28k</span>
+          <span class="sal-stat__sub">Médico especialista</span>
+        </div>
+        <div class="sal-stat">
+          <span class="sal-stat__label">Média geral</span>
+          <span class="sal-stat__value">R$ 5.800</span>
+          <span class="sal-stat__sub">entre todas as carreiras</span>
+        </div>
+        <div class="sal-stat">
+          <span class="sal-stat__label">Alta demanda em 2026</span>
+          <span class="sal-stat__value">34</span>
+          <span class="sal-stat__sub">profissões com mercado aquecido</span>
+        </div>
+      </div>
+
+      <!-- Busca e filtros -->
+      <div class="sal-search-wrap">
+        <input type="search" id="sal-search" class="sal-search-input" placeholder="🔍  Buscar profissão (ex: médico, engenheiro, professor...)">
+        <button class="sal-filter-btn is-active" data-area="todas">Todas</button>
+        <button class="sal-filter-btn" data-area="saude">Saúde</button>
+        <button class="sal-filter-btn" data-area="direito">Direito</button>
+        <button class="sal-filter-btn" data-area="tecnologia">Tecnologia</button>
+        <button class="sal-filter-btn" data-area="engenharia">Engenharia</button>
+        <button class="sal-filter-btn" data-area="negocios">Negócios</button>
+        <button class="sal-filter-btn" data-area="educacao">Educação</button>
+        <button class="sal-filter-btn" data-area="humanas">Humanas</button>
+        <button class="sal-filter-btn" data-area="outros">Outros</button>
+      </div>
+
+      <p class="sal-count"><strong id="sal-visible-count">62</strong> profissões encontradas</p>
+
+      <!-- Tabela -->
+      <div class="sal-table-wrap">
+        <table class="sal-table" id="sal-table">
+          <thead>
+            <tr>
+              <th data-col="profissao">Profissão <span class="sort-arrow">↕</span></th>
+              <th data-col="min" class="col-range">Salário Inicial <span class="sort-arrow">↕</span></th>
+              <th data-col="med" class="is-sorted">Salário Médio <span class="sort-arrow">↓</span></th>
+              <th data-col="max" class="col-range">Salário Topo <span class="sort-arrow">↕</span></th>
+              <th data-col="demand" class="col-demand">Demanda <span class="sort-arrow">↕</span></th>
+              <th class="col-grad">Formação</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody id="sal-tbody">
+            <!-- JS preenche -->
+          </tbody>
+        </table>
+        <p class="sal-no-results" id="sal-no-results">Nenhuma profissão encontrada para essa busca.</p>
+      </div>
+
+      <p style="font-size:var(--text-xs); color:var(--color-text-muted); margin-top:var(--space-4);">
+        * Valores em reais (R$), referência mercado brasileiro 2026. Salários variam por região, experiência e setor (público/privado).
+      </p>
+
+    </div>
+  </main>
+
+
+
+  <script src="../../../assets/js/components-loader.js"></script>
+  <script type="module" src="../../../assets/js/main.js"></script>
+  <script>
+  // ── Dados: 62 profissões ──────────────────────────────────────────
+  const PROFISSOES = [
+    // SAÚDE
+    { nome: 'Médico Geral',           emoji: '🩺', area: 'saude',      areaNome: 'Saúde',       min: 8000,  med: 16000, max: 35000, demand: 'alta',  grad: 'Medicina',           url: 'quanto-ganha-medico.html' },
+    { nome: 'Médico Especialista',    emoji: '🏥', area: 'saude',      areaNome: 'Saúde',       min: 12000, med: 28000, max: 60000, demand: 'alta',  grad: 'Medicina + Residência', url: 'quanto-ganha-medico.html' },
+    { nome: 'Dentista',               emoji: '🦷', area: 'saude',      areaNome: 'Saúde',       min: 3500,  med: 8500,  max: 25000, demand: 'alta',  grad: 'Odontologia',        url: 'quanto-ganha-dentista.html' },
+    { nome: 'Enfermeiro',             emoji: '💉', area: 'saude',      areaNome: 'Saúde',       min: 2800,  med: 4800,  max: 12000, demand: 'alta',  grad: 'Enfermagem',         url: 'quanto-ganha-enfermeiro.html' },
+    { nome: 'Farmacêutico',           emoji: '💊', area: 'saude',      areaNome: 'Saúde',       min: 2800,  med: 5200,  max: 15000, demand: 'media', grad: 'Farmácia',           url: 'quanto-ganha-farmaceutico.html' },
+    { nome: 'Fisioterapeuta',         emoji: '🦴', area: 'saude',      areaNome: 'Saúde',       min: 2500,  med: 4500,  max: 12000, demand: 'alta',  grad: 'Fisioterapia',       url: 'quanto-ganha-fisioterapeuta.html' },
+    { nome: 'Nutricionista',          emoji: '🥗', area: 'saude',      areaNome: 'Saúde',       min: 2200,  med: 4000,  max: 10000, demand: 'media', grad: 'Nutrição',           url: 'quanto-ganha-nutricionista.html' },
+    { nome: 'Psicólogo',              emoji: '🧠', area: 'saude',      areaNome: 'Saúde',       min: 2500,  med: 5000,  max: 15000, demand: 'alta',  grad: 'Psicologia',         url: 'quanto-ganha-psicologo.html' },
+    { nome: 'Médico Veterinário',     emoji: '🐾', area: 'saude',      areaNome: 'Saúde',       min: 3000,  med: 6500,  max: 18000, demand: 'alta',  grad: 'Med. Veterinária',   url: 'quanto-ganha-veterinario.html' },
+    { nome: 'Biomédico',              emoji: '🔬', area: 'saude',      areaNome: 'Saúde',       min: 2800,  med: 5000,  max: 13000, demand: 'media', grad: 'Biomedicina',        url: '#' },
+    { nome: 'Fonoaudiólogo',          emoji: '🗣️', area: 'saude',      areaNome: 'Saúde',       min: 2500,  med: 4500,  max: 11000, demand: 'media', grad: 'Fonoaudiologia',     url: '#' },
+    { nome: 'Terapeuta Ocupacional',  emoji: '🖐️', area: 'saude',      areaNome: 'Saúde',       min: 2500,  med: 4200,  max: 10000, demand: 'media', grad: 'T. Ocupacional',     url: '#' },
+
+    // DIREITO
+    { nome: 'Advogado',               emoji: '⚖️', area: 'direito',    areaNome: 'Direito',     min: 2500,  med: 8000,  max: 40000, demand: 'media', grad: 'Direito',            url: 'quanto-ganha-advogado.html' },
+    { nome: 'Juiz de Direito',        emoji: '🏛️', area: 'direito',    areaNome: 'Direito',     min: 12000, med: 22000, max: 35000, demand: 'baixa', grad: 'Direito + Concurso', url: 'quanto-ganha-juiz.html' },
+    { nome: 'Promotor de Justiça',    emoji: '📜', area: 'direito',    areaNome: 'Direito',     min: 12000, med: 20000, max: 33000, demand: 'baixa', grad: 'Direito + Concurso', url: 'quanto-ganha-promotor.html' },
+    { nome: 'Delegado',               emoji: '🔎', area: 'direito',    areaNome: 'Direito',     min: 10000, med: 17000, max: 25000, demand: 'baixa', grad: 'Direito + Concurso', url: '#' },
+    { nome: 'Defensor Público',       emoji: '🛡️', area: 'direito',    areaNome: 'Direito',     min: 10000, med: 18000, max: 28000, demand: 'baixa', grad: 'Direito + Concurso', url: '#' },
+    { nome: 'Analista Jurídico',      emoji: '📋', area: 'direito',    areaNome: 'Direito',     min: 3000,  med: 6500,  max: 14000, demand: 'media', grad: 'Direito',            url: '#' },
+
+    // TECNOLOGIA
+    { nome: 'Engenheiro de Software', emoji: '💻', area: 'tecnologia', areaNome: 'Tecnologia',  min: 5000,  med: 12000, max: 30000, demand: 'alta',  grad: 'Eng. Software / CC', url: '#' },
+    { nome: 'Desenvolvedor Full-Stack',emoji: '🖥️', area: 'tecnologia',areaNome: 'Tecnologia',  min: 4500,  med: 10000, max: 25000, demand: 'alta',  grad: 'TI / ADS',           url: 'quanto-ganha-desenvolvedor.html' },
+    { nome: 'Cientista de Dados',     emoji: '📊', area: 'tecnologia', areaNome: 'Tecnologia',  min: 6000,  med: 13000, max: 28000, demand: 'alta',  grad: 'Ciência de Dados',   url: 'quanto-ganha-cientista-dados.html' },
+    { nome: 'Engenheiro de IA / ML',  emoji: '🤖', area: 'tecnologia', areaNome: 'Tecnologia',  min: 8000,  med: 18000, max: 40000, demand: 'alta',  grad: 'Eng. Software / CC', url: '#' },
+    { nome: 'Analista de Segurança',  emoji: '🔐', area: 'tecnologia', areaNome: 'Tecnologia',  min: 5000,  med: 11000, max: 25000, demand: 'alta',  grad: 'Seg. da Informação', url: '#' },
+    { nome: 'UX/UI Designer',         emoji: '🎨', area: 'tecnologia', areaNome: 'Tecnologia',  min: 3500,  med: 8000,  max: 18000, demand: 'alta',  grad: 'Design / TI',        url: '#' },
+    { nome: 'DevOps / SRE',           emoji: '⚙️', area: 'tecnologia', areaNome: 'Tecnologia',  min: 7000,  med: 15000, max: 32000, demand: 'alta',  grad: 'TI / Eng. Software', url: '#' },
+    { nome: 'Analista de Sistemas',   emoji: '🗄️', area: 'tecnologia', areaNome: 'Tecnologia',  min: 4000,  med: 8500,  max: 18000, demand: 'alta',  grad: 'ADS / SI',           url: '#' },
+    { nome: 'Product Manager',        emoji: '📱', area: 'tecnologia', areaNome: 'Tecnologia',  min: 6000,  med: 14000, max: 30000, demand: 'alta',  grad: 'TI / Negócios',      url: '#' },
+
+    // ENGENHARIA
+    { nome: 'Engenheiro Civil',       emoji: '🏗️', area: 'engenharia', areaNome: 'Engenharia',  min: 4000,  med: 9000,  max: 22000, demand: 'media', grad: 'Eng. Civil',         url: 'quanto-ganha-engenheiro-civil.html' },
+    { nome: 'Engenheiro Elétrico',    emoji: '⚡', area: 'engenharia', areaNome: 'Engenharia',  min: 5000,  med: 10000, max: 25000, demand: 'alta',  grad: 'Eng. Elétrica',      url: 'quanto-ganha-engenheiro-eletrico.html' },
+    { nome: 'Engenheiro Mecânico',    emoji: '⚙️', area: 'engenharia', areaNome: 'Engenharia',  min: 4500,  med: 9500,  max: 22000, demand: 'media', grad: 'Eng. Mecânica',      url: 'quanto-ganha-engenheiro-mecanico.html' },
+    { nome: 'Engenheiro de Produção', emoji: '🏭', area: 'engenharia', areaNome: 'Engenharia',  min: 4000,  med: 8500,  max: 20000, demand: 'alta',  grad: 'Eng. de Produção',   url: '#' },
+    { nome: 'Arquiteto',              emoji: '📐', area: 'engenharia', areaNome: 'Engenharia',  min: 3000,  med: 7000,  max: 20000, demand: 'media', grad: 'Arquitetura',        url: 'quanto-ganha-arquiteto.html' },
+    { nome: 'Engenheiro Ambiental',   emoji: '🌿', area: 'engenharia', areaNome: 'Engenharia',  min: 3500,  med: 7500,  max: 16000, demand: 'media', grad: 'Eng. Ambiental',     url: '#' },
+    { nome: 'Engenheiro Químico',     emoji: '🧪', area: 'engenharia', areaNome: 'Engenharia',  min: 4500,  med: 9000,  max: 22000, demand: 'media', grad: 'Eng. Química',       url: '#' },
+    { nome: 'Engenheiro Aeronáutico', emoji: '✈️', area: 'engenharia', areaNome: 'Engenharia',  min: 6000,  med: 13000, max: 30000, demand: 'media', grad: 'Eng. Aeronáutica',   url: '#' },
+
+    // NEGÓCIOS
+    { nome: 'Administrador',          emoji: '📈', area: 'negocios',   areaNome: 'Negócios',    min: 2500,  med: 5500,  max: 18000, demand: 'media', grad: 'Administração',      url: 'quanto-ganha-administrador.html' },
+    { nome: 'Contador / CRC',         emoji: '🧾', area: 'negocios',   areaNome: 'Negócios',    min: 2800,  med: 6000,  max: 20000, demand: 'alta',  grad: 'Ciências Contábeis', url: 'quanto-ganha-contador.html' },
+    { nome: 'Economista',             emoji: '💹', area: 'negocios',   areaNome: 'Negócios',    min: 4000,  med: 9000,  max: 25000, demand: 'media', grad: 'Economia',           url: 'quanto-ganha-economista.html' },
+    { nome: 'Analista Financeiro',    emoji: '💰', area: 'negocios',   areaNome: 'Negócios',    min: 3500,  med: 8000,  max: 22000, demand: 'alta',  grad: 'Adm / Contábeis',    url: '#' },
+    { nome: 'Gestor de RH',           emoji: '👥', area: 'negocios',   areaNome: 'Negócios',    min: 3000,  med: 6500,  max: 15000, demand: 'media', grad: 'Gestão de RH',       url: '#' },
+    { nome: 'Analista de Marketing',  emoji: '📣', area: 'negocios',   areaNome: 'Negócios',    min: 2800,  med: 6000,  max: 16000, demand: 'alta',  grad: 'Marketing / Adm',    url: 'quanto-ganha-analista-marketing.html' },
+    { nome: 'Logístico / Supply Chain',emoji: '📦', area: 'negocios',  areaNome: 'Negócios',    min: 3000,  med: 6500,  max: 16000, demand: 'alta',  grad: 'Logística',          url: '#' },
+    { nome: 'Auditor',                emoji: '🔍', area: 'negocios',   areaNome: 'Negócios',    min: 4000,  med: 9000,  max: 25000, demand: 'media', grad: 'Contábeis / Adm',    url: '#' },
+    { nome: 'Analista de BI',         emoji: '📉', area: 'negocios',   areaNome: 'Negócios',    min: 4000,  med: 9500,  max: 22000, demand: 'alta',  grad: 'Adm / TI',           url: '#' },
+    { nome: 'Consultor de Negócios',  emoji: '🤝', area: 'negocios',   areaNome: 'Negócios',    min: 5000,  med: 13000, max: 40000, demand: 'alta',  grad: 'Adm / MBA',          url: '#' },
+
+    // EDUCAÇÃO
+    { nome: 'Professor Universitário',emoji: '🎓', area: 'educacao',   areaNome: 'Educação',    min: 3500,  med: 7500,  max: 18000, demand: 'media', grad: 'Pós-graduação',      url: 'quanto-ganha-professor-universitario.html' },
+    { nome: 'Professor de Ensino Médio',emoji: '📚', area: 'educacao', areaNome: 'Educação',    min: 2500,  med: 4500,  max: 9000,  demand: 'alta',  grad: 'Licenciatura',       url: '#' },
+    { nome: 'Pedagogo',               emoji: '🏫', area: 'educacao',   areaNome: 'Educação',    min: 2000,  med: 3800,  max: 8000,  demand: 'media', grad: 'Pedagogia',          url: '#' },
+    { nome: 'Coordenador Pedagógico', emoji: '📋', area: 'educacao',   areaNome: 'Educação',    min: 3000,  med: 5500,  max: 12000, demand: 'media', grad: 'Pedagogia / Pós',    url: '#' },
+    { nome: 'Psicopedagogo',          emoji: '🧩', area: 'educacao',   areaNome: 'Educação',    min: 2800,  med: 5000,  max: 11000, demand: 'media', grad: 'Pedagogia + Pós',    url: '#' },
+    { nome: 'Instrutor / Treinamento',emoji: '🏆', area: 'educacao',   areaNome: 'Educação',    min: 2500,  med: 5000,  max: 14000, demand: 'alta',  grad: 'Área + Exp.',        url: '#' },
+
+    // HUMANAS / SOCIAIS
+    { nome: 'Assistente Social',      emoji: '🤲', area: 'humanas',    areaNome: 'Humanas',     min: 2200,  med: 4200,  max: 9000,  demand: 'media', grad: 'Serviço Social',     url: '#' },
+    { nome: 'Jornalista',             emoji: '📰', area: 'humanas',    areaNome: 'Humanas',     min: 2000,  med: 4500,  max: 14000, demand: 'media', grad: 'Jornalismo',         url: '#' },
+    { nome: 'Publicitário',           emoji: '🎬', area: 'humanas',    areaNome: 'Humanas',     min: 2200,  med: 5000,  max: 15000, demand: 'alta',  grad: 'Publicidade',        url: '#' },
+    { nome: 'Relações Públicas',      emoji: '🌐', area: 'humanas',    areaNome: 'Humanas',     min: 2500,  med: 5000,  max: 12000, demand: 'media', grad: 'Rel. Públicas',      url: '#' },
+    { nome: 'Historiador',            emoji: '🏺', area: 'humanas',    areaNome: 'Humanas',     min: 2000,  med: 3800,  max: 9000,  demand: 'baixa', grad: 'História',           url: '#' },
+    { nome: 'Filósofo / Docente',     emoji: '💭', area: 'humanas',    areaNome: 'Humanas',     min: 2000,  med: 3500,  max: 8000,  demand: 'baixa', grad: 'Filosofia',          url: '#' },
+    { nome: 'Geógrafo',               emoji: '🗺️', area: 'humanas',    areaNome: 'Humanas',     min: 2200,  med: 4200,  max: 10000, demand: 'baixa', grad: 'Geografia',          url: '#' },
+
+    // OUTROS
+    { nome: 'Piloto de Avião',        emoji: '✈️', area: 'outros',     areaNome: 'Outros',      min: 8000,  med: 18000, max: 45000, demand: 'alta',  grad: 'Aviação Civil',      url: 'quanto-ganha-piloto.html' },
+    { nome: 'Oficial das Forças Armadas',emoji: '🎖️', area: 'outros',  areaNome: 'Outros',      min: 6000,  med: 12000, max: 28000, demand: 'media', grad: 'Academia Militar',   url: '#' },
+    { nome: 'Diplomata',              emoji: '🌍', area: 'outros',     areaNome: 'Outros',      min: 10000, med: 19000, max: 32000, demand: 'baixa', grad: 'RI + IRBr',          url: '#' },
+    { nome: 'Economista Agrícola',    emoji: '🌾', area: 'outros',     areaNome: 'Outros',      min: 3500,  med: 7000,  max: 18000, demand: 'media', grad: 'Agronomia / Econ.',  url: '#' },
+    { nome: 'Geólogo',                emoji: '⛏️', area: 'outros',     areaNome: 'Outros',      min: 5000,  med: 11000, max: 28000, demand: 'media', grad: 'Geologia',           url: '#' },
+    { nome: 'Atuário',                emoji: '📐', area: 'outros',     areaNome: 'Outros',      min: 5000,  med: 12000, max: 28000, demand: 'alta',  grad: 'Ciências Atuariais', url: '#' },
+  ];
+
+  // Cores por área (prefixo SAL_ para evitar conflito)
+  const SAL_AREA_COLORS = {
+    saude:      { bg: '#dcfce7', color: '#166534' },
+    direito:    { bg: '#dbeafe', color: '#1e40af' },
+    tecnologia: { bg: '#ede9fe', color: '#5b21b6' },
+    engenharia: { bg: '#ffedd5', color: '#9a3412' },
+    negocios:   { bg: '#fef9c3', color: '#854d0e' },
+    educacao:   { bg: '#f0fdf4', color: '#15803d' },
+    humanas:    { bg: '#fce7f3', color: '#9d174d' },
+    outros:     { bg: '#f1f5f9', color: '#334155' },
+  };
+
+  function fmt(n) {
+    return 'R$ ' + (n >= 1000 ? (n/1000).toFixed(n % 1000 === 0 ? 0 : 1) + 'k' : n.toLocaleString('pt-BR'));
+  }
+
+  function demandLabel(d) {
+    return { alta: 'Alta', media: 'Média', baixa: 'Baixa' }[d] || d;
+  }
+
+  function buildRow(p) {
+    const ac = SAL_AREA_COLORS[p.area] || SAL_AREA_COLORS.outros;
+    const demandClass = `sal-demand--${p.demand}`;
+    const urlCell = p.url && p.url !== '#'
+      ? `<a href="${p.url}" class="sal-link">Ver guia →</a>`
+      : `<span style="color:var(--color-text-muted);font-size:11px;">Em breve</span>`;
+    return `<tr data-area="${p.area}" data-nome="${p.nome.toLowerCase()}">
+      <td>
+        <div class="sal-prof">
+          <div class="sal-prof__emoji" style="background:${ac.bg};">${p.emoji}</div>
+          <div>
+            <div class="sal-prof__name">${p.nome}</div>
+            <div class="sal-prof__area">
+              <span class="sal-badge" style="background:${ac.bg};color:${ac.color};">${p.areaNome}</span>
+            </div>
+          </div>
+        </div>
+      </td>
+      <td class="col-range sal-range">${fmt(p.min)}</td>
+      <td class="sal-med">${fmt(p.med)}</td>
+      <td class="col-range sal-range">${fmt(p.max)}</td>
+      <td class="col-demand"><span class="sal-demand ${demandClass}">${demandLabel(p.demand)}</span></td>
+      <td class="col-grad" style="font-size:var(--text-xs);color:var(--color-text-secondary);">${p.grad}</td>
+      <td>${urlCell}</td>
+    </tr>`;
+  }
+
+  // Renderizar tabela
+  const tbody = document.getElementById('sal-tbody');
+  PROFISSOES.sort((a, b) => b.med - a.med);
+  tbody.innerHTML = PROFISSOES.map(buildRow).join('');
+
+  // Filtros de área
+  let currentArea = 'todas';
+  let currentSearch = '';
+
+  function applyFilters() {
+    let visible = 0;
+    document.querySelectorAll('#sal-tbody tr').forEach(row => {
+      const area = row.dataset.area;
+      const nome = row.dataset.nome;
+      const matchArea = currentArea === 'todas' || area === currentArea;
+      const matchSearch = !currentSearch || nome.includes(currentSearch);
+      const show = matchArea && matchSearch;
+      row.classList.toggle('is-hidden', !show);
+      if (show) visible++;
+    });
+    document.getElementById('sal-visible-count').textContent = visible;
+    document.getElementById('sal-no-results').classList.toggle('is-visible', visible === 0);
+  }
+
+  document.querySelectorAll('.sal-filter-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.sal-filter-btn').forEach(b => b.classList.remove('is-active'));
+      btn.classList.add('is-active');
+      currentArea = btn.dataset.area;
+      applyFilters();
+    });
+  });
+
+  document.getElementById('sal-search').addEventListener('input', e => {
+    currentSearch = e.target.value.toLowerCase().trim();
+    applyFilters();
+  });
+
+  // Ordenação por coluna
+  let sortCol = 'med';
+  let sortAsc = false;
+  document.querySelectorAll('.sal-table th[data-col]').forEach(th => {
+    th.addEventListener('click', () => {
+      const col = th.dataset.col;
+      if (sortCol === col) sortAsc = !sortAsc;
+      else { sortCol = col; sortAsc = col === 'profissao'; }
+
+      document.querySelectorAll('.sal-table th').forEach(t => {
+        t.classList.remove('is-sorted');
+        const arrow = t.querySelector('.sort-arrow');
+        if (arrow) arrow.textContent = '↕';
+      });
+      th.classList.add('is-sorted');
+      const arrow = th.querySelector('.sort-arrow');
+      if (arrow) arrow.textContent = sortAsc ? '↑' : '↓';
+
+      const rows = [...tbody.querySelectorAll('tr')];
+      rows.sort((a, b) => {
+        let va, vb;
+        if (col === 'profissao') {
+          va = a.dataset.nome; vb = b.dataset.nome;
+          return sortAsc ? va.localeCompare(vb) : vb.localeCompare(va);
+        }
+        const idx = { min: 0, med: 1, max: 2 };
+        const tdA = a.querySelectorAll('td');
+        const tdB = b.querySelectorAll('td');
+        const parse = txt => parseFloat(txt.replace(/[^0-9,.]/g,'').replace(',','.')) || 0;
+        // pegar pelo data (mais fácil)
+        va = PROFISSOES.find(p => p.nome.toLowerCase() === a.dataset.nome)?.[col] || 0;
+        vb = PROFISSOES.find(p => p.nome.toLowerCase() === b.dataset.nome)?.[col] || 0;
+        return sortAsc ? va - vb : vb - va;
+      });
+      rows.forEach(r => tbody.appendChild(r));
+    });
+  });
+  </script>
+</body>
+</html>

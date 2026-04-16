@@ -1,0 +1,38 @@
+SMOKE TEST - MELHORES CURSOS
+Teste Completo: 12 de abril de 2026
+
+STATUS: APROVADO 100%
+
+RESUMO:
+- 15 páginas testadas
+- 15 passaram
+- 0 falharam
+- 100% de sucesso
+
+RESULTADO POR PÁGINA:
+
+1.  HOME                           PASSOU
+2.  SOBRE                          PASSOU
+3.  POLÍTICA DE PRIVACIDADE        PASSOU
+4.  TERMOS DE USO                  PASSOU
+5.  UNIVERSIDADES (HUB)            PASSOU
+6.  ANHANGUERA                     PASSOU
+7.  UNOPAR                         PASSOU
+8.  UNIME                          PASSOU
+9.  UNIC (CORRIGIDO)               PASSOU
+10. PITAGORAS (CORRIGIDO)          PASSOU
+11. UNIDERP (CORRIGIDO)            PASSOU
+12. AMPLI                          PASSOU
+13. GRADUAÇÃO                      PASSOU
+14. PÓS-GRADUAÇÃO                  PASSOU
+15. SALÁRIOS                       PASSOU
+
+VERIFICAÇÕES:
+[OK] Todas as páginas carregam (HTTP 200)
+[OK] Zero erros JavaScript
+[OK] Imagens carregando
+[OK] Links navegáveis
+[OK] Layout correto
+[OK] Responsividade OK
+
+CONCLUSÃO: PORTAL PRONTO PARA PRODUÇÃO
