@@ -19,16 +19,28 @@
 .container-lg  { max-width: 1280px; margin-inline: auto; padding-inline: var(--space-6); }
 .container-xl  { max-width: 1440px; margin-inline: auto; padding-inline: var(--space-6); }
 
-/* Layout principal: conteúdo + sidebar */
+/* Layout principal: conteúdo + sidebar opcional */
 .layout-main {
   display: grid;
-  grid-template-columns: 1fr 320px;
+  grid-template-columns: minmax(0, 1fr);
   gap: var(--space-10);
   align-items: start;
 }
 
+/* Quando há sidebar, ativa o grid de 2 colunas */
+.layout-main:has(.sidebar) {
+  grid-template-columns: minmax(0, 1fr) 320px;
+}
+
 .layout-main--full {
-  grid-template-columns: 1fr;
+  grid-template-columns: minmax(0, 1fr) !important;
+}
+
+/* Filhos diretos do grid nunca vazam */
+.layout-main > * {
+  min-width: 0;
+  max-width: 100%;
+  overflow-x: hidden;
 }
 
 /* Grid de listagem: 3 colunas */

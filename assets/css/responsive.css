@@ -116,8 +116,9 @@ img { max-width: 100%; height: auto; }
    2. TABLET (≤ 1024px)
    ============================================= */
 @media (max-width: 1024px) {
-  .layout-main {
-    grid-template-columns: 1fr;
+  .layout-main,
+  .layout-main:has(.sidebar) {
+    grid-template-columns: minmax(0, 1fr);
   }
 
   .sidebar {

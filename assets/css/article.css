@@ -97,9 +97,12 @@
 /* Conteúdo editorial */
 .article-content {
   max-width: 720px;
+  width: 100%;
+  min-width: 0;
   font-size: var(--text-md);
   line-height: var(--leading-loose);
   color: var(--color-text-secondary);
+  overflow-x: hidden;
 }
 
 .article-content h2 {
@@ -185,13 +188,24 @@
 }
 
 .article-content table {
+  display: block;
   width: 100%;
-  min-width: 480px;
+  max-width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  min-width: 0;
   border-radius: var(--radius-lg);
-  overflow: hidden;
   border: none;
   margin-block: 0;
   font-size: var(--text-sm);
+}
+
+/* Tbody e thead precisam ser block para o overflow funcionar */
+.article-content table thead,
+.article-content table tbody,
+.article-content table tfoot {
+  display: table;
+  width: 100%;
 }
 
 .article-content table thead {
