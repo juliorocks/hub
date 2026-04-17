@@ -1225,3 +1225,107 @@
   line-height: var(--leading-relaxed);
   margin: 0;
 }
+
+/* =============================================
+   AD SLOTS — espaços para anúncios AdSense
+   ============================================= */
+
+/* Container genérico de anúncio */
+.ad-slot {
+  width: 100%;
+  overflow: hidden;
+  text-align: center;
+}
+
+/* Label discreta "Publicidade" */
+.ad-slot::before {
+  content: 'Publicidade';
+  display: block;
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--color-text-muted);
+  margin-bottom: var(--space-2);
+}
+
+/* Horizontal — banner entre parágrafos / acima de tabela */
+.ad-slot--horizontal {
+  margin-block: var(--space-8);
+  min-height: 90px;
+  background: var(--color-bg-gray);
+  border-radius: var(--radius-lg);
+  border: 1px dashed var(--color-border);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Retângulo médio — dentro de artigo */
+.ad-slot--rectangle {
+  margin-block: var(--space-8);
+  min-height: 250px;
+  max-width: 336px;
+  background: var(--color-bg-gray);
+  border-radius: var(--radius-lg);
+  border: 1px dashed var(--color-border);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-inline: auto;
+}
+
+/* Sidebar — widget fixo na barra lateral */
+.ad-slot--sidebar {
+  min-height: 250px;
+  background: var(--color-bg-gray);
+  border-radius: var(--radius-lg);
+  border: 1px dashed var(--color-border);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Antes do footer — full width */
+.ad-slot--footer {
+  margin-block: var(--space-10);
+  min-height: 90px;
+  background: var(--color-bg-gray);
+  border-radius: var(--radius-lg);
+  border: 1px dashed var(--color-border);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Quando AdSense estiver ativo, remove o placeholder visual */
+.ad-slot ins.adsbygoogle {
+  display: block;
+  width: 100%;
+}
+
+.ad-slot.is-loaded {
+  background: transparent;
+  border: none;
+  min-height: unset;
+}
+
+.ad-slot.is-loaded::before {
+  display: none;
+}
+
+/* Mobile: retângulo vira horizontal */
+@media (max-width: 768px) {
+  .ad-slot--rectangle {
+    max-width: 100%;
+    min-height: 100px;
+  }
+  .ad-slot--horizontal,
+  .ad-slot--footer {
+    min-height: 60px;
+  }
+}
