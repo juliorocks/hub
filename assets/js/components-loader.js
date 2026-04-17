@@ -50,13 +50,11 @@ function getHeaderHTML(basePath) {
     <div class="container">
       <a href="${basePath}index.html" class="site-logo">
         <div class="site-logo__icon">
-          <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
-            <rect width="64" height="64" rx="14" fill="#5B21B6"/>
-            <polygon points="32,14 58,26 32,38 6,26" fill="white"/>
-            <rect x="24" y="36" width="16" height="12" rx="2" fill="white"/>
-            <rect x="24" y="36" width="16" height="4" rx="1" fill="#DDD6FE"/>
-            <line x1="8" y1="26" x2="8" y2="40" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
-            <circle cx="8" cy="41" r="2.5" fill="white"/>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="12 2 22 8.5 12 15 2 8.5 12 2"/>
+            <path d="M6 11.5v5c0 0 2.5 2.5 6 2.5s6-2.5 6-2.5v-5"/>
+            <line x1="22" y1="8.5" x2="22" y2="14"/>
+            <circle cx="22" cy="14.5" r="1" fill="currentColor" stroke="none"/>
           </svg>
         </div>
         <div class="site-logo__text">

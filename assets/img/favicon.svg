@@ -1,13 +1,11 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
-  <!-- Fundo quadrado arredondado roxo -->
-  <rect width="64" height="64" rx="14" fill="#5B21B6"/>
-  <!-- Aba do capelo -->
-  <polygon points="32,14 58,26 32,38 6,26" fill="white"/>
-  <!-- Calota -->
-  <rect x="24" y="36" width="16" height="12" rx="2" fill="white"/>
-  <!-- Faixa da calota -->
-  <rect x="24" y="36" width="16" height="4" rx="1" fill="#DDD6FE"/>
-  <!-- Cordão lateral -->
-  <line x1="8" y1="26" x2="8" y2="40" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
-  <circle cx="8" cy="41" r="2.5" fill="white"/>
+  <!-- Fundo roxo igual ao .site-logo__icon -->
+  <rect width="64" height="64" rx="14" fill="#7C3AED"/>
+  <!-- Capelo em linha branca, igual ao SVG do logo (viewBox 24 escalado para 64) -->
+  <g transform="translate(32,32) scale(1.6) translate(-12,-8.5)" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none">
+    <polygon points="12,2 22,8.5 12,15 2,8.5"/>
+    <path d="M6 11.5v5c0 0 2.5 2.5 6 2.5s6-2.5 6-2.5v-5"/>
+    <line x1="22" y1="8.5" x2="22" y2="14"/>
+    <circle cx="22" cy="14.5" r="1" fill="white" stroke="none"/>
+  </g>
 </svg>
