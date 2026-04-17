@@ -2,138 +2,155 @@
  * ads.js — Hub do Estudante
  * Injeta slots de anúncio AdSense automaticamente por tipo de página.
  * pub-id: ca-pub-4663943063143621
- *
- * Slots configurados (preencher data-ad-slot após aprovação):
- *   SLOT_ARTICLE_TOP      — após TOC em artigos
- *   SLOT_ARTICLE_MID      — meio do conteúdo (após 3º h2)
- *   SLOT_ARTICLE_BOTTOM   — antes do FAQ / tags
- *   SLOT_SIDEBAR          — widget na sidebar
- *   SLOT_LISTING          — entre cards em listagens
- *   SLOT_TABLE            — acima da tabela de salários
- *   SLOT_FOOTER           — antes do footer (todas as páginas)
  */
 
 const PUB_ID = 'ca-pub-4663943063143621';
 
-// ─── Substitua os valores abaixo pelos data-ad-slot reais após aprovação ───
 const SLOTS = {
-  ARTICLE_TOP:    'XXXXXXXXXX',  // Retângulo após TOC
-  ARTICLE_MID:    'XXXXXXXXXX',  // Retângulo meio do artigo
-  ARTICLE_BOTTOM: 'XXXXXXXXXX',  // Horizontal antes do FAQ
-  SIDEBAR:        'XXXXXXXXXX',  // Sidebar widget
-  LISTING:        'XXXXXXXXXX',  // Horizontal em listagens
-  TABLE:          'XXXXXXXXXX',  // Horizontal acima da tabela
-  FOOTER:         'XXXXXXXXXX',  // Horizontal antes do footer
+  DISPLAY:    '3052523021',   // article-rectangle — display responsivo
+  IN_FEED:    '5295542986',   // in-feed — entre cards de listagem
+  IN_ARTICLE: '6277452168',   // in-article — dentro do conteúdo editorial
+  MULTIPLEX:  '1178228211',   // multiplex — recomendações no fim da página
 };
 
-const APPROVED = false; // ← mude para true após aprovação do AdSense
+// Layout key do in-feed
+const IN_FEED_LAYOUT_KEY = '-68+ce+2u-x+6c';
 
 /**
- * Cria um elemento de slot AdSense.
- * Em modo pendente (APPROVED=false), exibe apenas o container vazio.
+ * Cria um <ins> AdSense e faz o push imediatamente após inserção no DOM.
  */
-function createSlot(type, format = 'auto') {
-  const wrapper = document.createElement('div');
-  wrapper.className = `ad-slot ad-slot--${type}`;
-  wrapper.setAttribute('aria-hidden', 'true');
-
-  if (APPROVED) {
-    const ins = document.createElement('ins');
-    ins.className = 'adsbygoogle';
-    ins.style.display = 'block';
-    ins.dataset.adClient = PUB_ID;
-    ins.dataset.adSlot = SLOTS[type.toUpperCase().replace('-', '_')] || '';
-    ins.dataset.adFormat = format;
-    ins.dataset.fullWidthResponsive = 'true';
-    wrapper.appendChild(ins);
-    wrapper.classList.add('is-loaded');
-
-    // Push após inserção no DOM
-    requestAnimationFrame(() => {
-      try { (window.adsbygoogle = window.adsbygoogle || []).push({}); } catch(e) {}
-    });
-  }
-
-  return wrapper;
+function createIns({ slot, format, layout, layoutKey, style = 'display:block' }) {
+  const ins = document.createElement('ins');
+  ins.className = 'adsbygoogle';
+  ins.style.cssText = style;
+  ins.dataset.adClient = PUB_ID;
+  ins.dataset.adSlot = slot;
+  ins.dataset.adFormat = format;
+  if (layout) ins.dataset.adLayout = layout;
+  if (layoutKey) ins.dataset.adLayoutKey = layoutKey;
+  if (format === 'auto') ins.dataset.fullWidthResponsive = 'true';
+  return ins;
 }
 
-function insertAfter(newEl, referenceEl) {
-  if (!referenceEl || !referenceEl.parentNode) return;
-  referenceEl.parentNode.insertBefore(newEl, referenceEl.nextSibling);
+function pushAd(ins) {
+  requestAnimationFrame(() => {
+    try { (window.adsbygoogle = window.adsbygoogle || []).push({}); } catch(e) {}
+  });
+  return ins;
 }
 
-function insertBefore(newEl, referenceEl) {
-  if (!referenceEl || !referenceEl.parentNode) return;
-  referenceEl.parentNode.insertBefore(newEl, referenceEl);
+function wrap(ins, className) {
+  const div = document.createElement('div');
+  div.className = `ad-slot ${className}`;
+  div.setAttribute('aria-hidden', 'true');
+  div.appendChild(ins);
+  return div;
 }
 
-// ─── SLOT FOOTER: todas as páginas ───────────────────────────────────────────
+function insertAfter(el, ref) {
+  if (!ref?.parentNode) return;
+  ref.parentNode.insertBefore(el, ref.nextSibling);
+}
+
+function insertBefore(el, ref) {
+  if (!ref?.parentNode) return;
+  ref.parentNode.insertBefore(el, ref);
+}
+
+// ─── FOOTER: todas as páginas ─────────────────────────────────────────────────
 function injectFooterAd() {
   const footer = document.querySelector('.site-footer');
   if (!footer) return;
-  const slot = createSlot('footer', 'horizontal');
+
+  // Multiplex — recomendações de conteúdo antes do footer
+  const ins = createIns({ slot: SLOTS.MULTIPLEX, format: 'autorelaxed' });
+  pushAd(ins);
   const container = document.createElement('div');
   container.className = 'container';
-  container.appendChild(slot);
-  const wrap = document.createElement('div');
-  wrap.style.cssText = 'background:var(--color-bg);padding-block:var(--space-2)';
-  wrap.appendChild(container);
-  insertBefore(wrap, footer);
+  container.appendChild(wrap(ins, 'ad-slot--footer'));
+  const section = document.createElement('div');
+  section.style.cssText = 'background:var(--color-bg);padding-block:var(--space-4)';
+  section.appendChild(container);
+  insertBefore(section, footer);
 }
 
-// ─── SLOTS DE ARTIGO ─────────────────────────────────────────────────────────
+// ─── ARTIGOS ──────────────────────────────────────────────────────────────────
 function injectArticleAds() {
   const articleContent = document.querySelector('.article-content');
   if (!articleContent) return;
 
-  // 1. Após o TOC
+  // 1. Após o TOC — display responsivo
   const toc = document.querySelector('.toc');
-  if (toc) insertAfter(createSlot('rectangle'), toc);
+  if (toc) {
+    const ins = createIns({ slot: SLOTS.DISPLAY, format: 'auto' });
+    pushAd(ins);
+    insertAfter(wrap(ins, 'ad-slot--rectangle'), toc);
+  }
 
-  // 2. Após o 3º h2 dentro do conteúdo
+  // 2. In-article após o 2º h2 dentro do conteúdo
   const h2s = articleContent.querySelectorAll('h2');
-  if (h2s.length >= 3) insertAfter(createSlot('rectangle'), h2s[2]);
+  if (h2s.length >= 2) {
+    const ins = createIns({
+      slot: SLOTS.IN_ARTICLE,
+      format: 'fluid',
+      layout: 'in-article',
+      style: 'display:block; text-align:center;'
+    });
+    pushAd(ins);
+    insertAfter(wrap(ins, 'ad-slot--horizontal'), h2s[1]);
+  }
 
-  // 3. Antes do FAQ ou antes das article-tags
-  const faq = document.querySelector('.faq-section');
-  const tags = document.querySelector('.article-tags');
-  const bottomTarget = faq || tags;
-  if (bottomTarget) insertBefore(createSlot('horizontal'), bottomTarget);
+  // 3. Display antes do FAQ ou article-tags
+  const target = document.querySelector('.faq-section') || document.querySelector('.article-tags');
+  if (target) {
+    const ins = createIns({ slot: SLOTS.DISPLAY, format: 'auto' });
+    pushAd(ins);
+    insertBefore(wrap(ins, 'ad-slot--horizontal'), target);
+  }
 
-  // 4. Sidebar — após o primeiro sidebar-widget
+  // 4. Display no sidebar — após o primeiro widget
   const sidebarWidget = document.querySelector('.sidebar-widget');
   if (sidebarWidget) {
-    const sidebarSlot = createSlot('sidebar');
-    const wrap = document.createElement('div');
-    wrap.className = 'sidebar-widget';
-    wrap.style.overflow = 'hidden';
-    wrap.appendChild(sidebarSlot);
-    insertAfter(wrap, sidebarWidget);
+    const ins = createIns({ slot: SLOTS.DISPLAY, format: 'auto' });
+    pushAd(ins);
+    const widgetWrap = document.createElement('div');
+    widgetWrap.className = 'sidebar-widget';
+    widgetWrap.style.overflow = 'hidden';
+    widgetWrap.appendChild(wrap(ins, 'ad-slot--sidebar'));
+    insertAfter(widgetWrap, sidebarWidget);
   }
 }
 
-// ─── SLOTS DE LISTAGEM (índices de seção) ────────────────────────────────────
+// ─── LISTAGENS ────────────────────────────────────────────────────────────────
 function injectListingAds() {
   const grid = document.querySelector('.grid-3, .grid-2, .listing-grid');
   if (!grid) return;
 
-  // Após o 4º card
   const cards = grid.querySelectorAll('.card, .course-card');
   if (cards.length >= 4) {
-    const slot = createSlot('horizontal');
-    slot.style.gridColumn = '1 / -1'; // span full width no grid
+    const ins = createIns({
+      slot: SLOTS.IN_FEED,
+      format: 'fluid',
+      layoutKey: IN_FEED_LAYOUT_KEY,
+    });
+    pushAd(ins);
+    const slot = wrap(ins, 'ad-slot--horizontal');
+    slot.style.gridColumn = '1 / -1';
     insertAfter(slot, cards[3]);
   }
 }
 
-// ─── SLOT TABELA DE SALÁRIOS ─────────────────────────────────────────────────
+// ─── TABELA DE SALÁRIOS ───────────────────────────────────────────────────────
 function injectTableAd() {
   const tableWrap = document.querySelector('.sal-table-wrap');
   if (!tableWrap) return;
-  insertBefore(createSlot('horizontal'), tableWrap);
+
+  const ins = createIns({ slot: SLOTS.DISPLAY, format: 'auto' });
+  pushAd(ins);
+  insertBefore(wrap(ins, 'ad-slot--horizontal'), tableWrap);
 }
 
-// ─── INICIALIZAÇÃO ────────────────────────────────────────────────────────────
+// ─── INIT ─────────────────────────────────────────────────────────────────────
 function initAds() {
   injectFooterAd();
 
@@ -146,7 +163,6 @@ function initAds() {
   }
 }
 
-// Aguarda components:loaded para garantir que header/footer já foram injetados
 if (window.componentsLoaded) {
   initAds();
 } else {
