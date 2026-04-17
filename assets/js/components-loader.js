@@ -95,8 +95,8 @@ function getHeaderHTML(basePath) {
       <ul class="nav-list">
         <li class="nav-item"><a href="${basePath}pages/graduacao/index.html" class="nav-link">Graduação</a></li>
         <li class="nav-item"><a href="${basePath}pages/pos-graduacao/index.html" class="nav-link">Pós-graduação</a></li>
-        <li class="nav-item"><a href="#" onclick="return false" class="nav-link">Técnicos</a></li>
-        <li class="nav-item"><a href="#" onclick="return false" class="nav-link">Cursos Livres</a></li>
+        <li class="nav-item"><a href="${basePath}pages/cursos-tecnicos/index.html" class="nav-link">Técnicos</a></li>
+        <li class="nav-item"><a href="${basePath}pages/cursos-livres/index.html" class="nav-link">Cursos Livres</a></li>
         <li class="nav-item"><a href="${basePath}pages/carreiras/salarios/" class="nav-link">Carreiras & Salários</a></li>
         <li class="nav-item"><a href="${basePath}pages/universidades/index.html" class="nav-link">Universidades</a></li>
       </ul>
@@ -120,6 +120,8 @@ function getFooterHTML(basePath) {
           <nav class="footer-links">
             <a href="${basePath}pages/graduacao/index.html">Graduação</a>
             <a href="${basePath}pages/pos-graduacao/index.html">Pós-graduação</a>
+            <a href="${basePath}pages/cursos-tecnicos/index.html">Cursos Técnicos</a>
+            <a href="${basePath}pages/cursos-livres/index.html">Cursos Livres</a>
             <a href="${basePath}pages/carreiras/salarios/">Carreiras & Salários</a>
           </nav>
         </div>
