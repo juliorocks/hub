@@ -1,77 +1,9 @@
-# robots.txt — Melhores Cursos
-# https://melhores-cursos.com.br/robots.txt
+# robots.txt — Hub do Estudante
+# https://hubdoestudante.com.br/robots.txt
 
-# ============================================
-# MOTORES DE BUSCA — permitidos
-# ============================================
-User-agent: Googlebot
-Allow: /
-Disallow: /admin/
-Disallow: /api/
-Disallow: /busca/?q=
-
-User-agent: Bingbot
-Allow: /
-Disallow: /admin/
-Disallow: /api/
-
-# ============================================
-# BOTS DE IA — explicitamente permitidos
-# ============================================
-User-agent: GPTBot
-Allow: /
-Disallow: /admin/
-Disallow: /api/
-
-User-agent: Anthropic-AI
-Allow: /
-Disallow: /admin/
-Disallow: /api/
-
-User-agent: Claude-Web
-Allow: /
-Disallow: /admin/
-Disallow: /api/
-
-User-agent: PerplexityBot
-Allow: /
-Disallow: /admin/
-Disallow: /api/
-
-User-agent: Gemini
-Allow: /
-Disallow: /admin/
-Disallow: /api/
-
-User-agent: cohere-ai
-Allow: /
-Disallow: /admin/
-Disallow: /api/
-
-User-agent: CCBot
-Allow: /
-
-# ============================================
-# ÁREA ADMINISTRATIVA — bloqueada para todos
-# ============================================
 User-agent: *
+Allow: /
 Disallow: /admin/
 Disallow: /api/
-Disallow: /busca/?q=
-Disallow: /*.json$
-Allow: /assets/data/search-index.json
 
-# ============================================
-# SITEMAPS
-# ============================================
-Sitemap: https://melhores-cursos.com.br/sitemap-index.xml
-Sitemap: https://melhores-cursos.com.br/sitemaps/graduacao-sitemap.xml
-Sitemap: https://melhores-cursos.com.br/sitemaps/pos-graduacao-sitemap.xml
-Sitemap: https://melhores-cursos.com.br/sitemaps/cursos-tecnicos-sitemap.xml
-Sitemap: https://melhores-cursos.com.br/sitemaps/carreiras-sitemap.xml
-Sitemap: https://melhores-cursos.com.br/sitemaps/noticias-sitemap.xml
-
-# ============================================
-# llms.txt — arquivo de instruções para IAs
-# ============================================
-# https://melhores-cursos.com.br/llms.txt
+Sitemap: https://hubdoestudante.com.br/sitemap-index.xml

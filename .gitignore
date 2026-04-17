@@ -1,3 +1,39 @@
+# Ferramentas internas
 .claude/
 scripts/
-*.py
+node_modules/
+
+# Arquivos de teste e debug
+debug*.mjs
+smoke*.mjs
+smoke*.spec.js
+test*.mjs
+test*.spec.js
+test*.py
+verify*.mjs
+playwright*.js
+test-results/
+screenshots/
+smoke-test-screenshots/
+smoke-screenshots/
+mobile-audit-screenshots/
+verify-shots/
+
+# Docs internos / relatórios
+*.md
+!README.md
+llms.txt
+*.txt
+!ads.txt
+!robots.txt
+*.docx
+*.pdf
+
+# Pastas de trabalho interno
+assets/templates/
+templates/
+projeto/
+
+# Dependências
+package.json
+package-lock.json
