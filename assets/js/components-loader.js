@@ -287,6 +287,18 @@ function injectComponents() {
   }
 }
 
+// Injeta Google Analytics no <head>
+(function injectAnalytics() {
+  const GA_ID = 'G-GX9GQGR9Z2';
+  const s1 = document.createElement('script');
+  s1.async = true;
+  s1.src = `https://www.googletagmanager.com/gtag/js?id=${GA_ID}`;
+  document.head.appendChild(s1);
+  const s2 = document.createElement('script');
+  s2.text = `window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','${GA_ID}');`;
+  document.head.appendChild(s2);
+})();
+
 // Injeta assim que possível
 if (document.readyState === 'loading') {
   document.addEventListener('DOMContentLoaded', injectComponents);
