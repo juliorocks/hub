@@ -103,6 +103,18 @@
   <url><loc>https://hubdoestudante.com.br/pages/carreiras/salarios/quanto-ganha-professor-universitario.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
   <url><loc>https://hubdoestudante.com.br/pages/carreiras/salarios/quanto-ganha-piloto.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
 
+  <!-- CURSOS LIVRES -->
+  <url><loc>https://hubdoestudante.com.br/pages/cursos-livres/index.html</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://hubdoestudante.com.br/pages/cursos-livres/excel-online.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://hubdoestudante.com.br/pages/cursos-livres/ingles-online.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://hubdoestudante.com.br/pages/cursos-livres/programacao-iniciantes.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+
+  <!-- CURSOS TÉCNICOS -->
+  <url><loc>https://hubdoestudante.com.br/pages/cursos-tecnicos/index.html</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://hubdoestudante.com.br/pages/cursos-tecnicos/tecnico-enfermagem.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://hubdoestudante.com.br/pages/cursos-tecnicos/tecnico-informatica.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://hubdoestudante.com.br/pages/cursos-tecnicos/tecnico-administracao.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+
   <!-- UNIVERSIDADES -->
   <url><loc>https://hubdoestudante.com.br/pages/universidades/index.html</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
   <url><loc>https://hubdoestudante.com.br/pages/universidades/anhanguera.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
