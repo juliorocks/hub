@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+
+  <!-- HOME & INSTITUCIONAIS -->
+  <url><loc>https://hubdoestudante.com.br/</loc><changefreq>weekly</changefreq><priority>1.0</priority></url>
+  <url><loc>https://hubdoestudante.com.br/sobre.html</loc><changefreq>monthly</changefreq><priority>0.4</priority></url>
+  <url><loc>https://hubdoestudante.com.br/politica-privacidade.html</loc><changefreq>monthly</changefreq><priority>0.3</priority></url>
+  <url><loc>https://hubdoestudante.com.br/termos-de-uso.html</loc><changefreq>monthly</changefreq><priority>0.3</priority></url>
+
+  <!-- GRADUAÇÃO -->
+  <url><loc>https://hubdoestudante.com.br/pages/graduacao/index.html</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://hubdoestudante.com.br/pages/graduacao/saude/index.html</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://hubdoestudante.com.br/pages/graduacao/saude/medicina/index.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://hubdoestudante.com.br/pages/graduacao/saude/curso-de-medicina.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://hubdoestudante.com.br/pages/graduacao/saude/enfermagem/index.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://hubdoestudante.com.br/pages/graduacao/saude/farmacia/index.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://hubdoestudante.com.br/pages/graduacao/saude/fisioterapia/index.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://hubdoestudante.com.br/pages/graduacao/saude/nutricao/index.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://hubdoestudante.com.br/pages/graduacao/saude/odontologia/index.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://hubdoestudante.com.br/pages/graduacao/saude/psicologia/index.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://hubdoestudante.com.br/pages/graduacao/saude/educacao-fisica/index.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://hubdoestudante.com.br/pages/graduacao/saude/medicina-veterinaria/index.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://hubdoestudante.com.br/pages/graduacao/saude/medicina-vs-enfermagem/index.html</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+
+  <url><loc>https://hubdoestudante.com.br/pages/graduacao/direito/index.html</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://hubdoestudante.com.br/pages/graduacao/direito/direito.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+
+  <url><loc>https://hubdoestudante.com.br/pages/graduacao/tecnologia/index.html</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://hubdoestudante.com.br/pages/graduacao/tecnologia/analise-desenvolvimento-sistemas/index.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://hubdoestudante.com.br/pages/graduacao/tecnologia/ciencia-da-computacao/index.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://hubdoestudante.com.br/pages/graduacao/tecnologia/engenharia-de-software/index.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://hubdoestudante.com.br/pages/graduacao/tecnologia/seguranca-informacao/index.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://hubdoestudante.com.br/pages/graduacao/tecnologia/sistemas-informacao/index.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+
+  <url><loc>https://hubdoestudante.com.br/pages/graduacao/engenharia/index.html</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://hubdoestudante.com.br/pages/graduacao/engenharia/engenharia-civil/index.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://hubdoestudante.com.br/pages/graduacao/engenharia/engenharia-producao/index.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://hubdoestudante.com.br/pages/graduacao/engenharia/arquitetura-urbanismo/index.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+
+  <url><loc>https://hubdoestudante.com.br/pages/graduacao/negocios/index.html</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://hubdoestudante.com.br/pages/graduacao/negocios/administracao/index.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://hubdoestudante.com.br/pages/graduacao/negocios/ciencias-contabeis/index.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://hubdoestudante.com.br/pages/graduacao/negocios/marketing/index.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://hubdoestudante.com.br/pages/graduacao/negocios/logistica/index.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://hubdoestudante.com.br/pages/graduacao/negocios/gestao-recursos-humanos/index.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+
+  <url><loc>https://hubdoestudante.com.br/pages/graduacao/educacao/index.html</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://hubdoestudante.com.br/pages/graduacao/educacao/pedagogia/index.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+
+  <url><loc>https://hubdoestudante.com.br/pages/graduacao/humanas/index.html</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://hubdoestudante.com.br/pages/graduacao/humanas/servico-social/index.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+
+  <!-- PÓS-GRADUAÇÃO -->
+  <url><loc>https://hubdoestudante.com.br/pages/pos-graduacao/index.html</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
+
+  <url><loc>https://hubdoestudante.com.br/pages/pos-graduacao/mba/index.html</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://hubdoestudante.com.br/pages/pos-graduacao/mba/mba-gestao-empresarial/index.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://hubdoestudante.com.br/pages/pos-graduacao/mba/mba-gestao-financeira/index.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://hubdoestudante.com.br/pages/pos-graduacao/mba/mba-gestao-pessoas/index.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://hubdoestudante.com.br/pages/pos-graduacao/mba/mba-gestao-projetos/index.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://hubdoestudante.com.br/pages/pos-graduacao/mba/mba-marketing-digital/index.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://hubdoestudante.com.br/pages/pos-graduacao/mba/mba-financas-corporativas/index.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://hubdoestudante.com.br/pages/pos-graduacao/mba/mba-engenharia-software/index.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://hubdoestudante.com.br/pages/pos-graduacao/mba/mba-saude/index.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://hubdoestudante.com.br/pages/pos-graduacao/mba/mba-saude-gestao-hospitalar/index.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+
+  <url><loc>https://hubdoestudante.com.br/pages/pos-graduacao/especializacao/index.html</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://hubdoestudante.com.br/pages/pos-graduacao/especializacao/data-science-ia/index.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://hubdoestudante.com.br/pages/pos-graduacao/especializacao/gestao-pessoas/index.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://hubdoestudante.com.br/pages/pos-graduacao/especializacao/logistica-supply-chain/index.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://hubdoestudante.com.br/pages/pos-graduacao/especializacao/direito-tributario/index.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://hubdoestudante.com.br/pages/pos-graduacao/especializacao/bim-construcao/index.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://hubdoestudante.com.br/pages/pos-graduacao/especializacao/docencia-ead/index.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://hubdoestudante.com.br/pages/pos-graduacao/especializacao/residencia-medica/index.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://hubdoestudante.com.br/pages/pos-graduacao/especializacao/saude/index.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+
+  <url><loc>https://hubdoestudante.com.br/pages/pos-graduacao/direito/index.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+
+  <!-- CARREIRAS & SALÁRIOS -->
+  <url><loc>https://hubdoestudante.com.br/pages/carreiras/index.html</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://hubdoestudante.com.br/pages/carreiras/salarios/index.html</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://hubdoestudante.com.br/pages/carreiras/salarios/quanto-ganha-medico.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://hubdoestudante.com.br/pages/carreiras/salarios/quanto-ganha-advogado.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://hubdoestudante.com.br/pages/carreiras/salarios/quanto-ganha-dentista.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://hubdoestudante.com.br/pages/carreiras/salarios/quanto-ganha-enfermeiro.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://hubdoestudante.com.br/pages/carreiras/salarios/quanto-ganha-farmaceutico.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://hubdoestudante.com.br/pages/carreiras/salarios/quanto-ganha-fisioterapeuta.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://hubdoestudante.com.br/pages/carreiras/salarios/quanto-ganha-nutricionista.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://hubdoestudante.com.br/pages/carreiras/salarios/quanto-ganha-psicologo.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://hubdoestudante.com.br/pages/carreiras/salarios/quanto-ganha-veterinario.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://hubdoestudante.com.br/pages/carreiras/salarios/quanto-ganha-juiz.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://hubdoestudante.com.br/pages/carreiras/salarios/quanto-ganha-promotor.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://hubdoestudante.com.br/pages/carreiras/salarios/quanto-ganha-engenheiro-civil.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://hubdoestudante.com.br/pages/carreiras/salarios/quanto-ganha-engenheiro-eletrico.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://hubdoestudante.com.br/pages/carreiras/salarios/quanto-ganha-engenheiro-mecanico.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://hubdoestudante.com.br/pages/carreiras/salarios/quanto-ganha-arquiteto.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://hubdoestudante.com.br/pages/carreiras/salarios/quanto-ganha-administrador.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://hubdoestudante.com.br/pages/carreiras/salarios/quanto-ganha-contador.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://hubdoestudante.com.br/pages/carreiras/salarios/quanto-ganha-economista.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://hubdoestudante.com.br/pages/carreiras/salarios/quanto-ganha-analista-marketing.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://hubdoestudante.com.br/pages/carreiras/salarios/quanto-ganha-desenvolvedor.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://hubdoestudante.com.br/pages/carreiras/salarios/quanto-ganha-cientista-dados.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://hubdoestudante.com.br/pages/carreiras/salarios/quanto-ganha-professor-universitario.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://hubdoestudante.com.br/pages/carreiras/salarios/quanto-ganha-piloto.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+
+  <!-- UNIVERSIDADES -->
+  <url><loc>https://hubdoestudante.com.br/pages/universidades/index.html</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://hubdoestudante.com.br/pages/universidades/anhanguera.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://hubdoestudante.com.br/pages/universidades/unopar.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://hubdoestudante.com.br/pages/universidades/ampli.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://hubdoestudante.com.br/pages/universidades/pitagoras.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://hubdoestudante.com.br/pages/universidades/unic.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://hubdoestudante.com.br/pages/universidades/uniderp.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://hubdoestudante.com.br/pages/universidades/unime.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+
+</urlset>
