@@ -36,7 +36,28 @@ function pushAd(ins) {
   requestAnimationFrame(() => {
     try { (window.adsbygoogle = window.adsbygoogle || []).push({}); } catch(e) {}
   });
+  // Observa o ins para detectar quando o AdSense preencheu o slot
+  observeAdFill(ins);
   return ins;
+}
+
+/**
+ * Usa MutationObserver para detectar quando o AdSense insere conteúdo
+ * no <ins> e adiciona is-loaded no wrapper pai (.ad-slot).
+ */
+function observeAdFill(ins) {
+  const observer = new MutationObserver(() => {
+    const filled = ins.innerHTML.trim() !== '' ||
+                   ins.getAttribute('data-ad-status') === 'filled' ||
+                   ins.style.height > '0';
+    if (filled) {
+      ins.closest('.ad-slot')?.classList.add('is-loaded');
+      observer.disconnect();
+    }
+  });
+  observer.observe(ins, { childList: true, subtree: true, attributes: true, attributeFilter: ['data-ad-status'] });
+  // Timeout de segurança: se em 5s não carregou, descarta o slot silenciosamente
+  setTimeout(() => observer.disconnect(), 5000);
 }
 
 function wrap(ins, className) {

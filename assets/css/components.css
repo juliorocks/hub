@@ -1230,15 +1230,16 @@
    AD SLOTS — espaços para anúncios AdSense
    ============================================= */
 
-/* Container genérico de anúncio */
+/* Container genérico de anúncio — invisível por padrão */
 .ad-slot {
   width: 100%;
   overflow: hidden;
   text-align: center;
+  /* Sem dimensões, sem fundo: não ocupa espaço enquanto o anúncio não carrega */
 }
 
-/* Label discreta "Publicidade" */
-.ad-slot::before {
+/* Label "Publicidade" — só aparece quando carregado */
+.ad-slot.is-loaded::before {
   content: 'Publicidade';
   display: block;
   font-size: 10px;
@@ -1249,83 +1250,41 @@
   margin-bottom: var(--space-2);
 }
 
-/* Horizontal — banner entre parágrafos / acima de tabela */
+/* Horizontal — sem espaço até carregar */
 .ad-slot--horizontal {
-  margin-block: var(--space-8);
-  min-height: 90px;
-  background: var(--color-bg-gray);
-  border-radius: var(--radius-lg);
-  border: 1px dashed var(--color-border);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  margin-block: 0;
 }
 
-/* Retângulo médio — dentro de artigo */
-.ad-slot--rectangle {
+.ad-slot--horizontal.is-loaded {
   margin-block: var(--space-8);
-  min-height: 250px;
+}
+
+/* Retângulo médio */
+.ad-slot--rectangle {
   max-width: 336px;
-  background: var(--color-bg-gray);
-  border-radius: var(--radius-lg);
-  border: 1px dashed var(--color-border);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
   margin-inline: auto;
 }
 
-/* Sidebar — widget fixo na barra lateral */
-.ad-slot--sidebar {
+.ad-slot--rectangle.is-loaded {
+  margin-block: var(--space-8);
+}
+
+/* Sidebar */
+.ad-slot--sidebar {}
+
+.ad-slot--sidebar.is-loaded {
   min-height: 250px;
-  background: var(--color-bg-gray);
-  border-radius: var(--radius-lg);
-  border: 1px dashed var(--color-border);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
 }
 
-/* Antes do footer — full width */
-.ad-slot--footer {
+/* Antes do footer */
+.ad-slot--footer {}
+
+.ad-slot--footer.is-loaded {
   margin-block: var(--space-10);
-  min-height: 90px;
-  background: var(--color-bg-gray);
-  border-radius: var(--radius-lg);
-  border: 1px dashed var(--color-border);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
 }
 
-/* Quando AdSense estiver ativo, remove o placeholder visual */
+/* Elemento ins do AdSense */
 .ad-slot ins.adsbygoogle {
   display: block;
   width: 100%;
-}
-
-.ad-slot.is-loaded {
-  background: transparent;
-  border: none;
-  min-height: unset;
-}
-
-.ad-slot.is-loaded::before {
-  display: none;
-}
-
-/* Mobile: retângulo vira horizontal */
-@media (max-width: 768px) {
-  .ad-slot--rectangle {
-    max-width: 100%;
-    min-height: 100px;
-  }
-  .ad-slot--horizontal,
-  .ad-slot--footer {
-    min-height: 60px;
-  }
 }
