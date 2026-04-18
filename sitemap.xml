@@ -125,4 +125,13 @@
   <url><loc>https://hubdoestudante.com.br/pages/universidades/uniderp.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
   <url><loc>https://hubdoestudante.com.br/pages/universidades/unime.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
 
+  <!-- GUIAS -->
+  <url><loc>https://hubdoestudante.com.br/pages/guias/enem-2026.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://hubdoestudante.com.br/pages/guias/ia-mercado-de-trabalho.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://hubdoestudante.com.br/pages/guias/intercambio-na-faculdade.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://hubdoestudante.com.br/pages/guias/curriculo-primeiro-emprego.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://hubdoestudante.com.br/pages/guias/certificacoes-que-valem-mais.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://hubdoestudante.com.br/pages/guias/freelancer-vs-clt.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://hubdoestudante.com.br/pages/guias/como-escolher-sua-profissao.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+
 </urlset>
