@@ -1073,7 +1073,7 @@
   display: none;
 }
 .materias-extras.is-visible {
-  display: contents;
+  display: flex;
 }
 
 /* Grid de instituições (mantido para compatibilidade) */
