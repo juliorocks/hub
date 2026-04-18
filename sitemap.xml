@@ -125,6 +125,13 @@
   <url><loc>https://hubdoestudante.com.br/pages/universidades/uniderp.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
   <url><loc>https://hubdoestudante.com.br/pages/universidades/unime.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
 
+  <!-- ENEM 2026 -->
+  <url><loc>https://hubdoestudante.com.br/pages/enem-2026/index.html</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://hubdoestudante.com.br/pages/enem-2026/redacao-enem-2026.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://hubdoestudante.com.br/pages/enem-2026/matematica-enem-2026.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://hubdoestudante.com.br/pages/enem-2026/cronograma-estudos-enem.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://hubdoestudante.com.br/pages/enem-2026/como-usar-sisu-prouni.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+
   <!-- GUIAS -->
   <url><loc>https://hubdoestudante.com.br/pages/guias/enem-2026.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
   <url><loc>https://hubdoestudante.com.br/pages/guias/ia-mercado-de-trabalho.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
