@@ -40,7 +40,7 @@
       outline: none;
       transition: border-color .15s;
     }
-    .sal-search-input:focus { border-color: var(--color-area-carreiras, #059669); }
+    .sal-search-input:focus { border-color: var(--color-área-carreiras, #059669); }
 
     .sal-filter-btn {
       height: 38px;
@@ -57,7 +57,7 @@
     }
     .sal-filter-btn.is-active,
     .sal-filter-btn:hover {
-      border-color: var(--color-area-carreiras, #059669);
+      border-color: var(--color-área-carreiras, #059669);
       background: #059669;
       color: #fff;
     }
@@ -411,12 +411,12 @@
   }
 
   function buildRow(p) {
-    const ac = SAL_AREA_COLORS[p.area] || SAL_AREA_COLORS.outros;
+    const ac = SAL_AREA_COLORS[p.área] || SAL_AREA_COLORS.outros;
     const demandClass = `sal-demand--${p.demand}`;
     const urlCell = p.url && p.url !== '#'
       ? `<a href="${p.url}" class="sal-link">Ver guia →</a>`
       : `<span style="color:var(--color-text-muted);font-size:11px;">Em breve</span>`;
-    return `<tr data-area="${p.area}" data-nome="${p.nome.toLowerCase()}">
+    return `<tr data-area="${p.área}" data-nome="${p.nome.toLowerCase()}">
       <td>
         <div class="sal-prof">
           <div class="sal-prof__emoji" style="background:${ac.bg};">${p.emoji}</div>
@@ -443,17 +443,17 @@
   tbody.innerHTML = PROFISSOES.map(buildRow).join('');
 
   // Filtros de área
-  let currentArea = 'todas';
+  let currentÁrea = 'todas';
   let currentSearch = '';
 
   function applyFilters() {
     let visible = 0;
     document.querySelectorAll('#sal-tbody tr').forEach(row => {
-      const area = row.dataset.area;
+      const área = row.dataset.área;
       const nome = row.dataset.nome;
-      const matchArea = currentArea === 'todas' || area === currentArea;
+      const matchÁrea = currentÁrea === 'todas' || área === currentÁrea;
       const matchSearch = !currentSearch || nome.includes(currentSearch);
-      const show = matchArea && matchSearch;
+      const show = matchÁrea && matchSearch;
       row.classList.toggle('is-hidden', !show);
       if (show) visible++;
     });
@@ -465,7 +465,7 @@
     btn.addEventListener('click', () => {
       document.querySelectorAll('.sal-filter-btn').forEach(b => b.classList.remove('is-active'));
       btn.classList.add('is-active');
-      currentArea = btn.dataset.area;
+      currentÁrea = btn.dataset.área;
       applyFilters();
     });
   });
