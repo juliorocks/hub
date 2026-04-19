@@ -184,6 +184,15 @@
 .content-type-badge--news     { background: #FEE2E2; color: #991B1B; }
 .content-type-badge--faq      { background: #F0FDF4; color: #166534; }
 
+/* Badges por área — acompanham as cores do menu */
+.content-type-badge--graduacao   { background: #DBEAFE; color: #1E40AF; }  /* Azul */
+.content-type-badge--posgrad     { background: #EDE9FE; color: #5B21B6; }  /* Roxo */
+.content-type-badge--tecnicos    { background: #FFEDD5; color: #9A3412; }  /* Laranja */
+.content-type-badge--livres      { background: #FCE7F3; color: #9D174D; }  /* Rosa */
+.content-type-badge--carreiras   { background: #D1FAE5; color: #065F46; }  /* Verde */
+.content-type-badge--univ        { background: #E0E7FF; color: #3730A3; }  /* Índigo */
+.content-type-badge--enem        { background: #FEF3C7; color: #92400E; }  /* Âmbar */
+
 /* Tags de área */
 .tag {
   display: inline-flex;
