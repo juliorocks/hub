@@ -116,73 +116,63 @@
 
       const status = document.getElementById('status');
       status.textContent = '';
-      log('🚀 Iniciando migração...\n');
-      log(`Total de artigos: 14\n`);
-      log('Aguarde...\n');
+      log('🚀 Iniciando migração (dados fixos)...\n');
 
+      // Dados dos artigos (extraídos manualmente)
       const articles = [
-        { path: '../pages/guias/ead-vale-a-pena.html', category: 'guias', slug: 'ead-vale-a-pena' },
-        { path: '../pages/guias/ia-nao-vai-substituir.html', category: 'guias', slug: 'ia-nao-vai-substituir' },
-        { path: '../pages/guias/profissoes-do-futuro-2026.html', category: 'guias', slug: 'profissoes-do-futuro-2026' },
-        { path: '../pages/guias/cnpq-capes-bolsa-pesquisa.html', category: 'guias', slug: 'cnpq-capes-bolsa-pesquisa' },
-        { path: '../pages/guias/carreira-ux-ui-design.html', category: 'guias', slug: 'carreira-ux-ui-design' },
-        { path: '../pages/guias/mestrado-vs-doutorado.html', category: 'guias', slug: 'mestrado-vs-doutorado' },
-        { path: '../pages/guias/ead-presencial-diferenca.html', category: 'guias', slug: 'ead-presencial-diferenca' },
-        { path: '../pages/guias/primeira-entrevista-emprego.html', category: 'guias', slug: 'primeira-entrevista-emprego' },
-        { path: '../pages/guias/gap-year-vale-a-pena.html', category: 'guias', slug: 'gap-year-vale-a-pena' },
-        { path: '../pages/enem-2026/redacao-enem-2026.html', category: 'enem-2026', slug: 'redacao-enem-2026' },
-        { path: '../pages/enem-2026/matematica-enem-2026.html', category: 'enem-2026', slug: 'matematica-enem-2026' },
-        { path: '../pages/enem-2026/ciencias-humanas-enem-2026.html', category: 'enem-2026', slug: 'ciencias-humanas-enem-2026' },
-        { path: '../pages/enem-2026/cronograma-estudos-enem.html', category: 'enem-2026', slug: 'cronograma-estudos-enem' },
-        { path: '../pages/enem-2026/como-usar-sisu-prouni.html', category: 'enem-2026', slug: 'como-usar-sisu-prouni' }
+        { title: 'EAD vale a pena? O que ninguém te conta antes de se matricular', category: 'guias', slug: 'ead-vale-a-pena', publishDate: '2026-04-19' },
+        { title: 'Profissões que a IA não vai substituir (e as que já estão sendo) em 2026', category: 'guias', slug: 'ia-nao-vai-substituir', publishDate: '2026-04-20' },
+        { title: 'Profissões do futuro 2026: tendências reais e carreiras com mais demanda', category: 'guias', slug: 'profissoes-do-futuro-2026', publishDate: '2026-04-21' },
+        { title: 'Bolsa CNPq e CAPES 2026: como conseguir financiamento para pós-graduação', category: 'guias', slug: 'cnpq-capes-bolsa-pesquisa', publishDate: '2026-04-21' },
+        { title: 'Carreira em UX/UI Design: salário, mercado e como começar em 2026', category: 'guias', slug: 'carreira-ux-ui-design', publishDate: '2026-04-21' },
+        { title: 'Mestrado vs Doutorado: qual escolher, diferenças e saídas profissionais', category: 'guias', slug: 'mestrado-vs-doutorado', publishDate: '2026-04-21' },
+        { title: 'EAD vs Presencial: qual é melhor, diferenças e quando cada um funciona', category: 'guias', slug: 'ead-presencial-diferenca', publishDate: '2026-04-21' },
+        { title: 'Primeira entrevista de emprego: dicas, erros comuns e como se preparar', category: 'guias', slug: 'primeira-entrevista-emprego', publishDate: '2026-04-21' },
+        { title: 'Gap year vale a pena? Vantagens, desvantagens e como aproveitar bem', category: 'guias', slug: 'gap-year-vale-a-pena', publishDate: '2026-04-21' },
+        { title: 'Redação ENEM 2026: estrutura, dicas e como treinar', category: 'enem-2026', slug: 'redacao-enem-2026', publishDate: '2026-04-20' },
+        { title: 'Matemática ENEM 2026: conteúdos que mais caem e como estudar', category: 'enem-2026', slug: 'matematica-enem-2026', publishDate: '2026-04-20' },
+        { title: 'Ciências Humanas ENEM 2026: o que cai e dicas de estudo', category: 'enem-2026', slug: 'ciencias-humanas-enem-2026', publishDate: '2026-04-20' },
+        { title: 'Cronograma de estudos para ENEM 2026: como organizar seus estudos', category: 'enem-2026', slug: 'cronograma-estudos-enem', publishDate: '2026-04-20' },
+        { title: 'Como usar SiSU e ProUni 2026: passo a passo para sua inscrição', category: 'enem-2026', slug: 'como-usar-sisu-prouni', publishDate: '2026-04-20' }
       ];
 
       let success = 0, failed = 0;
 
       for (let i = 0; i < articles.length; i++) {
         const article = articles[i];
-        log(`\n[${i+1}/${articles.length}] Processando ${article.slug}...`);
+        log(`[${i+1}/${articles.length}] ${article.slug}...`);
 
         try {
-          const response = await fetch(article.path);
-          if (!response.ok) throw new Error('404');
-
-          const html = await response.text();
-          const titleMatch = html.match(/<h1[^>]*class="article-hero__title"[^>]*>(.*?)<\/h1>/s);
-          const title = titleMatch ? titleMatch[1].trim() : 'Sem título';
-          const subtitleMatch = html.match(/<p[^>]*class="article-hero__subtitle"[^>]*>(.*?)<\/p>/s);
-          const subtitle = subtitleMatch ? subtitleMatch[1].trim() : '';
-          const dateMatch = html.match(/<time[^>]*datetime="([^"]*)"[^>]*>/);
-          const publishDate = dateMatch ? dateMatch[1] : new Date().toISOString();
-
           const data = {
-            title, subtitle, publishDate,
+            title: article.title,
+            subtitle: article.title.substring(0, 80),
+            publishDate: article.publishDate + 'T00:00:00Z',
             slug: article.slug,
             category: article.category,
             badge: '', badgeType: 'guide',
             image: '', imageAlt: '', imageCaption: '',
-            quickAnswer: '', content: '',
+            quickAnswer: article.title, content: '',
             readTime: 10, author: 'Redação Hub do Estudante',
             createdAt: new Date().toISOString(),
             updatedAt: new Date().toISOString()
           };
 
           await addDoc(collection(db, 'articles'), data);
-          log(`✅ Salvo com sucesso!`);
+          log(`  ✅ Salvo\n`);
           success++;
         } catch (error) {
-          log(`❌ Erro: ${error.message}`);
+          log(`  ❌ ${error.message}\n`);
           failed++;
         }
 
-        // Delay entre requisições
-        await new Promise(r => setTimeout(r, 800));
+        await new Promise(r => setTimeout(r, 500));
       }
 
       log('\n' + '='.repeat(40));
       log(`✅ Sucesso: ${success}`);
       log(`❌ Falhados: ${failed}`);
       log('='.repeat(40));
+      log('\nVolte para /admin/ e veja os artigos listados!');
       document.getElementById('start-migration').disabled = false;
     }
 
