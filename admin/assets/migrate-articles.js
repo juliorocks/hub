@@ -28,7 +28,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 });
 
 function showMigrationUI() {
-  const container = document.body;
+  const container = document.getElementById('app');
   container.innerHTML = `
     <div style="max-width: 800px; margin: 2rem auto; font-family: sans-serif; padding: 2rem; background: white; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.1);">
       <h1>🔄 Migrar Artigos para Firestore</h1>
