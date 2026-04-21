@@ -4,495 +4,133 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Admin - Hub do Estudante</title>
-  <link rel="stylesheet" href="assets/admin.css">
-  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/tinymce@6/tinymce.min.js"></script>
   <link rel="icon" type="image/svg+xml" href="../assets/img/favicon.svg">
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-      background: #f5f5f5;
-      color: #333;
-    }
-
-    .admin-layout {
-      display: grid;
-      grid-template-columns: 250px 1fr;
-      min-height: 100vh;
-    }
-
-    .admin-sidebar {
-      background: #1a1a1a;
-      color: white;
-      padding: 2rem 1rem;
-      position: fixed;
-      width: 250px;
-      height: 100vh;
-      overflow-y: auto;
-      border-right: 1px solid #333;
-    }
-
-    .admin-logo h2 {
-      margin-bottom: 2rem;
-      font-size: 1.5rem;
-      color: #38bdf8;
-    }
-
-    .admin-nav {
-      display: flex;
-      flex-direction: column;
-      gap: 0.5rem;
-    }
-
-    .admin-nav__item {
-      background: transparent;
-      border: none;
-      color: #ccc;
-      padding: 0.75rem 1rem;
-      text-align: left;
-      cursor: pointer;
-      border-radius: 4px;
-      transition: all 0.2s;
-      font-size: 0.95rem;
-    }
-
-    .admin-nav__item:hover {
-      background: #333;
-      color: white;
-    }
-
-    .admin-nav__item--active {
-      background: #38bdf8;
-      color: white;
-      font-weight: 600;
-    }
-
-    .admin-main {
-      margin-left: 250px;
-      padding: 2rem;
-    }
-
-    .admin-section {
-      background: white;
-      border-radius: 8px;
-      padding: 2rem;
-      display: none;
-      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-    }
-
-    .admin-section--active {
-      display: block;
-    }
-
-    .admin-section__header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 2rem;
-      border-bottom: 1px solid #eee;
-      padding-bottom: 1rem;
-    }
-
-    .admin-section__header h1 {
-      margin: 0;
-      font-size: 1.75rem;
-    }
-
-    .admin-filters {
-      display: flex;
-      gap: 1rem;
-      margin-bottom: 2rem;
-    }
-
-    .admin-filters input,
-    .admin-filters select {
-      flex: 1;
-      max-width: 300px;
-      padding: 0.75rem;
-      border: 1px solid #ddd;
-      border-radius: 4px;
-      font-size: 0.95rem;
-    }
-
-    .articles-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-      gap: 1.5rem;
-    }
-
-    .article-card {
-      background: #f9f9f9;
-      border: 1px solid #ddd;
-      border-radius: 6px;
-      padding: 1.5rem;
-      transition: all 0.3s;
-    }
-
-    .article-card:hover {
-      border-color: #38bdf8;
-      box-shadow: 0 4px 12px rgba(56, 189, 248, 0.1);
-    }
-
-    .article-card__title {
-      font-size: 1.1rem;
-      font-weight: 600;
-      margin-bottom: 0.5rem;
-      color: #1a1a1a;
-    }
-
-    .article-card__meta {
-      display: flex;
-      gap: 0.5rem;
-      font-size: 0.85rem;
-      color: #888;
-      margin-bottom: 1rem;
-      flex-wrap: wrap;
-    }
-
-    .article-card__category {
-      background: #e0e0e0;
-      padding: 0.25rem 0.75rem;
-      border-radius: 12px;
-    }
-
-    .article-card__excerpt {
-      font-size: 0.9rem;
-      color: #555;
-      margin-bottom: 1rem;
-      line-height: 1.4;
-    }
-
-    .article-card__actions {
-      display: flex;
-      gap: 0.5rem;
-    }
-
-    .article-card__edit,
-    .article-card__delete {
-      flex: 1;
-      padding: 0.5rem 1rem;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-      font-size: 0.85rem;
-      font-weight: 600;
-      transition: all 0.2s;
-    }
-
-    .article-card__edit {
-      background: #38bdf8;
-      color: white;
-    }
-
-    .article-card__edit:hover {
-      background: #0284c7;
-    }
-
-    .article-card__delete {
-      background: #f87171;
-      color: white;
-    }
-
-    .article-card__delete:hover {
-      background: #dc2626;
-    }
-
-    .article-form {
-      display: flex;
-      flex-direction: column;
-      gap: 1.5rem;
-    }
-
-    .form-group {
-      display: flex;
-      flex-direction: column;
-    }
-
-    .form-group label {
-      font-weight: 600;
-      margin-bottom: 0.5rem;
-      color: #333;
-    }
-
-    .form-group small {
-      font-size: 0.85rem;
-      color: #888;
-      margin-top: 0.25rem;
-    }
-
-    .form-row {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 1.5rem;
-    }
-
-    .admin-input,
-    textarea {
-      padding: 0.75rem;
-      border: 1px solid #ddd;
-      border-radius: 4px;
-      font-family: inherit;
-      font-size: 0.95rem;
-      transition: border-color 0.2s;
-    }
-
-    .admin-input:focus,
-    textarea:focus {
-      outline: none;
-      border-color: #38bdf8;
-      box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.1);
-    }
-
-    textarea {
-      resize: vertical;
-      min-height: 100px;
-    }
-
-    .btn {
-      padding: 0.75rem 1.5rem;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-      font-size: 0.95rem;
-      font-weight: 600;
-      transition: all 0.2s;
-    }
-
-    .btn--primary {
-      background: #38bdf8;
-      color: white;
-    }
-
-    .btn--primary:hover {
-      background: #0284c7;
-    }
-
-    .btn--secondary {
-      background: #e5e7eb;
-      color: #333;
-    }
-
-    .btn--secondary:hover {
-      background: #d1d5db;
-    }
-
-    .btn--danger {
-      background: #f87171;
-      color: white;
-    }
-
-    .btn--danger:hover {
-      background: #dc2626;
-    }
-
-    .form-actions {
-      display: flex;
-      gap: 1rem;
-      margin-top: 2rem;
-      padding-top: 1rem;
-      border-top: 1px solid #eee;
-    }
-
-    .form-actions button {
-      flex: 1;
-    }
-
-    .loading {
-      text-align: center;
-      color: #999;
-      padding: 2rem;
-    }
-
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #f5f5f5; color: #333; }
+    .admin-layout { display: grid; grid-template-columns: 250px 1fr; min-height: 100vh; }
+    .admin-sidebar { background: #1a1a1a; color: white; padding: 2rem 1rem; position: fixed; width: 250px; height: 100vh; overflow-y: auto; }
+    .admin-logo h2 { margin-bottom: 2rem; font-size: 1.5rem; color: #38bdf8; }
+    .admin-nav { display: flex; flex-direction: column; gap: 0.5rem; }
+    .admin-nav__item { background: transparent; border: none; color: #ccc; padding: 0.75rem 1rem; text-align: left; cursor: pointer; border-radius: 4px; transition: all 0.2s; }
+    .admin-nav__item:hover { background: #333; color: white; }
+    .admin-nav__item--active { background: #38bdf8; color: white; font-weight: 600; }
+    .admin-main { margin-left: 250px; padding: 2rem; }
+    .admin-section { background: white; border-radius: 8px; padding: 2rem; display: none; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+    .admin-section--active { display: block; }
+    .admin-section__header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; border-bottom: 1px solid #eee; padding-bottom: 1rem; }
+    .admin-section__header h1 { margin: 0; font-size: 1.75rem; }
+    .admin-filters { display: flex; gap: 1rem; margin-bottom: 2rem; }
+    .admin-filters input, .admin-filters select { flex: 1; max-width: 300px; padding: 0.75rem; border: 1px solid #ddd; border-radius: 4px; }
+    .articles-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.5rem; }
+    .article-card { background: #f9f9f9; border: 1px solid #ddd; border-radius: 6px; padding: 1.5rem; transition: all 0.3s; }
+    .article-card:hover { border-color: #38bdf8; box-shadow: 0 4px 12px rgba(56, 189, 248, 0.1); }
+    .article-card__title { font-size: 1.1rem; font-weight: 600; margin-bottom: 0.5rem; }
+    .article-card__meta { display: flex; gap: 0.5rem; font-size: 0.85rem; color: #888; margin-bottom: 1rem; }
+    .article-card__category { background: #e0e0e0; padding: 0.25rem 0.75rem; border-radius: 12px; }
+    .article-card__excerpt { font-size: 0.9rem; color: #555; margin-bottom: 1rem; }
+    .article-card__actions { display: flex; gap: 0.5rem; }
+    .article-card__edit, .article-card__delete { flex: 1; padding: 0.5rem 1rem; border: none; border-radius: 4px; cursor: pointer; font-size: 0.85rem; font-weight: 600; }
+    .article-card__edit { background: #38bdf8; color: white; }
+    .article-card__edit:hover { background: #0284c7; }
+    .article-card__delete { background: #f87171; color: white; }
+    .article-card__delete:hover { background: #dc2626; }
+    .btn { padding: 0.75rem 1.5rem; border: none; border-radius: 4px; cursor: pointer; font-size: 0.95rem; font-weight: 600; transition: all 0.2s; }
+    .btn--primary { background: #38bdf8; color: white; }
+    .btn--primary:hover { background: #0284c7; }
+    .btn--secondary { background: #e5e7eb; color: #333; }
+    .btn--secondary:hover { background: #d1d5db; }
+    .btn--danger { background: #f87171; color: white; }
+    .btn--danger:hover { background: #dc2626; }
+    .form-group { display: flex; flex-direction: column; margin-bottom: 1.5rem; }
+    .form-group label { font-weight: 600; margin-bottom: 0.5rem; }
+    .form-group input, .form-group textarea, .form-group select { padding: 0.75rem; border: 1px solid #ddd; border-radius: 4px; font-family: inherit; font-size: 0.95rem; }
+    .form-group input:focus, .form-group textarea:focus, .form-group select:focus { outline: none; border-color: #38bdf8; box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.1); }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+    textarea { resize: vertical; min-height: 100px; }
+    .form-actions { display: flex; gap: 1rem; margin-top: 2rem; padding-top: 1rem; border-top: 1px solid #eee; }
+    .form-actions button { flex: 1; }
+    .loading { text-align: center; color: #999; padding: 2rem; }
+    .error { color: #dc2626; padding: 1rem; background: #fee2e2; border-radius: 4px; margin-bottom: 1rem; }
     @media (max-width: 768px) {
-      .admin-layout {
-        grid-template-columns: 1fr;
-      }
-
-      .admin-sidebar {
-        width: 100%;
-        height: auto;
-        position: relative;
-        border-right: none;
-        border-bottom: 1px solid #333;
-        padding: 1rem;
-      }
-
-      .admin-nav {
-        flex-direction: row;
-      }
-
-      .admin-main {
-        margin-left: 0;
-        padding: 1rem;
-      }
-
-      .form-row {
-        grid-template-columns: 1fr;
-      }
-
-      .articles-grid {
-        grid-template-columns: 1fr;
-      }
+      .admin-layout { grid-template-columns: 1fr; }
+      .admin-sidebar { width: 100%; height: auto; position: relative; }
+      .admin-main { margin-left: 0; }
+      .form-row { grid-template-columns: 1fr; }
+      .articles-grid { grid-template-columns: 1fr; }
     }
   </style>
 </head>
 <body>
   <div class="admin-layout">
     <aside class="admin-sidebar">
-      <div class="admin-logo">
-        <h2>Hub Admin</h2>
-      </div>
+      <div class="admin-logo"><h2>Hub Admin</h2></div>
       <nav class="admin-nav">
-        <button class="admin-nav__item admin-nav__item--active" data-section="articles">
-          📄 Artigos
-        </button>
-        <button class="admin-nav__item" data-section="create">
-          ➕ Novo Artigo
-        </button>
+        <button class="admin-nav__item admin-nav__item--active" data-section="articles">📄 Artigos</button>
+        <button class="admin-nav__item" data-section="create">➕ Novo Artigo</button>
       </nav>
     </aside>
 
     <main class="admin-main">
-      <!-- Articles List -->
       <section id="articles-section" class="admin-section admin-section--active">
         <div class="admin-section__header">
           <h1>Gerenciar Artigos</h1>
           <button class="btn btn--primary" id="new-article-btn">Novo Artigo</button>
         </div>
-
         <div class="admin-filters">
           <input type="search" id="search-articles" placeholder="Buscar por título...">
           <select id="filter-category">
             <option value="">Todas as categorias</option>
             <option value="guias">Guias</option>
             <option value="enem-2026">ENEM 2026</option>
-            <option value="carreiras">Carreiras</option>
-            <option value="graduacao">Graduação</option>
-            <option value="pos-graduacao">Pós-graduação</option>
-            <option value="cursos-tecnicos">Cursos Técnicos</option>
-            <option value="cursos-livres">Cursos Livres</option>
-            <option value="universidades">Universidades</option>
           </select>
         </div>
-
         <div id="articles-list" class="articles-grid">
           <p class="loading">Carregando artigos...</p>
         </div>
       </section>
 
-      <!-- Create/Edit Article -->
       <section id="create-section" class="admin-section">
         <div class="admin-section__header">
           <h1 id="form-title">Novo Artigo</h1>
           <button class="btn btn--secondary" id="close-form-btn">← Voltar</button>
         </div>
-
-        <form id="article-form" class="article-form">
-          <div class="form-group">
-            <label for="article-title">Título</label>
-            <input type="text" id="article-title" class="admin-input" required placeholder="Ex: EAD vale a pena?">
-          </div>
-
+        <form id="article-form">
           <div class="form-row">
             <div class="form-group">
-              <label for="article-category">Categoria</label>
-              <select id="article-category" class="admin-input" required>
-                <option value="">Selecionar categoria</option>
+              <label for="article-title">Título *</label>
+              <input type="text" id="article-title" required>
+            </div>
+            <div class="form-group">
+              <label for="article-slug">Slug *</label>
+              <input type="text" id="article-slug" required>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="article-category">Categoria *</label>
+              <select id="article-category" required>
+                <option value="">Selecionar...</option>
                 <option value="guias">Guias</option>
                 <option value="enem-2026">ENEM 2026</option>
-                <option value="carreiras">Carreiras</option>
-                <option value="graduacao">Graduação</option>
-                <option value="pos-graduacao">Pós-graduação</option>
-                <option value="cursos-tecnicos">Cursos Técnicos</option>
-                <option value="cursos-livres">Cursos Livres</option>
-                <option value="universidades">Universidades</option>
               </select>
             </div>
-
             <div class="form-group">
-              <label for="article-slug">URL Slug</label>
-              <input type="text" id="article-slug" class="admin-input" required placeholder="ead-vale-a-pena">
-              <small>Auto-gerado a partir do título</small>
+              <label for="article-date">Data de Publicação *</label>
+              <input type="date" id="article-date" required>
             </div>
           </div>
-
-          <div class="form-row">
-            <div class="form-group">
-              <label for="article-badge">Badge</label>
-              <input type="text" id="article-badge" class="admin-input" placeholder="Ex: Guia de Decisão">
-            </div>
-
-            <div class="form-group">
-              <label for="article-badge-type">Tipo de Badge</label>
-              <select id="article-badge-type" class="admin-input">
-                <option value="guide">Guide (Guia)</option>
-                <option value="enem">ENEM</option>
-                <option value="finance">Finance (Financiamento)</option>
-                <option value="job">Job (Mercado de Trabalho)</option>
-              </select>
-            </div>
-          </div>
-
           <div class="form-group">
-            <label for="article-subtitle">Subtítulo/Descrição</label>
-            <textarea id="article-subtitle" class="admin-input" rows="3" placeholder="Descrição breve do artigo" required></textarea>
+            <label for="article-subtitle">Subtítulo</label>
+            <input type="text" id="article-subtitle">
           </div>
-
-          <div class="form-row">
-            <div class="form-group">
-              <label for="article-image">URL da Imagem Hero</label>
-              <input type="url" id="article-image" class="admin-input" required placeholder="https://images.unsplash.com/...">
-            </div>
-
-            <div class="form-group">
-              <label for="article-image-alt">Alt Text da Imagem</label>
-              <input type="text" id="article-image-alt" class="admin-input" required placeholder="Descrição da imagem">
-            </div>
-          </div>
-
           <div class="form-group">
-            <label for="article-image-caption">Legenda da Imagem</label>
-            <input type="text" id="article-image-caption" class="admin-input" placeholder="Legenda opcional">
+            <label for="article-content">Conteúdo</label>
+            <textarea id="article-content"></textarea>
           </div>
-
-          <div class="form-group">
-            <label for="article-quick-answer">Resposta Rápida/Resumo</label>
-            <textarea id="article-quick-answer" class="admin-input" rows="4" placeholder="Resposta direta e concisa sobre o tema" required></textarea>
-          </div>
-
-          <div class="form-group">
-            <label for="article-content">Conteúdo Principal</label>
-            <textarea id="article-content" class="admin-input" rows="15" placeholder="Conteúdo do artigo em HTML"></textarea>
-          </div>
-
-          <div class="form-row">
-            <div class="form-group">
-              <label for="article-read-time">Tempo de Leitura (minutos)</label>
-              <input type="number" id="article-read-time" class="admin-input" value="10" min="1">
-            </div>
-
-            <div class="form-group">
-              <label for="article-date">Data de Publicação</label>
-              <input type="date" id="article-date" class="admin-input" required>
-            </div>
-          </div>
-
-          <div class="form-group">
-            <label for="article-author">Autor</label>
-            <input type="text" id="article-author" class="admin-input" value="Redação Hub do Estudante" placeholder="Nome do autor">
-          </div>
-
           <div class="form-actions">
-            <button type="button" class="btn btn--secondary" id="cancel-btn">Cancelar</button>
-            <button type="button" class="btn btn--secondary" id="download-btn" style="display:none;">⬇️ Download HTML</button>
             <button type="submit" class="btn btn--primary">Salvar Artigo</button>
+            <button type="button" class="btn btn--secondary" id="cancel-btn">Cancelar</button>
             <button type="button" class="btn btn--danger" id="delete-btn" style="display:none;">Deletar</button>
           </div>
         </form>
@@ -500,7 +138,263 @@
     </main>
   </div>
 
-  <script src="../assets/js/firebase-config.js"></script>
-  <script src="assets/admin.js"></script>
+  <script type="module">
+    import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js';
+    import { getFirestore, collection, getDocs, getDoc, doc, addDoc, updateDoc, deleteDoc, query, orderBy } from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js';
+
+    let db;
+    let currentEditingId = null;
+    let allArticles = [];
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyCFir3vbG5Qak0K36dhznwXf77RiFN0g2I",
+      authDomain: "hub-do-estudante.firebaseapp.com",
+      projectId: "hub-do-estudante",
+      storageBucket: "hub-do-estudante.firebasestorage.app",
+      messagingSenderId: "836885204421",
+      appId: "1:836885204421:web:d4cda9045c8d81914a8fac"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    db = getFirestore(app);
+
+    document.addEventListener('DOMContentLoaded', () => {
+      setupEventListeners();
+      loadArticles();
+      setTodayDate();
+    });
+
+    function setupEventListeners() {
+      document.querySelectorAll('.admin-nav__item').forEach(btn => {
+        btn.addEventListener('click', switchSection);
+      });
+      document.getElementById('new-article-btn').addEventListener('click', () => {
+        switchSection({ target: { dataset: { section: 'create' } } });
+        resetForm();
+      });
+      document.getElementById('close-form-btn').addEventListener('click', () => {
+        switchSection({ target: { dataset: { section: 'articles' } } });
+      });
+      document.getElementById('cancel-btn').addEventListener('click', () => {
+        switchSection({ target: { dataset: { section: 'articles' } } });
+      });
+      document.getElementById('article-form').addEventListener('submit', saveArticle);
+      document.getElementById('delete-btn').addEventListener('click', deleteArticle);
+      document.getElementById('search-articles').addEventListener('input', filterArticles);
+      document.getElementById('filter-category').addEventListener('change', filterArticles);
+      document.getElementById('article-title').addEventListener('input', (e) => {
+        const slug = e.target.value.toLowerCase().trim().replace(/[^\w\s-]/g, '').replace(/\s+/g, '-');
+        document.getElementById('article-slug').value = slug;
+      });
+    }
+
+    function switchSection(e) {
+      const section = e.target.dataset.section;
+      document.querySelectorAll('.admin-nav__item').forEach(item => {
+        item.classList.toggle('admin-nav__item--active', item.dataset.section === section);
+      });
+      document.querySelectorAll('.admin-section').forEach(sec => {
+        sec.classList.toggle('admin-section--active', sec.id === `${section}-section`);
+      });
+    }
+
+    async function loadArticles() {
+      try {
+        const list = document.getElementById('articles-list');
+        list.innerHTML = '<p class="loading">Carregando artigos...</p>';
+
+        const q = query(collection(db, 'articles'), orderBy('publishDate', 'desc'));
+        const snapshot = await getDocs(q);
+
+        allArticles = [];
+        if (snapshot.empty) {
+          list.innerHTML = '<p class="loading">Nenhum artigo criado ainda.</p>';
+          return;
+        }
+
+        let html = '';
+        snapshot.forEach(doc => {
+          const article = doc.data();
+          allArticles.push({ id: doc.id, ...article });
+          const date = new Date(article.publishDate).toLocaleDateString('pt-BR');
+          html += `
+            <div class="article-card">
+              <h3 class="article-card__title">${article.title}</h3>
+              <div class="article-card__meta">
+                <span class="article-card__category">${article.category}</span>
+                <span class="article-card__category">${date}</span>
+              </div>
+              <p class="article-card__excerpt">${(article.subtitle || '').substring(0, 100)}...</p>
+              <div class="article-card__actions">
+                <button class="article-card__edit" data-id="${doc.id}">Editar</button>
+                <button class="article-card__delete" data-id="${doc.id}">Deletar</button>
+              </div>
+            </div>
+          `;
+        });
+
+        list.innerHTML = html;
+        document.querySelectorAll('.article-card__edit').forEach(btn => {
+          btn.addEventListener('click', () => editArticle(btn.dataset.id));
+        });
+        document.querySelectorAll('.article-card__delete').forEach(btn => {
+          btn.addEventListener('click', () => {
+            if (confirm('Deletar este artigo?')) removeArticle(btn.dataset.id);
+          });
+        });
+      } catch (error) {
+        console.error('Erro ao carregar:', error);
+        document.getElementById('articles-list').innerHTML = `<p class="error">Erro ao carregar artigos: ${error.message}</p>`;
+      }
+    }
+
+    async function editArticle(id) {
+      try {
+        const docRef = doc(db, 'articles', id);
+        const docSnap = await getDoc(docRef);
+
+        if (docSnap.exists()) {
+          const article = docSnap.data();
+          document.getElementById('form-title').textContent = 'Editar Artigo';
+          document.getElementById('article-title').value = article.title;
+          document.getElementById('article-slug').value = article.slug;
+          document.getElementById('article-subtitle').value = article.subtitle || '';
+          document.getElementById('article-category').value = article.category;
+          document.getElementById('article-date').value = article.publishDate.split('T')[0];
+          document.getElementById('article-content').value = article.content || '';
+          document.getElementById('delete-btn').style.display = 'block';
+          currentEditingId = id;
+          switchSection({ target: { dataset: { section: 'create' } } });
+        }
+      } catch (error) {
+        alert('Erro ao carregar artigo: ' + error.message);
+      }
+    }
+
+    async function saveArticle(e) {
+      e.preventDefault();
+
+      const title = document.getElementById('article-title').value;
+      const slug = document.getElementById('article-slug').value;
+      const subtitle = document.getElementById('article-subtitle').value;
+      const category = document.getElementById('article-category').value;
+      const date = document.getElementById('article-date').value;
+      const content = document.getElementById('article-content').value;
+
+      if (!title || !slug || !category || !date) {
+        alert('Preecha todos os campos obrigatórios');
+        return;
+      }
+
+      try {
+        const data = {
+          title,
+          slug,
+          subtitle: subtitle || title.substring(0, 80),
+          category,
+          publishDate: date + 'T00:00:00Z',
+          content: content || '',
+          createdAt: new Date().toISOString(),
+          updatedAt: new Date().toISOString()
+        };
+
+        if (currentEditingId) {
+          await updateDoc(doc(db, 'articles', currentEditingId), data);
+          alert('Artigo atualizado com sucesso!');
+        } else {
+          await addDoc(collection(db, 'articles'), data);
+          alert('Artigo criado com sucesso!');
+        }
+
+        resetForm();
+        switchSection({ target: { dataset: { section: 'articles' } } });
+        loadArticles();
+      } catch (error) {
+        alert('Erro ao salvar: ' + error.message);
+      }
+    }
+
+    async function deleteArticle() {
+      if (currentEditingId && confirm('Tem certeza que quer deletar este artigo?')) {
+        try {
+          await deleteDoc(doc(db, 'articles', currentEditingId));
+          alert('Artigo deletado!');
+          resetForm();
+          switchSection({ target: { dataset: { section: 'articles' } } });
+          loadArticles();
+        } catch (error) {
+          alert('Erro ao deletar: ' + error.message);
+        }
+      }
+    }
+
+    async function removeArticle(id) {
+      try {
+        await deleteDoc(doc(db, 'articles', id));
+        loadArticles();
+      } catch (error) {
+        alert('Erro ao deletar: ' + error.message);
+      }
+    }
+
+    function filterArticles() {
+      const search = document.getElementById('search-articles').value.toLowerCase();
+      const category = document.getElementById('filter-category').value;
+
+      const filtered = allArticles.filter(article => {
+        const matchesSearch = article.title.toLowerCase().includes(search);
+        const matchesCategory = !category || article.category === category;
+        return matchesSearch && matchesCategory;
+      });
+
+      const list = document.getElementById('articles-list');
+      if (filtered.length === 0) {
+        list.innerHTML = '<p class="loading">Nenhum artigo encontrado.</p>';
+        return;
+      }
+
+      let html = '';
+      filtered.forEach(article => {
+        const date = new Date(article.publishDate).toLocaleDateString('pt-BR');
+        html += `
+          <div class="article-card">
+            <h3 class="article-card__title">${article.title}</h3>
+            <div class="article-card__meta">
+              <span class="article-card__category">${article.category}</span>
+              <span class="article-card__category">${date}</span>
+            </div>
+            <p class="article-card__excerpt">${(article.subtitle || '').substring(0, 100)}...</p>
+            <div class="article-card__actions">
+              <button class="article-card__edit" data-id="${article.id}">Editar</button>
+              <button class="article-card__delete" data-id="${article.id}">Deletar</button>
+            </div>
+          </div>
+        `;
+      });
+
+      list.innerHTML = html;
+      document.querySelectorAll('.article-card__edit').forEach(btn => {
+        btn.addEventListener('click', () => editArticle(btn.dataset.id));
+      });
+      document.querySelectorAll('.article-card__delete').forEach(btn => {
+        btn.addEventListener('click', () => {
+          if (confirm('Deletar este artigo?')) removeArticle(btn.dataset.id);
+        });
+      });
+    }
+
+    function resetForm() {
+      document.getElementById('article-form').reset();
+      document.getElementById('form-title').textContent = 'Novo Artigo';
+      document.getElementById('delete-btn').style.display = 'none';
+      currentEditingId = null;
+      setTodayDate();
+    }
+
+    function setTodayDate() {
+      const today = new Date().toISOString().split('T')[0];
+      document.getElementById('article-date').value = today;
+    }
+  </script>
 </body>
 </html>
