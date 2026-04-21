@@ -191,8 +191,14 @@
       };
     }
 
-    // Show UI when Firebase is ready
-    showUI();
+    // Wait for Firebase to be ready, then show UI
+    setTimeout(() => {
+      if (typeof firebase !== 'undefined' && firebase.apps.length > 0) {
+        showUI();
+      } else {
+        console.error('Firebase ainda não está pronto');
+      }
+    }, 1000);
   </script>
 </body>
 </html>
