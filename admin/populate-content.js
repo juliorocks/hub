@@ -40,15 +40,13 @@ function extractImageFromHtml(html) {
 }
 
 function extractContentFromHtml(html) {
-  const match = html.match(/<article[^>]*>([\s\S]*?)<\/article>/i);
-  if (!match) return '';
-
-  let content = match[1];
-  content = content.replace(/<[^>]*>/g, '');
-  content = content.replace(/&nbsp;/g, ' ');
-  content = content.replace(/\s+/g, ' ').trim();
-
-  return content.substring(0, 2000);
+  const match = html.match(/<article[^>]*class="[^"]*article-content[^"]*"[^>]*>([\s\S]*?)<\/article>/i);
+  if (!match) {
+    const altMatch = html.match(/<article[^>]*>([\s\S]*?)<\/article>/i);
+    if (!altMatch) return '';
+    return altMatch[1];
+  }
+  return match[1];
 }
 
 async function populateArticles() {
