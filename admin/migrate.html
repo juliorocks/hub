@@ -60,35 +60,27 @@
   <div id="app">
     <h1>🔄 Migrar Artigos para Firestore</h1>
     <p>Importando artigos HTML existentes para o banco de dados Firebase.</p>
-    <div id="status">Inicializando Firebase...</div>
-    <button id="test-parse">Testar Parse</button>
-    <button id="start-migration">Iniciar Migração</button>
+    <div id="status">Inicializando...</div>
+    <button id="test-parse" disabled>Testar Parse</button>
+    <button id="start-migration" disabled>Iniciar Migração</button>
   </div>
 
-  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js"></script>
-  <script src="../assets/js/firebase-config.js"></script>
+  <script type="module">
+    import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js';
+    import { getFirestore } from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js';
+    import { collection, addDoc } from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js';
 
-  <script>
-    let db = null;
+    const firebaseConfig = {
+      apiKey: "AIzaSyCFir3vbG5Qak0K36dhznwXf77RiFN0g2I",
+      authDomain: "hub-do-estudante.firebaseapp.com",
+      projectId: "hub-do-estudante",
+      storageBucket: "hub-do-estudante.firebasestorage.app",
+      messagingSenderId: "836885204421",
+      appId: "1:836885204421:web:d4cda9045c8d81914a8fac"
+    };
 
-    // Wait for firebase-config.js to initialize
-    function waitForFirebase() {
-      if (typeof firebase === 'undefined' || !firebase.apps || firebase.apps.length === 0) {
-        setTimeout(waitForFirebase, 100);
-        return;
-      }
-
-      try {
-        db = firebase.firestore();
-        log('✅ Firebase inicializado com sucesso\n');
-      } catch (error) {
-        log('❌ Erro: ' + error.message + '\n');
-      }
-    }
-
-    // Aguarda Firebase estar pronto
-    setTimeout(waitForFirebase, 500);
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
 
     function log(msg) {
       const status = document.getElementById('status');
@@ -96,11 +88,13 @@
       status.scrollTop = status.scrollHeight;
     }
 
+    log('✅ Firebase inicializado\n');
+
     async function testParse() {
       log('\n📋 Testando...\n');
       const testArticles = [
-        { path: '../pages/guias/ead-vale-a-pena.html', category: 'guias', slug: 'ead-vale-a-pena' },
-        { path: '../pages/guias/ia-nao-vai-substituir.html', category: 'guias', slug: 'ia-nao-vai-substituir' }
+        { path: '../pages/guias/ead-vale-a-pena.html', slug: 'ead-vale-a-pena' },
+        { path: '../pages/guias/ia-nao-vai-substituir.html', slug: 'ia-nao-vai-substituir' }
       ];
 
       for (const article of testArticles) {
@@ -117,11 +111,6 @@
     }
 
     async function startMigration() {
-      if (!db) {
-        log('❌ Firebase não está pronto');
-        return;
-      }
-
       document.getElementById('start-migration').disabled = true;
       log('\n🚀 Iniciando migração...\n');
 
@@ -150,8 +139,6 @@
           if (!response.ok) throw new Error('404');
 
           const html = await response.text();
-
-          // Parse data
           const titleMatch = html.match(/<h1[^>]*class="article-hero__title"[^>]*>(.*?)<\/h1>/s);
           const title = titleMatch ? titleMatch[1].trim() : 'Sem título';
           const subtitleMatch = html.match(/<p[^>]*class="article-hero__subtitle"[^>]*>(.*?)<\/p>/s);
@@ -171,7 +158,7 @@
             updatedAt: new Date().toISOString()
           };
 
-          await db.collection('articles').add(data);
+          await addDoc(collection(db, 'articles'), data);
           log(`✅ ${article.slug}`);
           success++;
         } catch (error) {
@@ -189,6 +176,8 @@
       document.getElementById('start-migration').disabled = false;
     }
 
+    document.getElementById('test-parse').disabled = false;
+    document.getElementById('start-migration').disabled = false;
     document.getElementById('test-parse').onclick = testParse;
     document.getElementById('start-migration').onclick = startMigration;
   </script>
