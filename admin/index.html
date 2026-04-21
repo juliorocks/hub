@@ -8,140 +8,138 @@
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #f5f5f5; color: #333; }
-    .admin-layout { display: grid; grid-template-columns: 250px 1fr; min-height: 100vh; }
-    .admin-sidebar { background: #1a1a1a; color: white; padding: 2rem 1rem; position: fixed; width: 250px; height: 100vh; overflow-y: auto; }
+    .admin-container { display: grid; grid-template-columns: 250px 1fr; min-height: 100vh; }
+    .admin-sidebar { background: #1a1a1a; color: white; padding: 2rem 1rem; height: 100vh; overflow-y: auto; position: sticky; top: 0; }
     .admin-logo h2 { margin-bottom: 2rem; font-size: 1.5rem; color: #38bdf8; }
     .admin-nav { display: flex; flex-direction: column; gap: 0.5rem; }
-    .admin-nav__item { background: transparent; border: none; color: #ccc; padding: 0.75rem 1rem; text-align: left; cursor: pointer; border-radius: 4px; transition: all 0.2s; }
-    .admin-nav__item:hover { background: #333; color: white; }
-    .admin-nav__item--active { background: #38bdf8; color: white; font-weight: 600; }
-    .admin-main { margin-left: 250px; padding: 2rem; }
-    .admin-section { background: white; border-radius: 8px; padding: 2rem; display: none; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
-    .admin-section--active { display: block; }
-    .admin-section__header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; border-bottom: 1px solid #eee; padding-bottom: 1rem; }
-    .admin-section__header h1 { margin: 0; font-size: 1.75rem; }
-    .admin-filters { display: flex; gap: 1rem; margin-bottom: 2rem; }
-    .admin-filters input, .admin-filters select { flex: 1; max-width: 300px; padding: 0.75rem; border: 1px solid #ddd; border-radius: 4px; }
+    .admin-nav button { background: transparent; border: none; color: #ccc; padding: 0.75rem 1rem; text-align: left; cursor: pointer; border-radius: 4px; transition: all 0.2s; }
+    .admin-nav button:hover { background: #333; color: white; }
+    .admin-nav button.active { background: #38bdf8; color: white; font-weight: 600; }
+    .admin-content { padding: 2rem; }
+    .section { display: none; }
+    .section.active { display: block; }
+    .section-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; border-bottom: 1px solid #eee; padding-bottom: 1rem; }
+    .section-header h1 { font-size: 1.75rem; }
+    .btn { padding: 0.75rem 1.5rem; border: none; border-radius: 4px; cursor: pointer; font-weight: 600; transition: all 0.2s; }
+    .btn-primary { background: #38bdf8; color: white; }
+    .btn-primary:hover { background: #0284c7; }
+    .btn-secondary { background: #e5e7eb; color: #333; }
+    .btn-secondary:hover { background: #d1d5db; }
+    .btn-danger { background: #f87171; color: white; }
+    .btn-danger:hover { background: #dc2626; }
 
-    #articles-list { margin-bottom: 2rem; }
-    .articles-table { width: 100%; border-collapse: collapse; }
-    .articles-table th { background: #f5f5f5; padding: 1rem; text-align: left; font-weight: 600; border-bottom: 2px solid #ddd; position: sticky; top: 0; }
+    .filters { display: flex; gap: 1rem; margin-bottom: 2rem; }
+    .filters input, .filters select { padding: 0.75rem; border: 1px solid #ddd; border-radius: 4px; }
+    .filters input { flex: 1; max-width: 300px; }
+
+    .articles-table { width: 100%; border-collapse: collapse; background: white; border-radius: 8px; overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+    .articles-table th { background: #f5f5f5; padding: 1rem; text-align: left; font-weight: 600; border-bottom: 2px solid #ddd; }
     .articles-table td { padding: 1rem; border-bottom: 1px solid #ddd; vertical-align: middle; }
     .articles-table tbody tr:hover { background: #f9f9f9; }
     .article-thumb { width: 60px; height: 60px; object-fit: cover; border-radius: 4px; }
-    .article-title-col { font-weight: 600; max-width: 300px; }
-    .article-category { background: #e0e0e0; padding: 0.25rem 0.75rem; border-radius: 12px; font-size: 0.85rem; }
+    .article-title { font-weight: 600; }
+    .article-category { background: #e0e0e0; padding: 0.25rem 0.75rem; border-radius: 12px; font-size: 0.85rem; display: inline-block; }
     .article-actions { display: flex; gap: 0.5rem; }
-    .btn-edit, .btn-delete { padding: 0.5rem 1rem; border: none; border-radius: 4px; cursor: pointer; font-size: 0.85rem; font-weight: 600; }
+    .btn-small { padding: 0.5rem 1rem; font-size: 0.85rem; border: none; border-radius: 4px; cursor: pointer; font-weight: 600; }
     .btn-edit { background: #38bdf8; color: white; }
     .btn-edit:hover { background: #0284c7; }
     .btn-delete { background: #f87171; color: white; }
     .btn-delete:hover { background: #dc2626; }
 
-    .btn { padding: 0.75rem 1.5rem; border: none; border-radius: 4px; cursor: pointer; font-size: 0.95rem; font-weight: 600; transition: all 0.2s; }
-    .btn--primary { background: #38bdf8; color: white; }
-    .btn--primary:hover { background: #0284c7; }
-    .btn--secondary { background: #e5e7eb; color: #333; }
-    .btn--secondary:hover { background: #d1d5db; }
-    .btn--danger { background: #f87171; color: white; }
-    .btn--danger:hover { background: #dc2626; }
-
-    .form-group { display: flex; flex-direction: column; margin-bottom: 1.5rem; }
+    .form-group { margin-bottom: 1.5rem; display: flex; flex-direction: column; }
     .form-group label { font-weight: 600; margin-bottom: 0.5rem; }
-    .form-group input, .form-group textarea, .form-group select { padding: 0.75rem; border: 1px solid #ddd; border-radius: 4px; font-family: inherit; font-size: 0.95rem; }
-    .form-group input:focus, .form-group textarea:focus, .form-group select:focus { outline: none; border-color: #38bdf8; box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.1); }
+    .form-group input, .form-group select, .form-group textarea { padding: 0.75rem; border: 1px solid #ddd; border-radius: 4px; font-family: inherit; }
+    .form-group input:focus, .form-group select:focus, .form-group textarea:focus { outline: none; border-color: #38bdf8; box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.1); }
     .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
-    textarea { resize: vertical; min-height: 100px; }
+    textarea { resize: vertical; min-height: 120px; }
     .form-actions { display: flex; gap: 1rem; margin-top: 2rem; padding-top: 1rem; border-top: 1px solid #eee; }
     .form-actions button { flex: 1; }
     .loading { text-align: center; color: #999; padding: 2rem; }
     .error { color: #dc2626; padding: 1rem; background: #fee2e2; border-radius: 4px; margin-bottom: 1rem; }
 
     @media (max-width: 768px) {
-      .admin-layout { grid-template-columns: 1fr; }
-      .admin-sidebar { width: 100%; height: auto; position: relative; }
-      .admin-main { margin-left: 0; height: auto; }
+      .admin-container { grid-template-columns: 1fr; }
+      .admin-sidebar { height: auto; position: static; }
       .form-row { grid-template-columns: 1fr; }
+      .filters { flex-direction: column; }
     }
   </style>
 </head>
 <body>
-  <div class="admin-layout">
+  <div class="admin-container">
     <aside class="admin-sidebar">
       <div class="admin-logo"><h2>Hub Admin</h2></div>
       <nav class="admin-nav">
-        <button class="admin-nav__item admin-nav__item--active" data-section="articles">📄 Artigos</button>
-        <button class="admin-nav__item" data-section="create">➕ Novo Artigo</button>
+        <button class="nav-btn active" data-section="articles">📄 Artigos</button>
+        <button class="nav-btn" data-section="create">➕ Novo Artigo</button>
       </nav>
     </aside>
 
-    <main class="admin-main">
-      <section id="articles-section" class="admin-section admin-section--active">
-        <div class="admin-section__header">
+    <main class="admin-content">
+      <section id="articles" class="section active">
+        <div class="section-header">
           <h1>Gerenciar Artigos</h1>
-          <button class="btn btn--primary" id="new-article-btn">Novo Artigo</button>
+          <button class="btn btn-primary" id="new-btn">Novo Artigo</button>
         </div>
-        <div class="admin-filters">
-          <input type="search" id="search-articles" placeholder="Buscar por título...">
-          <select id="filter-category">
+        <div class="filters">
+          <input type="search" id="search" placeholder="Buscar por título...">
+          <select id="category">
             <option value="">Todas as categorias</option>
             <option value="guias">Guias</option>
             <option value="enem-2026">ENEM 2026</option>
           </select>
         </div>
-        <div id="articles-list">
-          <p class="loading">Carregando artigos...</p>
-        </div>
+        <div id="articles-container"></div>
       </section>
 
-      <section id="create-section" class="admin-section">
-        <div class="admin-section__header">
+      <section id="create" class="section">
+        <div class="section-header">
           <h1 id="form-title">Novo Artigo</h1>
-          <button class="btn btn--secondary" id="close-form-btn">← Voltar</button>
+          <button class="btn btn-secondary" id="back-btn">← Voltar</button>
         </div>
         <form id="article-form">
-            <div class="form-row">
-              <div class="form-group">
-                <label for="article-title">Título *</label>
-                <input type="text" id="article-title" required>
-              </div>
-              <div class="form-group">
-                <label for="article-slug">Slug *</label>
-                <input type="text" id="article-slug" required>
-              </div>
-            </div>
-            <div class="form-row">
-              <div class="form-group">
-                <label for="article-category">Categoria *</label>
-                <select id="article-category" required>
-                  <option value="">Selecionar...</option>
-                  <option value="guias">Guias</option>
-                  <option value="enem-2026">ENEM 2026</option>
-                </select>
-              </div>
-              <div class="form-group">
-                <label for="article-date">Data de Publicação *</label>
-                <input type="date" id="article-date" required>
-              </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Título *</label>
+              <input type="text" id="title" required>
             </div>
             <div class="form-group">
-              <label for="article-subtitle">Subtítulo</label>
-              <input type="text" id="article-subtitle">
+              <label>Slug *</label>
+              <input type="text" id="slug" required>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Categoria *</label>
+              <select id="form-category" required>
+                <option value="">Selecionar...</option>
+                <option value="guias">Guias</option>
+                <option value="enem-2026">ENEM 2026</option>
+              </select>
             </div>
             <div class="form-group">
-              <label for="article-image">URL da Imagem</label>
-              <input type="text" id="article-image">
+              <label>Data de Publicação *</label>
+              <input type="date" id="date" required>
             </div>
-            <div class="form-group">
-              <label for="article-content">Conteúdo</label>
-              <textarea id="article-content"></textarea>
-            </div>
-            <div class="form-actions">
-              <button type="submit" class="btn btn--primary">Salvar Artigo</button>
-              <button type="button" class="btn btn--secondary" id="cancel-btn">Cancelar</button>
-              <button type="button" class="btn btn--danger" id="delete-btn" style="display:none;">Deletar</button>
-            </div>
-          </form>
+          </div>
+          <div class="form-group">
+            <label>Subtítulo</label>
+            <input type="text" id="subtitle">
+          </div>
+          <div class="form-group">
+            <label>URL da Imagem</label>
+            <input type="text" id="image">
+          </div>
+          <div class="form-group">
+            <label>Conteúdo</label>
+            <textarea id="content"></textarea>
+          </div>
+          <div class="form-actions">
+            <button type="submit" class="btn btn-primary">Salvar</button>
+            <button type="button" class="btn btn-secondary" id="cancel-btn">Cancelar</button>
+            <button type="button" class="btn btn-danger" id="delete-btn" style="display:none;">Deletar</button>
+          </div>
+        </form>
       </section>
     </main>
   </div>
@@ -149,10 +147,6 @@
   <script type="module">
     import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js';
     import { getFirestore, collection, getDocs, getDoc, doc, addDoc, updateDoc, deleteDoc, query, orderBy } from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js';
-
-    let db;
-    let currentEditingId = null;
-    let allArticles = [];
 
     const firebaseConfig = {
       apiKey: "AIzaSyCFir3vbG5Qak0K36dhznwXf77RiFN0g2I",
@@ -164,166 +158,102 @@
     };
 
     const app = initializeApp(firebaseConfig);
-    db = getFirestore(app);
+    const db = getFirestore(app);
 
-    document.addEventListener('DOMContentLoaded', () => {
-      setupEventListeners();
-      loadArticles();
-      setTodayDate();
-    });
+    let allArticles = [];
+    let editingId = null;
 
-    function setupEventListeners() {
-      document.querySelectorAll('.admin-nav__item').forEach(btn => {
-        btn.addEventListener('click', switchSection);
-      });
-      document.getElementById('new-article-btn').addEventListener('click', () => {
-        resetForm();
-        switchSection({ target: { dataset: { section: 'create' } } });
-      });
-      document.getElementById('close-form-btn').addEventListener('click', () => {
-        switchSection({ target: { dataset: { section: 'articles' } } });
-      });
-      document.getElementById('cancel-btn').addEventListener('click', () => {
-        switchSection({ target: { dataset: { section: 'articles' } } });
-      });
-      document.getElementById('article-form').addEventListener('submit', saveArticle);
-      document.getElementById('delete-btn').addEventListener('click', deleteArticle);
-      document.getElementById('search-articles').addEventListener('input', filterArticles);
-      document.getElementById('filter-category').addEventListener('change', filterArticles);
-      document.getElementById('article-title').addEventListener('input', (e) => {
-        const slug = e.target.value.toLowerCase().trim().replace(/[^\w\s-]/g, '').replace(/\s+/g, '-');
-        document.getElementById('article-slug').value = slug;
-      });
-    }
-
-    function switchSection(e) {
-      const section = e.target.dataset.section;
-      document.querySelectorAll('.admin-nav__item').forEach(item => {
-        item.classList.toggle('admin-nav__item--active', item.dataset.section === section);
-      });
-      document.querySelectorAll('.admin-section').forEach(sec => {
-        sec.classList.toggle('admin-section--active', sec.id === `${section}-section`);
-      });
+    function switchSection(sectionId) {
+      document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+      document.getElementById(sectionId).classList.add('active');
+      document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+      document.querySelector(`[data-section="${sectionId}"]`).classList.add('active');
     }
 
     async function loadArticles() {
       try {
-        const list = document.getElementById('articles-list');
-        list.innerHTML = '<p class="loading">Carregando artigos...</p>';
-
         const q = query(collection(db, 'articles'), orderBy('publishDate', 'desc'));
-        const snapshot = await getDocs(q);
-
+        const snap = await getDocs(q);
         allArticles = [];
-        if (snapshot.empty) {
-          list.innerHTML = '<p class="loading">Nenhum artigo criado ainda.</p>';
-          return;
-        }
+        const rows = [];
 
-        renderArticlesTable(snapshot);
-      } catch (error) {
-        console.error('Erro ao carregar:', error);
-        document.getElementById('articles-list').innerHTML = `<p class="error">Erro ao carregar artigos: ${error.message}</p>`;
-      }
-    }
-
-    function renderArticlesTable(snapshot) {
-      allArticles = [];
-      const html = `
-        <table class="articles-table">
-          <thead>
+        snap.forEach(d => {
+          const a = d.data();
+          allArticles.push({ id: d.id, ...a });
+          const date = new Date(a.publishDate).toLocaleDateString('pt-BR');
+          const img = a.image || 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="60" height="60"%3E%3Crect fill="%23ddd" width="60" height="60"/%3E%3C/svg%3E';
+          rows.push(`
             <tr>
-              <th style="width: 80px;">Imagem</th>
-              <th>Título</th>
-              <th style="width: 120px;">Categoria</th>
-              <th style="width: 120px;">Data</th>
-              <th style="width: 180px;">Ações</th>
+              <td><img src="${img}" alt="" class="article-thumb" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2260%22 height=%2260%22%3E%3Crect fill=%22%23ddd%22 width=%2260%22 height=%2260%22/%3E%3C/svg%3E'"></td>
+              <td class="article-title">${a.title}</td>
+              <td><span class="article-category">${a.category}</span></td>
+              <td>${date}</td>
+              <td>
+                <div class="article-actions">
+                  <button type="button" class="btn-small btn-edit" data-id="${d.id}">Editar</button>
+                  <button type="button" class="btn-small btn-delete" data-id="${d.id}">Deletar</button>
+                </div>
+              </td>
             </tr>
-          </thead>
-          <tbody id="articles-tbody">
-          </tbody>
-        </table>
-      `;
+          `);
+        });
 
-      document.getElementById('articles-list').innerHTML = html;
-      const tbody = document.getElementById('articles-tbody');
-
-      snapshot.forEach(docSnap => {
-        const article = docSnap.data();
-        allArticles.push({ id: docSnap.id, ...article });
-
-        const date = new Date(article.publishDate).toLocaleDateString('pt-BR');
-        const imageUrl = article.image || 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="60" height="60"%3E%3Crect fill="%23ddd" width="60" height="60"/%3E%3C/svg%3E';
-
-        const row = document.createElement('tr');
-        row.innerHTML = `
-          <td><img src="${imageUrl}" alt="" class="article-thumb" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2260%22 height=%2260%22%3E%3Crect fill=%22%23ddd%22 width=%2260%22 height=%2260%22/%3E%3C/svg%3E'"></td>
-          <td class="article-title-col">${article.title}</td>
-          <td><span class="article-category">${article.category}</span></td>
-          <td>${date}</td>
-          <td>
-            <div class="article-actions">
-              <button type="button" class="btn-edit" data-id="${docSnap.id}">Editar</button>
-              <button type="button" class="btn-delete" data-id="${docSnap.id}">Deletar</button>
-            </div>
-          </td>
+        const html = `
+          <table class="articles-table">
+            <thead><tr><th style="width:80px">Imagem</th><th>Título</th><th style="width:120px">Categoria</th><th style="width:120px">Data</th><th style="width:180px">Ações</th></tr></thead>
+            <tbody>${rows.join('')}</tbody>
+          </table>
         `;
+        document.getElementById('articles-container').innerHTML = html;
 
-        tbody.appendChild(row);
-
-        row.querySelector('.btn-edit').addEventListener('click', (e) => {
-          e.preventDefault();
-          editArticle(docSnap.id);
+        document.querySelectorAll('.btn-edit').forEach(btn => {
+          btn.addEventListener('click', () => editArticle(btn.dataset.id));
         });
-        row.querySelector('.btn-delete').addEventListener('click', (e) => {
-          e.preventDefault();
-          if (confirm('Deletar este artigo?')) removeArticle(docSnap.id);
+        document.querySelectorAll('.btn-delete').forEach(btn => {
+          btn.addEventListener('click', () => {
+            if (confirm('Deletar este artigo?')) deleteArticle(btn.dataset.id);
+          });
         });
-      });
-    }
-
-    async function editArticle(docId) {
-      try {
-        const docRef = doc(db, 'articles', docId);
-        const docSnap = await getDoc(docRef);
-
-        if (docSnap.exists()) {
-          const article = docSnap.data();
-          document.getElementById('form-title').textContent = 'Editar Artigo';
-          document.getElementById('article-title').value = article.title || '';
-          document.getElementById('article-slug').value = article.slug || '';
-          document.getElementById('article-subtitle').value = article.subtitle || '';
-          document.getElementById('article-category').value = article.category || '';
-          document.getElementById('article-image').value = article.image || '';
-          document.getElementById('article-content').value = article.content || '';
-
-          const dateStr = article.publishDate ? article.publishDate.split('T')[0] : '';
-          document.getElementById('article-date').value = dateStr;
-
-          document.getElementById('delete-btn').style.display = 'block';
-          currentEditingId = docId;
-          switchSection({ target: { dataset: { section: 'create' } } });
-          window.scrollTo(0, 0);
-        }
-      } catch (error) {
-        alert('Erro ao carregar artigo: ' + error.message);
-        console.error(error);
+      } catch (e) {
+        console.error(e);
+        document.getElementById('articles-container').innerHTML = '<p class="error">Erro ao carregar artigos</p>';
       }
     }
 
-    async function saveArticle(e) {
-      e.preventDefault();
+    async function editArticle(id) {
+      try {
+        const snap = await getDoc(doc(db, 'articles', id));
+        if (snap.exists()) {
+          const a = snap.data();
+          document.getElementById('form-title').textContent = 'Editar Artigo';
+          document.getElementById('title').value = a.title || '';
+          document.getElementById('slug').value = a.slug || '';
+          document.getElementById('subtitle').value = a.subtitle || '';
+          document.getElementById('form-category').value = a.category || '';
+          document.getElementById('date').value = a.publishDate ? a.publishDate.split('T')[0] : '';
+          document.getElementById('image').value = a.image || '';
+          document.getElementById('content').value = a.content || '';
+          document.getElementById('delete-btn').style.display = 'block';
+          editingId = id;
+          switchSection('create');
+        }
+      } catch (e) {
+        alert('Erro: ' + e.message);
+      }
+    }
 
-      const title = document.getElementById('article-title').value.trim();
-      const slug = document.getElementById('article-slug').value.trim();
-      const subtitle = document.getElementById('article-subtitle').value.trim();
-      const category = document.getElementById('article-category').value;
-      const date = document.getElementById('article-date').value;
-      const image = document.getElementById('article-image').value.trim();
-      const content = document.getElementById('article-content').value.trim();
+    document.getElementById('article-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const title = document.getElementById('title').value.trim();
+      const slug = document.getElementById('slug').value.trim();
+      const subtitle = document.getElementById('subtitle').value.trim();
+      const category = document.getElementById('form-category').value;
+      const date = document.getElementById('date').value;
+      const image = document.getElementById('image').value.trim();
+      const content = document.getElementById('content').value.trim();
 
       if (!title || !slug || !category || !date) {
-        alert('Preecha todos os campos obrigatórios');
+        alert('Preencha todos os campos obrigatórios');
         return;
       }
 
@@ -339,111 +269,114 @@
           updatedAt: new Date().toISOString()
         };
 
-        if (currentEditingId) {
-          await updateDoc(doc(db, 'articles', currentEditingId), data);
-          alert('Artigo atualizado com sucesso!');
+        if (editingId) {
+          await updateDoc(doc(db, 'articles', editingId), data);
+          alert('Artigo atualizado!');
         } else {
           data.createdAt = new Date().toISOString();
           await addDoc(collection(db, 'articles'), data);
-          alert('Artigo criado com sucesso!');
+          alert('Artigo criado!');
         }
-
         resetForm();
-        switchSection({ target: { dataset: { section: 'articles' } } });
         loadArticles();
-      } catch (error) {
-        alert('Erro ao salvar: ' + error.message);
-        console.error(error);
+        switchSection('articles');
+      } catch (e) {
+        alert('Erro: ' + e.message);
       }
-    }
+    });
 
-    async function deleteArticle() {
-      if (currentEditingId && confirm('Tem certeza que quer deletar este artigo?')) {
-        try {
-          await deleteDoc(doc(db, 'articles', currentEditingId));
-          alert('Artigo deletado!');
-          resetForm();
-          switchSection({ target: { dataset: { section: 'articles' } } });
-          loadArticles();
-        } catch (error) {
-          alert('Erro ao deletar: ' + error.message);
-          console.error(error);
-        }
-      }
-    }
-
-    async function removeArticle(id) {
+    async function deleteArticle(id) {
       try {
         await deleteDoc(doc(db, 'articles', id));
         loadArticles();
-      } catch (error) {
-        alert('Erro ao deletar: ' + error.message);
-        console.error(error);
+      } catch (e) {
+        alert('Erro: ' + e.message);
       }
-    }
-
-    function filterArticles() {
-      const search = document.getElementById('search-articles').value.toLowerCase();
-      const category = document.getElementById('filter-category').value;
-
-      const filtered = allArticles.filter(article => {
-        const matchesSearch = article.title.toLowerCase().includes(search);
-        const matchesCategory = !category || article.category === category;
-        return matchesSearch && matchesCategory;
-      });
-
-      const tbody = document.getElementById('articles-tbody');
-      if (!tbody) return;
-
-      if (filtered.length === 0) {
-        tbody.innerHTML = '<tr><td colspan="5" class="loading">Nenhum artigo encontrado.</td></tr>';
-        return;
-      }
-
-      tbody.innerHTML = '';
-      filtered.forEach(article => {
-        const date = new Date(article.publishDate).toLocaleDateString('pt-BR');
-        const imageUrl = article.image || 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="60" height="60"%3E%3Crect fill="%23ddd" width="60" height="60"/%3E%3C/svg%3E';
-
-        const row = document.createElement('tr');
-        row.innerHTML = `
-          <td><img src="${imageUrl}" alt="" class="article-thumb" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2260%22 height=%2260%22%3E%3Crect fill=%22%23ddd%22 width=%2260%22 height=%2260%22/%3E%3C/svg%3E'"></td>
-          <td class="article-title-col">${article.title}</td>
-          <td><span class="article-category">${article.category}</span></td>
-          <td>${date}</td>
-          <td>
-            <div class="article-actions">
-              <button type="button" class="btn-edit" data-id="${article.id}">Editar</button>
-              <button type="button" class="btn-delete" data-id="${article.id}">Deletar</button>
-            </div>
-          </td>
-        `;
-
-        tbody.appendChild(row);
-
-        row.querySelector('.btn-edit').addEventListener('click', (e) => {
-          e.preventDefault();
-          editArticle(article.id);
-        });
-        row.querySelector('.btn-delete').addEventListener('click', (e) => {
-          e.preventDefault();
-          if (confirm('Deletar este artigo?')) removeArticle(article.id);
-        });
-      });
     }
 
     function resetForm() {
       document.getElementById('article-form').reset();
       document.getElementById('form-title').textContent = 'Novo Artigo';
       document.getElementById('delete-btn').style.display = 'none';
-      currentEditingId = null;
-      setTodayDate();
+      editingId = null;
+      const today = new Date().toISOString().split('T')[0];
+      document.getElementById('date').value = today;
     }
 
-    function setTodayDate() {
-      const today = new Date().toISOString().split('T')[0];
-      document.getElementById('article-date').value = today;
+    function filterArticles() {
+      const search = document.getElementById('search').value.toLowerCase();
+      const cat = document.getElementById('category').value;
+      const filtered = allArticles.filter(a =>
+        a.title.toLowerCase().includes(search) && (!cat || a.category === cat)
+      );
+
+      const rows = [];
+      filtered.forEach(a => {
+        const date = new Date(a.publishDate).toLocaleDateString('pt-BR');
+        const img = a.image || 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="60" height="60"%3E%3Crect fill="%23ddd" width="60" height="60"/%3E%3C/svg%3E';
+        rows.push(`
+          <tr>
+            <td><img src="${img}" alt="" class="article-thumb" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2260%22 height=%2260%22%3E%3Crect fill=%22%23ddd%22 width=%2260%22 height=%2260%22/%3E%3C/svg%3E'"></td>
+            <td class="article-title">${a.title}</td>
+            <td><span class="article-category">${a.category}</span></td>
+            <td>${date}</td>
+            <td>
+              <div class="article-actions">
+                <button type="button" class="btn-small btn-edit" data-id="${a.id}">Editar</button>
+                <button type="button" class="btn-small btn-delete" data-id="${a.id}">Deletar</button>
+              </div>
+            </td>
+          </tr>
+        `);
+      });
+
+      const html = `
+        <table class="articles-table">
+          <thead><tr><th style="width:80px">Imagem</th><th>Título</th><th style="width:120px">Categoria</th><th style="width:120px">Data</th><th style="width:180px">Ações</th></tr></thead>
+          <tbody>${rows.join('')}</tbody>
+        </table>
+      `;
+      document.getElementById('articles-container').innerHTML = html;
+
+      document.querySelectorAll('.btn-edit').forEach(btn => {
+        btn.addEventListener('click', () => editArticle(btn.dataset.id));
+      });
+      document.querySelectorAll('.btn-delete').forEach(btn => {
+        btn.addEventListener('click', () => {
+          if (confirm('Deletar este artigo?')) deleteArticle(btn.dataset.id);
+        });
+      });
     }
+
+    document.querySelectorAll('.nav-btn').forEach(btn => {
+      btn.addEventListener('click', () => switchSection(btn.dataset.section));
+    });
+
+    document.getElementById('new-btn').addEventListener('click', () => {
+      resetForm();
+      switchSection('create');
+    });
+
+    document.getElementById('back-btn').addEventListener('click', () => switchSection('articles'));
+    document.getElementById('cancel-btn').addEventListener('click', () => switchSection('articles'));
+    document.getElementById('delete-btn').addEventListener('click', async () => {
+      if (editingId && confirm('Deletar este artigo?')) {
+        await deleteArticle(editingId);
+        resetForm();
+        switchSection('articles');
+      }
+    });
+
+    document.getElementById('title').addEventListener('input', (e) => {
+      const slug = e.target.value.toLowerCase().trim().replace(/[^\w\s-]/g, '').replace(/\s+/g, '-');
+      document.getElementById('slug').value = slug;
+    });
+
+    document.getElementById('search').addEventListener('input', filterArticles);
+    document.getElementById('category').addEventListener('change', filterArticles);
+
+    resetForm();
+    loadArticles();
   </script>
 </body>
 </html>
