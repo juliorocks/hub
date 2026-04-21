@@ -71,23 +71,32 @@
   <script>
     let db = null;
 
-    // Initialize Firebase
-    const firebaseConfig = {
-      apiKey: "AIzaSyCFir3vbG5Qak0K36dhznwXf77RiFN0g2I",
-      authDomain: "hub-do-estudante.firebaseapp.com",
-      projectId: "hub-do-estudante",
-      storageBucket: "hub-do-estudante.firebasestorage.app",
-      messagingSenderId: "836885204421",
-      appId: "1:836885204421:web:d4cda9045c8d81914a8fac"
-    };
+    // Initialize Firebase com delay
+    function initFirebase() {
+      if (typeof firebase === 'undefined') {
+        setTimeout(initFirebase, 100);
+        return;
+      }
 
-    try {
-      firebase.initializeApp(firebaseConfig);
-      db = firebase.firestore();
-      log('✅ Firebase inicializado com sucesso\n');
-    } catch (error) {
-      log('❌ Erro ao inicializar Firebase: ' + error.message);
+      const firebaseConfig = {
+        apiKey: "AIzaSyCFir3vbG5Qak0K36dhznwXf77RiFN0g2I",
+        authDomain: "hub-do-estudante.firebaseapp.com",
+        projectId: "hub-do-estudante",
+        storageBucket: "hub-do-estudante.firebasestorage.app",
+        messagingSenderId: "836885204421",
+        appId: "1:836885204421:web:d4cda9045c8d81914a8fac"
+      };
+
+      try {
+        firebase.initializeApp(firebaseConfig);
+        db = firebase.firestore();
+        log('✅ Firebase inicializado com sucesso\n');
+      } catch (error) {
+        log('❌ Erro ao inicializar Firebase: ' + error.message);
+      }
     }
+
+    initFirebase();
 
     function log(msg) {
       const status = document.getElementById('status');
