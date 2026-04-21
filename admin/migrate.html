@@ -67,46 +67,28 @@
 
   <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js"></script>
+  <script src="../assets/js/firebase-config.js"></script>
 
   <script>
     let db = null;
 
-    // Initialize Firebase com delay e retry
-    let retries = 0;
-    function initFirebase() {
-      retries++;
-
-      if (typeof firebase === 'undefined' || !firebase.apps) {
-        if (retries < 50) {
-          setTimeout(initFirebase, 200);
-        } else {
-          log('❌ Firebase não carregou após 10 segundos\n');
-        }
+    // Wait for firebase-config.js to initialize
+    function waitForFirebase() {
+      if (typeof firebase === 'undefined' || !firebase.apps || firebase.apps.length === 0) {
+        setTimeout(waitForFirebase, 100);
         return;
       }
 
-      const firebaseConfig = {
-        apiKey: "AIzaSyCFir3vbG5Qak0K36dhznwXf77RiFN0g2I",
-        authDomain: "hub-do-estudante.firebaseapp.com",
-        projectId: "hub-do-estudante",
-        storageBucket: "hub-do-estudante.firebasestorage.app",
-        messagingSenderId: "836885204421",
-        appId: "1:836885204421:web:d4cda9045c8d81914a8fac"
-      };
-
       try {
-        if (firebase.apps.length === 0) {
-          firebase.initializeApp(firebaseConfig);
-        }
         db = firebase.firestore();
         log('✅ Firebase inicializado com sucesso\n');
       } catch (error) {
-        log('❌ Erro ao inicializar Firebase: ' + error.message + '\n');
+        log('❌ Erro: ' + error.message + '\n');
       }
     }
 
-    // Inicia após 1 segundo
-    setTimeout(initFirebase, 1000);
+    // Aguarda Firebase estar pronto
+    setTimeout(waitForFirebase, 500);
 
     function log(msg) {
       const status = document.getElementById('status');
