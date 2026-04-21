@@ -71,10 +71,17 @@
   <script>
     let db = null;
 
-    // Initialize Firebase com delay
+    // Initialize Firebase com delay e retry
+    let retries = 0;
     function initFirebase() {
-      if (typeof firebase === 'undefined') {
-        setTimeout(initFirebase, 100);
+      retries++;
+
+      if (typeof firebase === 'undefined' || !firebase.apps) {
+        if (retries < 50) {
+          setTimeout(initFirebase, 200);
+        } else {
+          log('❌ Firebase não carregou após 10 segundos\n');
+        }
         return;
       }
 
@@ -88,15 +95,18 @@
       };
 
       try {
-        firebase.initializeApp(firebaseConfig);
+        if (firebase.apps.length === 0) {
+          firebase.initializeApp(firebaseConfig);
+        }
         db = firebase.firestore();
         log('✅ Firebase inicializado com sucesso\n');
       } catch (error) {
-        log('❌ Erro ao inicializar Firebase: ' + error.message);
+        log('❌ Erro ao inicializar Firebase: ' + error.message + '\n');
       }
     }
 
-    initFirebase();
+    // Inicia após 1 segundo
+    setTimeout(initFirebase, 1000);
 
     function log(msg) {
       const status = document.getElementById('status');
