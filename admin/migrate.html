@@ -157,7 +157,13 @@
             updatedAt: new Date().toISOString()
           };
 
-          await addDoc(collection(db, 'articles'), data);
+          // Timeout de 5 segundos para cada save
+          const savePromise = addDoc(collection(db, 'articles'), data);
+          const timeoutPromise = new Promise((_, reject) =>
+            setTimeout(() => reject(new Error('Timeout')), 5000)
+          );
+
+          await Promise.race([savePromise, timeoutPromise]);
           log(`  ✅ Salvo\n`);
           success++;
         } catch (error) {
@@ -165,7 +171,7 @@
           failed++;
         }
 
-        await new Promise(r => setTimeout(r, 500));
+        await new Promise(r => setTimeout(r, 300));
       }
 
       log('\n' + '='.repeat(40));
