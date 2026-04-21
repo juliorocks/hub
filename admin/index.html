@@ -4,33 +4,363 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Admin - Hub do Estudante</title>
-  <link rel="stylesheet" href="../assets/css/base.css">
   <link rel="stylesheet" href="assets/admin.css">
   <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/tinymce@6/tinymce.min.js"></script>
   <link rel="icon" type="image/svg+xml" href="../assets/img/favicon.svg">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+      background: #f5f5f5;
+      color: #333;
+    }
+
+    .admin-layout {
+      display: grid;
+      grid-template-columns: 250px 1fr;
+      min-height: 100vh;
+    }
+
+    .admin-sidebar {
+      background: #1a1a1a;
+      color: white;
+      padding: 2rem 1rem;
+      position: fixed;
+      width: 250px;
+      height: 100vh;
+      overflow-y: auto;
+      border-right: 1px solid #333;
+    }
+
+    .admin-logo h2 {
+      margin-bottom: 2rem;
+      font-size: 1.5rem;
+      color: #38bdf8;
+    }
+
+    .admin-nav {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .admin-nav__item {
+      background: transparent;
+      border: none;
+      color: #ccc;
+      padding: 0.75rem 1rem;
+      text-align: left;
+      cursor: pointer;
+      border-radius: 4px;
+      transition: all 0.2s;
+      font-size: 0.95rem;
+    }
+
+    .admin-nav__item:hover {
+      background: #333;
+      color: white;
+    }
+
+    .admin-nav__item--active {
+      background: #38bdf8;
+      color: white;
+      font-weight: 600;
+    }
+
+    .admin-main {
+      margin-left: 250px;
+      padding: 2rem;
+    }
+
+    .admin-section {
+      background: white;
+      border-radius: 8px;
+      padding: 2rem;
+      display: none;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    }
+
+    .admin-section--active {
+      display: block;
+    }
+
+    .admin-section__header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 2rem;
+      border-bottom: 1px solid #eee;
+      padding-bottom: 1rem;
+    }
+
+    .admin-section__header h1 {
+      margin: 0;
+      font-size: 1.75rem;
+    }
+
+    .admin-filters {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    .admin-filters input,
+    .admin-filters select {
+      flex: 1;
+      max-width: 300px;
+      padding: 0.75rem;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      font-size: 0.95rem;
+    }
+
+    .articles-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .article-card {
+      background: #f9f9f9;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      padding: 1.5rem;
+      transition: all 0.3s;
+    }
+
+    .article-card:hover {
+      border-color: #38bdf8;
+      box-shadow: 0 4px 12px rgba(56, 189, 248, 0.1);
+    }
+
+    .article-card__title {
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      color: #1a1a1a;
+    }
+
+    .article-card__meta {
+      display: flex;
+      gap: 0.5rem;
+      font-size: 0.85rem;
+      color: #888;
+      margin-bottom: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .article-card__category {
+      background: #e0e0e0;
+      padding: 0.25rem 0.75rem;
+      border-radius: 12px;
+    }
+
+    .article-card__excerpt {
+      font-size: 0.9rem;
+      color: #555;
+      margin-bottom: 1rem;
+      line-height: 1.4;
+    }
+
+    .article-card__actions {
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    .article-card__edit,
+    .article-card__delete {
+      flex: 1;
+      padding: 0.5rem 1rem;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 0.85rem;
+      font-weight: 600;
+      transition: all 0.2s;
+    }
+
+    .article-card__edit {
+      background: #38bdf8;
+      color: white;
+    }
+
+    .article-card__edit:hover {
+      background: #0284c7;
+    }
+
+    .article-card__delete {
+      background: #f87171;
+      color: white;
+    }
+
+    .article-card__delete:hover {
+      background: #dc2626;
+    }
+
+    .article-form {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .form-group label {
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      color: #333;
+    }
+
+    .form-group small {
+      font-size: 0.85rem;
+      color: #888;
+      margin-top: 0.25rem;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+    }
+
+    .admin-input,
+    textarea {
+      padding: 0.75rem;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      font-family: inherit;
+      font-size: 0.95rem;
+      transition: border-color 0.2s;
+    }
+
+    .admin-input:focus,
+    textarea:focus {
+      outline: none;
+      border-color: #38bdf8;
+      box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.1);
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 100px;
+    }
+
+    .btn {
+      padding: 0.75rem 1.5rem;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 0.95rem;
+      font-weight: 600;
+      transition: all 0.2s;
+    }
+
+    .btn--primary {
+      background: #38bdf8;
+      color: white;
+    }
+
+    .btn--primary:hover {
+      background: #0284c7;
+    }
+
+    .btn--secondary {
+      background: #e5e7eb;
+      color: #333;
+    }
+
+    .btn--secondary:hover {
+      background: #d1d5db;
+    }
+
+    .btn--danger {
+      background: #f87171;
+      color: white;
+    }
+
+    .btn--danger:hover {
+      background: #dc2626;
+    }
+
+    .form-actions {
+      display: flex;
+      gap: 1rem;
+      margin-top: 2rem;
+      padding-top: 1rem;
+      border-top: 1px solid #eee;
+    }
+
+    .form-actions button {
+      flex: 1;
+    }
+
+    .loading {
+      text-align: center;
+      color: #999;
+      padding: 2rem;
+    }
+
+    @media (max-width: 768px) {
+      .admin-layout {
+        grid-template-columns: 1fr;
+      }
+
+      .admin-sidebar {
+        width: 100%;
+        height: auto;
+        position: relative;
+        border-right: none;
+        border-bottom: 1px solid #333;
+        padding: 1rem;
+      }
+
+      .admin-nav {
+        flex-direction: row;
+      }
+
+      .admin-main {
+        margin-left: 0;
+        padding: 1rem;
+      }
+
+      .form-row {
+        grid-template-columns: 1fr;
+      }
+
+      .articles-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
 </head>
-<body class="admin-page">
+<body>
   <div class="admin-layout">
-    <!-- Sidebar -->
     <aside class="admin-sidebar">
       <div class="admin-logo">
         <h2>Hub Admin</h2>
       </div>
       <nav class="admin-nav">
         <button class="admin-nav__item admin-nav__item--active" data-section="articles">
-          <span>📄 Artigos</span>
+          📄 Artigos
         </button>
         <button class="admin-nav__item" data-section="create">
-          <span>➕ Novo Artigo</span>
+          ➕ Novo Artigo
         </button>
       </nav>
     </aside>
 
-    <!-- Main Content -->
     <main class="admin-main">
-      <!-- Articles List Section -->
+      <!-- Articles List -->
       <section id="articles-section" class="admin-section admin-section--active">
         <div class="admin-section__header">
           <h1>Gerenciar Artigos</h1>
@@ -38,8 +368,8 @@
         </div>
 
         <div class="admin-filters">
-          <input type="search" id="search-articles" class="admin-input" placeholder="Buscar por título...">
-          <select id="filter-category" class="admin-input">
+          <input type="search" id="search-articles" placeholder="Buscar por título...">
+          <select id="filter-category">
             <option value="">Todas as categorias</option>
             <option value="guias">Guias</option>
             <option value="enem-2026">ENEM 2026</option>
@@ -57,7 +387,7 @@
         </div>
       </section>
 
-      <!-- Create/Edit Article Section -->
+      <!-- Create/Edit Article -->
       <section id="create-section" class="admin-section">
         <div class="admin-section__header">
           <h1 id="form-title">Novo Artigo</h1>
@@ -65,7 +395,6 @@
         </div>
 
         <form id="article-form" class="article-form">
-          <!-- Metadata -->
           <div class="form-group">
             <label for="article-title">Título</label>
             <input type="text" id="article-title" class="admin-input" required placeholder="Ex: EAD vale a pena?">
@@ -140,8 +469,7 @@
 
           <div class="form-group">
             <label for="article-content">Conteúdo Principal</label>
-            <textarea id="article-content" class="admin-input" rows="15" placeholder="Conteúdo do artigo em HTML ou texto" required></textarea>
-            <small>Você pode usar HTML ou Markdown</small>
+            <textarea id="article-content" class="admin-input" rows="15" placeholder="Conteúdo do artigo em HTML"></textarea>
           </div>
 
           <div class="form-row">

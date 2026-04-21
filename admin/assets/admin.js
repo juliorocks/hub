@@ -41,10 +41,9 @@ function initializeTinyMCE() {
   tinymce.init({
     selector: '#article-content',
     height: 400,
-    menubar: true,
-    plugins: 'advlist autolink lists link image charmap print preview hr anchor searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking save table directionality emoticons template paste help',
-    toolbar: 'undo redo | formatselect | bold italic underline strikethrough | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat | help | forecolor backcolor | link image',
-    content_css: '../assets/css/article.css'
+    menubar: false,
+    plugins: 'lists link',
+    toolbar: 'undo redo | formatselect | bold italic underline | bullist numlist | link'
   });
 }
 
