@@ -225,7 +225,6 @@
         const snap = await getDoc(doc(db, 'articles', id));
         if (snap.exists()) {
           const a = snap.data();
-          console.log('Carregando artigo:', a);
           document.getElementById('form-title').textContent = 'Editar Artigo';
           document.getElementById('title').value = a.title || '';
           document.getElementById('slug').value = a.slug || '';
@@ -237,10 +236,8 @@
           document.getElementById('delete-btn').style.display = 'block';
           editingId = id;
           switchSection('create');
-          console.log('Formulário preenchido com:', { title: document.getElementById('title').value, image: document.getElementById('image').value });
         }
       } catch (e) {
-        console.error('Erro:', e);
         alert('Erro: ' + e.message);
       }
     }
