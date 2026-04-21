@@ -232,7 +232,9 @@
           document.getElementById('form-category').value = a.category || '';
           document.getElementById('date').value = a.publishDate ? a.publishDate.split('T')[0] : '';
           document.getElementById('image').value = a.image || '';
-          document.getElementById('content').value = a.content || '';
+          const contentVal = a.content || '';
+          document.getElementById('content').value = contentVal;
+          console.log('Loaded article:', { title: a.title, contentLength: contentVal.length, imageLength: (a.image || '').length });
           document.getElementById('delete-btn').style.display = 'block';
           editingId = id;
           switchSection('create');
