@@ -51,7 +51,14 @@
     .form-group input, .form-group select, .form-group textarea { padding: 0.75rem; border: 1px solid #ddd; border-radius: 4px; font-family: inherit; }
     .form-group input:focus, .form-group select:focus, .form-group textarea:focus { outline: none; border-color: #38bdf8; box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.1); }
     .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
-    textarea { resize: vertical; min-height: 120px; }
+    textarea { resize: vertical; min-height: 120px; font-family: 'Monaco', 'Courier New', monospace; font-size: 12px; }
+    .editor-tabs { display: flex; gap: 0.5rem; margin-bottom: 0.5rem; border-bottom: 1px solid #ddd; }
+    .editor-tab { padding: 0.5rem 1rem; background: transparent; border: none; cursor: pointer; border-bottom: 2px solid transparent; color: #999; font-weight: 600; }
+    .editor-tab.active { border-bottom-color: #38bdf8; color: #38bdf8; }
+    .editor-preview { border: 1px solid #ddd; border-radius: 4px; padding: 1rem; max-height: 400px; overflow-y: auto; background: white; }
+    .editor-preview h1, .editor-preview h2, .editor-preview h3 { margin: 1rem 0 0.5rem 0; }
+    .editor-preview p { margin: 0.5rem 0; line-height: 1.6; }
+    .editor-preview li { margin-left: 1.5rem; }
     .form-actions { display: flex; gap: 1rem; margin-top: 2rem; padding-top: 1rem; border-top: 1px solid #eee; }
     .form-actions button { flex: 1; }
     .loading { text-align: center; color: #999; padding: 2rem; }
@@ -132,7 +139,12 @@
           </div>
           <div class="form-group">
             <label>Conteúdo</label>
-            <textarea id="content"></textarea>
+            <div class="editor-tabs">
+              <button type="button" class="editor-tab active" data-tab="edit">Editar</button>
+              <button type="button" class="editor-tab" data-tab="preview">Preview</button>
+            </div>
+            <textarea id="content" style="display:block;"></textarea>
+            <div id="preview-pane" class="editor-preview" style="display:none;"></div>
           </div>
           <div class="form-actions">
             <button type="submit" class="btn btn-primary">Salvar</button>
@@ -376,6 +388,29 @@
 
     document.getElementById('search').addEventListener('input', filterArticles);
     document.getElementById('category').addEventListener('change', filterArticles);
+
+    document.querySelectorAll('.editor-tab').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const tab = btn.dataset.tab;
+        document.querySelectorAll('.editor-tab').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+
+        if (tab === 'preview') {
+          document.getElementById('content').style.display = 'none';
+          document.getElementById('preview-pane').style.display = 'block';
+          document.getElementById('preview-pane').innerHTML = document.getElementById('content').value;
+        } else {
+          document.getElementById('content').style.display = 'block';
+          document.getElementById('preview-pane').style.display = 'none';
+        }
+      });
+    });
+
+    document.getElementById('content').addEventListener('input', () => {
+      if (document.querySelector('.editor-tab[data-tab="preview"].active')) {
+        document.getElementById('preview-pane').innerHTML = document.getElementById('content').value;
+      }
+    });
 
     resetForm();
     loadArticles();
