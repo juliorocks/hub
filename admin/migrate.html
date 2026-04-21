@@ -3,19 +3,75 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Migrar Artigos - Admin Hub do Estudante</title>
+  <title>Migrar Artigos - Admin</title>
   <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #f5f5f5; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: #f5f5f5;
+      margin: 0;
+      padding: 0;
+    }
+    #app {
+      max-width: 800px;
+      margin: 2rem auto;
+      padding: 2rem;
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    }
+    h1 { margin-top: 0; }
+    button {
+      padding: 0.75rem 1.5rem;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 1rem;
+      font-weight: 600;
+      margin-right: 1rem;
+      margin-top: 1rem;
+    }
+    #test-parse {
+      background: #888;
+      color: white;
+    }
+    #start-migration {
+      background: #38bdf8;
+      color: white;
+    }
+    button:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+    #status {
+      margin: 2rem 0;
+      padding: 1rem;
+      background: #f0f0f0;
+      border-radius: 4px;
+      font-family: monospace;
+      font-size: 0.9rem;
+      white-space: pre-wrap;
+      overflow-y: auto;
+      max-height: 400px;
+      border: 1px solid #ddd;
+    }
   </style>
-  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js"></script>
 </head>
 <body>
-  <div id="app"></div>
+  <div id="app">
+    <h1>🔄 Migrar Artigos para Firestore</h1>
+    <p>Importando artigos HTML existentes para o banco de dados Firebase.</p>
+    <div id="status">Inicializando Firebase...</div>
+    <button id="test-parse">Testar Parse</button>
+    <button id="start-migration">Iniciar Migração</button>
+  </div>
+
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js"></script>
 
   <script>
-    // Firebase config
+    let db = null;
+
+    // Initialize Firebase
     const firebaseConfig = {
       apiKey: "AIzaSyCFir3vbG5Qak0K36dhznwXf77RiFN0g2I",
       authDomain: "hub-do-estudante.firebaseapp.com",
@@ -25,41 +81,22 @@
       appId: "1:836885204421:web:d4cda9045c8d81914a8fac"
     };
 
-    firebase.initializeApp(firebaseConfig);
-    const db = firebase.firestore();
-
-    // Show UI
-    function showUI() {
-      document.getElementById('app').innerHTML = `
-        <div style="max-width: 800px; margin: 2rem auto; font-family: sans-serif; padding: 2rem; background: white; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.1);">
-          <h1>🔄 Migrar Artigos para Firestore</h1>
-          <p>Este script importará os artigos HTML existentes para o banco de dados Firebase.</p>
-
-          <div id="status" style="margin: 2rem 0; padding: 1rem; background: #f0f0f0; border-radius: 4px; min-height: 100px; font-family: monospace; font-size: 0.9rem; white-space: pre-wrap; overflow-y: auto; max-height: 300px;"></div>
-
-          <button id="test-parse" style="padding: 0.75rem 1.5rem; background: #888; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 1rem; font-weight: 600; margin-right: 1rem;">
-            Testar Parse
-          </button>
-
-          <button id="start-migration" style="padding: 0.75rem 1.5rem; background: #38bdf8; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 1rem; font-weight: 600;">
-            Iniciar Migração
-          </button>
-        </div>
-      `;
-
-      document.getElementById('test-parse').addEventListener('click', testParse);
-      document.getElementById('start-migration').addEventListener('click', startMigration);
+    try {
+      firebase.initializeApp(firebaseConfig);
+      db = firebase.firestore();
+      log('✅ Firebase inicializado com sucesso\n');
+    } catch (error) {
+      log('❌ Erro ao inicializar Firebase: ' + error.message);
     }
 
-    function log(message) {
+    function log(msg) {
       const status = document.getElementById('status');
-      status.textContent += message + '\n';
+      status.textContent += msg + '\n';
       status.scrollTop = status.scrollHeight;
     }
 
     async function testParse() {
-      log('📋 Testando extração de dados dos artigos...\n');
-
+      log('\n📋 Testando...\n');
       const testArticles = [
         { path: '../pages/guias/ead-vale-a-pena.html', category: 'guias', slug: 'ead-vale-a-pena' },
         { path: '../pages/guias/ia-nao-vai-substituir.html', category: 'guias', slug: 'ia-nao-vai-substituir' }
@@ -68,30 +105,26 @@
       for (const article of testArticles) {
         try {
           const response = await fetch(article.path);
-          if (!response.ok) {
-            log(`❌ Não encontrado: ${article.path}`);
-            continue;
-          }
-
           const html = await response.text();
-          const data = parseArticleHTML(html, article.category, article.slug);
-
-          log(`✅ ${article.slug}`);
-          log(`   Título: ${data.title}`);
-          log(`   Categoria: ${data.category}`);
-          log(`   Data: ${data.publishDate}`);
-          log('');
-        } catch (error) {
-          log(`❌ Erro ao processar ${article.path}: ${error.message}`);
+          const titleMatch = html.match(/<h1[^>]*class="article-hero__title"[^>]*>(.*?)<\/h1>/s);
+          const title = titleMatch ? titleMatch[1].trim() : 'N/A';
+          log(`✅ ${article.slug}\n   Título: ${title}`);
+        } catch (e) {
+          log(`❌ ${article.slug}: ${e.message}`);
         }
       }
     }
 
     async function startMigration() {
-      log('🚀 Iniciando migração de artigos...\n');
-      document.getElementById('start-migration').disabled = true;
+      if (!db) {
+        log('❌ Firebase não está pronto');
+        return;
+      }
 
-      const articlesToMigrate = [
+      document.getElementById('start-migration').disabled = true;
+      log('\n🚀 Iniciando migração...\n');
+
+      const articles = [
         { path: '../pages/guias/ead-vale-a-pena.html', category: 'guias', slug: 'ead-vale-a-pena' },
         { path: '../pages/guias/ia-nao-vai-substituir.html', category: 'guias', slug: 'ia-nao-vai-substituir' },
         { path: '../pages/guias/profissoes-do-futuro-2026.html', category: 'guias', slug: 'profissoes-do-futuro-2026' },
@@ -110,95 +143,53 @@
 
       let success = 0, failed = 0;
 
-      for (const article of articlesToMigrate) {
+      for (const article of articles) {
         try {
           const response = await fetch(article.path);
-          if (!response.ok) {
-            log(`⏭️  Pulando (não encontrado): ${article.slug}`);
-            failed++;
-            continue;
-          }
+          if (!response.ok) throw new Error('404');
 
           const html = await response.text();
-          const data = parseArticleHTML(html, article.category, article.slug);
+
+          // Parse data
+          const titleMatch = html.match(/<h1[^>]*class="article-hero__title"[^>]*>(.*?)<\/h1>/s);
+          const title = titleMatch ? titleMatch[1].trim() : 'Sem título';
+          const subtitleMatch = html.match(/<p[^>]*class="article-hero__subtitle"[^>]*>(.*?)<\/p>/s);
+          const subtitle = subtitleMatch ? subtitleMatch[1].trim() : '';
+          const dateMatch = html.match(/<time[^>]*datetime="([^"]*)"[^>]*>/);
+          const publishDate = dateMatch ? dateMatch[1] : new Date().toISOString();
+
+          const data = {
+            title, subtitle, publishDate,
+            slug: article.slug,
+            category: article.category,
+            badge: '', badgeType: 'guide',
+            image: '', imageAlt: '', imageCaption: '',
+            quickAnswer: '', content: '',
+            readTime: 10, author: 'Redação Hub do Estudante',
+            createdAt: new Date().toISOString(),
+            updatedAt: new Date().toISOString()
+          };
 
           await db.collection('articles').add(data);
-          log(`✅ Migrado: ${article.slug}`);
+          log(`✅ ${article.slug}`);
           success++;
         } catch (error) {
-          log(`❌ Erro: ${article.slug} - ${error.message}`);
+          log(`❌ ${article.slug}`);
           failed++;
         }
 
-        await new Promise(resolve => setTimeout(resolve, 500));
+        await new Promise(r => setTimeout(r, 300));
       }
 
-      log('\n' + '='.repeat(50));
-      log(`✅ Concluído: ${success} artigos salvos`);
+      log('\n' + '='.repeat(40));
+      log(`✅ Sucesso: ${success}`);
       log(`❌ Falhados: ${failed}`);
-      log('='.repeat(50));
-      log('\n💡 Você pode voltar ao painel de admin agora!');
+      log('='.repeat(40));
       document.getElementById('start-migration').disabled = false;
     }
 
-    function parseArticleHTML(html, category, slug) {
-      const titleMatch = html.match(/<h1[^>]*class="article-hero__title"[^>]*>(.*?)<\/h1>/s);
-      const title = titleMatch ? titleMatch[1].trim() : 'Artigo Sem Título';
-
-      const subtitleMatch = html.match(/<p[^>]*class="article-hero__subtitle"[^>]*>(.*?)<\/p>/s);
-      const subtitle = subtitleMatch ? subtitleMatch[1].trim() : '';
-
-      const dateMatch = html.match(/<time[^>]*datetime="([^"]*)"[^>]*>/);
-      const publishDate = dateMatch ? dateMatch[1] : new Date().toISOString().split('T')[0];
-
-      const badgeMatch = html.match(/<span[^>]*class="content-type-badge[^"]*"[^>]*>(.*?)<\/span>/);
-      const badge = badgeMatch ? badgeMatch[1].trim() : '';
-
-      let badgeType = 'guide';
-      const badgeClassMatch = html.match(/<span[^>]*class="content-type-badge([^"]*)"[^>]*>/);
-      if (badgeClassMatch) {
-        if (badgeClassMatch[1].includes('enem')) badgeType = 'enem';
-        else if (badgeClassMatch[1].includes('finance')) badgeType = 'finance';
-        else if (badgeClassMatch[1].includes('job')) badgeType = 'job';
-      }
-
-      const readTimeMatch = html.match(/(\d+)\s*min\s+de\s+leitura/);
-      const readTime = readTimeMatch ? parseInt(readTimeMatch[1]) : 10;
-
-      const imageMatch = html.match(/<img[^>]*src="([^"]*unsplash[^"]*)"[^>]*alt="([^"]*)"[^>]*>/);
-      const image = imageMatch ? imageMatch[1] : '';
-      const imageAlt = imageMatch ? imageMatch[2] : '';
-
-      const captionMatch = html.match(/<figcaption>(.*?)<\/figcaption>/s);
-      const imageCaption = captionMatch ? captionMatch[1].trim() : '';
-
-      const quickAnswerMatch = html.match(/<p[^>]*class="quick-answer__text"[^>]*>(.*?)<\/p>/s);
-      const quickAnswer = quickAnswerMatch ? quickAnswerMatch[1].trim() : '';
-
-      const contentMatch = html.match(/<div[^>]*class="article-content"[^>]*id="article-content"[^>]*>(.*?)<\/div>\s*<\/article>/s);
-      const content = contentMatch ? contentMatch[1].trim() : '';
-
-      const authorMatch = html.match(/<strong>([^<]*Redação[^<]*)<\/strong>/);
-      const author = authorMatch ? authorMatch[1].trim() : 'Redação Hub do Estudante';
-
-      return {
-        title, slug, category, badge, badgeType, subtitle, image, imageAlt, imageCaption,
-        quickAnswer, content, readTime,
-        publishDate: publishDate + 'T00:00:00Z',
-        author,
-        createdAt: new Date().toISOString(),
-        updatedAt: new Date().toISOString()
-      };
-    }
-
-    // Wait for Firebase to be ready, then show UI
-    setTimeout(() => {
-      if (typeof firebase !== 'undefined' && firebase.apps.length > 0) {
-        showUI();
-      } else {
-        console.error('Firebase ainda não está pronto');
-      }
-    }, 1000);
+    document.getElementById('test-parse').onclick = testParse;
+    document.getElementById('start-migration').onclick = startMigration;
   </script>
 </body>
 </html>
