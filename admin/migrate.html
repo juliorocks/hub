@@ -112,7 +112,13 @@
 
     async function startMigration() {
       document.getElementById('start-migration').disabled = true;
-      log('\n🚀 Iniciando migração...\n');
+      document.getElementById('test-parse').disabled = true;
+
+      const status = document.getElementById('status');
+      status.textContent = '';
+      log('🚀 Iniciando migração...\n');
+      log(`Total de artigos: 14\n`);
+      log('Aguarde...\n');
 
       const articles = [
         { path: '../pages/guias/ead-vale-a-pena.html', category: 'guias', slug: 'ead-vale-a-pena' },
@@ -133,7 +139,10 @@
 
       let success = 0, failed = 0;
 
-      for (const article of articles) {
+      for (let i = 0; i < articles.length; i++) {
+        const article = articles[i];
+        log(`\n[${i+1}/${articles.length}] Processando ${article.slug}...`);
+
         try {
           const response = await fetch(article.path);
           if (!response.ok) throw new Error('404');
@@ -159,14 +168,15 @@
           };
 
           await addDoc(collection(db, 'articles'), data);
-          log(`✅ ${article.slug}`);
+          log(`✅ Salvo com sucesso!`);
           success++;
         } catch (error) {
-          log(`❌ ${article.slug}`);
+          log(`❌ Erro: ${error.message}`);
           failed++;
         }
 
-        await new Promise(r => setTimeout(r, 300));
+        // Delay entre requisições
+        await new Promise(r => setTimeout(r, 800));
       }
 
       log('\n' + '='.repeat(40));
