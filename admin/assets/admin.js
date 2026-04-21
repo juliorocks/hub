@@ -15,7 +15,20 @@ const CATEGORIES = {
 // Initialize Firebase
 document.addEventListener('DOMContentLoaded', async () => {
   try {
-    // Wait for Firebase to be initialized
+    // Initialize Firebase se ainda não foi feito
+    if (typeof firebase !== 'undefined' && firebase.apps.length === 0) {
+      const firebaseConfig = {
+        apiKey: "AIzaSyCFir3vbG5Qak0K36dhznwXf77RiFN0g2I",
+        authDomain: "hub-do-estudante.firebaseapp.com",
+        projectId: "hub-do-estudante",
+        storageBucket: "hub-do-estudante.firebasestorage.app",
+        messagingSenderId: "836885204421",
+        appId: "1:836885204421:web:d4cda9045c8d81914a8fac"
+      };
+      firebase.initializeApp(firebaseConfig);
+    }
+
+    // Wait for Firebase to be ready
     await new Promise(resolve => {
       const checkFirebase = setInterval(() => {
         if (typeof firebase !== 'undefined' && firebase.apps.length > 0) {
