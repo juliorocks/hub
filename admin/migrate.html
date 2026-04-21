@@ -10,9 +10,23 @@
   </style>
   <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js"></script>
-  <script src="../assets/js/firebase-config.js"></script>
-  <script src="assets/migrate-articles.js"></script>
 </head>
 <body>
+  <div id="app"></div>
+
+  <script>
+    // Firebase config inline
+    const firebaseConfig = {
+      apiKey: "AIzaSyCFir3vbG5Qak0K36dhznwXf77RiFN0g2I",
+      authDomain: "hub-do-estudante.firebaseapp.com",
+      projectId: "hub-do-estudante",
+      storageBucket: "hub-do-estudante.firebasestorage.app",
+      messagingSenderId: "836885204421",
+      appId: "1:836885204421:web:d4cda9045c8d81914a8fac"
+    };
+
+    firebase.initializeApp(firebaseConfig);
+  </script>
+  <script src="assets/migrate-articles.js"></script>
 </body>
 </html>
