@@ -68,4 +68,11 @@
   <!-- GUIAS -->
   <url><loc>https://hubdoestudante.com.br/pages/guias/</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
 
+  <url><loc>https://hubdoestudante.com.br/pages/guias/como-pagar-faculdade.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://hubdoestudante.com.br/pages/guias/salario-por-formacao.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://hubdoestudante.com.br/pages/guias/como-estudar-para-concurso.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://hubdoestudante.com.br/pages/guias/trabalhar-e-estudar-ao-mesmo-tempo.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://hubdoestudante.com.br/pages/guias/linkedin-para-estudantes.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://hubdoestudante.com.br/pages/guias/tecnico-ou-faculdade.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://hubdoestudante.com.br/pages/guias/renda-extra-para-estudantes.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
 </urlset>
