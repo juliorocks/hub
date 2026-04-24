@@ -12,6 +12,7 @@ const firebaseConfig = {
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
 const db = firebase.firestore();
+const realtimeDb = firebase.database();
 
 // Handle Newsletter Signup
 document.addEventListener('DOMContentLoaded', function() {

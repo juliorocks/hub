@@ -242,7 +242,11 @@ function generate(courses) {
       fs.mkdirSync(dirPath, { recursive: true });
     }
 
-    fs.writeFileSync(filePath, buildPage(course));
+    fs.writeFileSync(filePath, buildPage({
+      ...course,
+      courseSlug: course.slug,
+      courseName: course.title
+    }));
     console.log(`✓ ${course.type}/${course.slug}`);
   });
 }
