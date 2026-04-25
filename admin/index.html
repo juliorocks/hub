@@ -166,6 +166,7 @@
                 <option value="">Selecionar...</option>
                 <option value="guias">Guias</option>
                 <option value="enem-2026">ENEM 2026</option>
+                <option value="carreiras/salarios">Carreiras / Salários</option>
               </select>
             </div>
             <div class="form-group">
@@ -178,8 +179,41 @@
             <input type="text" id="subtitle">
           </div>
           <div class="form-group">
-            <label>URL da Imagem</label>
-            <input type="text" id="image">
+            <label>Meta Description (SEO) — máx. 160 caracteres</label>
+            <input type="text" id="meta-description" maxlength="160" placeholder="Resumo para Google e redes sociais">
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>URL da Imagem</label>
+              <input type="text" id="image" placeholder="https://images.unsplash.com/...">
+            </div>
+            <div class="form-group">
+              <label>Tempo de leitura</label>
+              <input type="text" id="read-time" placeholder="7 min de leitura">
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Badge tipo</label>
+              <select id="badge-type">
+                <option value="guide">guide</option>
+                <option value="salary">salary</option>
+                <option value="career">career</option>
+                <option value="enem">enem</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Badge label</label>
+              <input type="text" id="badge-label" placeholder="ex: Graduação">
+            </div>
+            <div class="form-group">
+              <label>Badge tag (opcional)</label>
+              <input type="text" id="badge-tag" placeholder="ex: Finanças">
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Resposta rápida (opcional)</label>
+            <textarea id="quick-answer" style="min-height:80px" placeholder="Resumo em 2-3 linhas para o box 'Resposta rápida'..."></textarea>
           </div>
           <div class="form-group">
             <label>Conteúdo</label>
@@ -288,12 +322,16 @@
           document.getElementById('title').value = a.title || '';
           document.getElementById('slug').value = a.slug || '';
           document.getElementById('subtitle').value = a.subtitle || '';
+          document.getElementById('meta-description').value = a.metaDescription || '';
           document.getElementById('form-category').value = a.category || '';
           document.getElementById('date').value = a.publishDate ? a.publishDate.split('T')[0] : '';
           document.getElementById('image').value = a.image || '';
-          const contentVal = a.content || '';
-          document.getElementById('content').value = contentVal;
-          console.log('Loaded article:', { title: a.title, contentLength: contentVal.length, imageLength: (a.image || '').length });
+          document.getElementById('read-time').value = a.readTime || '';
+          document.getElementById('badge-type').value = a.badgeType || 'guide';
+          document.getElementById('badge-label').value = a.badgeLabel || '';
+          document.getElementById('badge-tag').value = a.badgeTag || '';
+          document.getElementById('quick-answer').value = a.quickAnswer || '';
+          document.getElementById('content').value = a.content || '';
           document.getElementById('delete-btn').style.display = 'block';
           editingId = id;
           switchSection('create');
@@ -305,13 +343,19 @@
 
     document.getElementById('article-form').addEventListener('submit', async (e) => {
       e.preventDefault();
-      const title = document.getElementById('title').value.trim();
-      const slug = document.getElementById('slug').value.trim();
+      const title    = document.getElementById('title').value.trim();
+      const slug     = document.getElementById('slug').value.trim();
       const subtitle = document.getElementById('subtitle').value.trim();
+      const metaDescription = document.getElementById('meta-description').value.trim();
       const category = document.getElementById('form-category').value;
-      const date = document.getElementById('date').value;
-      const image = document.getElementById('image').value.trim();
-      const content = document.getElementById('content').value.trim();
+      const date     = document.getElementById('date').value;
+      const image    = document.getElementById('image').value.trim();
+      const readTime = document.getElementById('read-time').value.trim();
+      const badgeType  = document.getElementById('badge-type').value;
+      const badgeLabel = document.getElementById('badge-label').value.trim();
+      const badgeTag   = document.getElementById('badge-tag').value.trim();
+      const quickAnswer = document.getElementById('quick-answer').value.trim();
+      const content  = document.getElementById('content').value.trim();
 
       if (!title || !slug || !category || !date) {
         alert('Preencha todos os campos obrigatórios');
@@ -322,10 +366,16 @@
         const data = {
           title,
           slug,
-          subtitle: subtitle || title.substring(0, 80),
+          subtitle: subtitle || '',
+          metaDescription: metaDescription || subtitle || title.substring(0, 155),
           category,
           publishDate: date + 'T00:00:00Z',
           image: image || '',
+          readTime: readTime || '5 min de leitura',
+          badgeType:  badgeType  || 'guide',
+          badgeLabel: badgeLabel || category,
+          badgeTag:   badgeTag   || '',
+          quickAnswer: quickAnswer || '',
           content: content || '',
           updatedAt: new Date().toISOString()
         };
@@ -359,6 +409,7 @@
       document.getElementById('article-form').reset();
       document.getElementById('form-title').textContent = 'Novo Artigo';
       document.getElementById('delete-btn').style.display = 'none';
+      document.getElementById('badge-type').value = 'guide';
       editingId = null;
       const today = new Date().toISOString().split('T')[0];
       document.getElementById('date').value = today;

@@ -3,6 +3,7 @@ import express from 'express';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import crypto from 'crypto';
+import admin from 'firebase-admin';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
@@ -16,6 +17,29 @@ try {
     }
   }
 } catch (_) {}
+
+// --- Firebase Admin ---
+let firestoreDb = null;
+function getFirestore() {
+  if (firestoreDb) return firestoreDb;
+  try {
+    const serviceAccountEnv = process.env.FIREBASE_SERVICE_ACCOUNT;
+    if (serviceAccountEnv) {
+      const sa = JSON.parse(serviceAccountEnv);
+      if (!admin.apps.length) admin.initializeApp({ credential: admin.credential.cert(sa) });
+    } else {
+      const saPath = path.join(__dirname, 'firebase-service-account.json');
+      if (existsSync(saPath)) {
+        const sa = JSON.parse(readFileSync(saPath, 'utf8'));
+        if (!admin.apps.length) admin.initializeApp({ credential: admin.credential.cert(sa) });
+      }
+    }
+    if (admin.apps.length) firestoreDb = admin.firestore();
+  } catch (e) {
+    console.error('[Firebase Admin] init error:', e.message);
+  }
+  return firestoreDb;
+}
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -197,6 +221,179 @@ app.post('/api/lead', async (req, res) => {
     return res.status(500).json({ error: 'Internal server error' });
   }
 });
+
+// --- SSR: Artigos do Firestore ---
+const ARTICLE_COLLECTIONS = {
+  guias:    { section: 'guias',    label: 'Guias',    area: 'guias' },
+  'enem-2026': { section: 'enem-2026', label: 'ENEM 2026', area: 'enem-2026' },
+  'carreiras/salarios': { section: 'carreiras/salarios', label: 'Salários', area: 'carreiras' },
+};
+
+function formatDate(iso) {
+  if (!iso) return '';
+  const d = new Date(iso);
+  return d.toLocaleDateString('pt-BR', { day: '2-digit', month: 'long', year: 'numeric' });
+}
+
+function renderArticle(a, section) {
+  const { label, area } = ARTICLE_COLLECTIONS[section] || { label: section, area: section };
+  const canonical = `https://hubdoestudante.com.br/pages/${section}/${a.slug}.html`;
+  const dateStr   = formatDate(a.publishDate);
+  const dateIso   = a.publishDate ? a.publishDate.split('T')[0] : '';
+  const readTime  = a.readTime || '5 min de leitura';
+
+  const breadcrumbLabel = section === 'carreiras/salarios' ? 'Salários' :
+                          section === 'enem-2026' ? 'ENEM 2026' : 'Guias';
+  const breadcrumbHref  = section === 'carreiras/salarios' ? '/pages/carreiras/salarios/' :
+                          `/pages/${section}/`;
+
+  const heroImage = a.image
+    ? `<img src="${a.image}" alt="${a.title}" loading="lazy">`
+    : '';
+
+  const badgeType = a.badgeType || 'guide';
+  const badgeLabel = a.badgeLabel || label;
+  const badgeTag   = a.badgeTag  || '';
+
+  const schema = JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": a.title,
+    "description": a.metaDescription || a.subtitle || '',
+    "image": a.image || '',
+    "datePublished": dateIso,
+    "dateModified": a.updatedAt ? a.updatedAt.split('T')[0] : dateIso,
+    "author": { "@type": "Organization", "name": "Hub do Estudante" },
+    "publisher": { "@type": "Organization", "name": "Hub do Estudante" }
+  });
+
+  return `<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="${(a.metaDescription || a.subtitle || '').replace(/"/g, '&quot;')}">
+  <title>${a.title} | Hub do Estudante</title>
+  <link rel="canonical" href="${canonical}">
+  <meta property="og:title" content="${a.title}">
+  <meta property="og:description" content="${(a.metaDescription || a.subtitle || '').replace(/"/g, '&quot;')}">
+  <meta property="og:url" content="${canonical}">
+  ${a.image ? `<meta property="og:image" content="${a.image}">` : ''}
+  <meta name="robots" content="index, follow">
+  <script type="application/ld+json">${schema}</script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"></noscript>
+  <link rel="stylesheet" href="/assets/css/base.css">
+  <link rel="stylesheet" href="/assets/css/layout.css">
+  <link rel="stylesheet" href="/assets/css/components.css">
+  <link rel="stylesheet" href="/assets/css/article.css">
+  <link rel="stylesheet" href="/assets/css/responsive.css">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4663943063143621" crossorigin="anonymous"></script>
+</head>
+<body class="page-wrapper" data-area="${area}" data-course="${a.slug}" data-course-name="${a.title}">
+
+  <nav class="breadcrumb" aria-label="Breadcrumb">
+    <div class="container">
+      <ol class="breadcrumb__list" itemscope itemtype="https://schema.org/BreadcrumbList">
+        <li class="breadcrumb__item" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+          <a href="/" class="breadcrumb__link" itemprop="item"><span itemprop="name">Home</span></a>
+          <meta itemprop="position" content="1">
+        </li>
+        <li class="breadcrumb__item" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+          <a href="${breadcrumbHref}" class="breadcrumb__link" itemprop="item"><span itemprop="name">${breadcrumbLabel}</span></a>
+          <meta itemprop="position" content="2">
+        </li>
+        <li class="breadcrumb__item breadcrumb__item--current" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+          <span itemprop="name">${a.title}</span>
+          <meta itemprop="position" content="3">
+        </li>
+      </ol>
+    </div>
+  </nav>
+
+  <main class="layout-main container" id="main-content">
+    <article class="article-body">
+      <header class="article-hero">
+        <div class="article-hero__meta">
+          <span class="content-type-badge content-type-badge--${badgeType}">${badgeLabel}</span>
+          ${badgeTag ? `<span class="badge badge--green">${badgeTag}</span>` : ''}
+        </div>
+        <h1 class="article-hero__title">${a.title}</h1>
+        ${a.subtitle ? `<p class="article-hero__subtitle">${a.subtitle}</p>` : ''}
+        <div class="article-hero__byline">
+          <span>Por <strong>Redação Hub do Estudante</strong></span>
+          <span>·</span>
+          <time datetime="${dateIso}">${dateStr}</time>
+          <span>·</span>
+          <span>${readTime}</span>
+        </div>
+        ${heroImage}
+      </header>
+
+      ${a.quickAnswer ? `
+      <div class="quick-answer">
+        <div class="quick-answer__label">Resposta rápida</div>
+        <p class="quick-answer__text">${a.quickAnswer}</p>
+      </div>` : ''}
+
+      <nav class="toc" aria-label="Índice" id="toc">
+        <div class="toc__title">Neste artigo</div>
+        <ol class="toc__list" id="toc-list"></ol>
+      </nav>
+
+      <div class="article-content" id="article-content">
+        ${a.content || ''}
+      </div>
+    </article>
+
+    <aside class="sidebar">
+      <div class="sidebar-widget">
+        <h3 class="sidebar-widget__title">Estudar com Desconto</h3>
+        <div style="display:flex;flex-direction:column;gap:var(--space-3)">
+          <a href="/pages/universidades/anhanguera.html" class="btn btn--affiliate" rel="noopener sponsored">Anhanguera, até 50% off</a>
+          <a href="/pages/universidades/unopar.html" class="btn btn--affiliate" rel="noopener sponsored">Unopar, até 50% off</a>
+          <a href="/pages/universidades/uniderp.html" class="btn btn--affiliate" rel="noopener sponsored">Uniderp, até 50% off</a>
+        </div>
+      </div>
+    </aside>
+  </main>
+
+  <script src="/assets/js/components-loader.js"></script>
+  <script type="module" src="/assets/js/main.js"></script>
+</body>
+</html>`;
+}
+
+async function serveArticle(req, res, section) {
+  const slug = req.params.slug;
+  const db = getFirestore();
+  if (!db) return res.status(503).send('Serviço indisponível');
+  try {
+    const snap = await db.collection('articles')
+      .where('slug', '==', slug)
+      .where('category', '==', section)
+      .limit(1).get();
+    if (snap.empty) return res.status(404).sendFile(path.join(__dirname, '404.html'), e => {
+      if (e) res.status(404).send('Artigo não encontrado');
+    });
+    const article = snap.docs[0].data();
+    res.setHeader('Cache-Control', 'public, max-age=300, stale-while-revalidate=60');
+    res.send(renderArticle(article, section));
+  } catch (e) {
+    console.error('[SSR]', e);
+    res.status(500).send('Erro interno');
+  }
+}
+
+// Rotas SSR — antes dos estáticos para ter prioridade
+app.get('/pages/guias/:slug.html',              (req, res) => serveArticle(req, res, 'guias'));
+app.get('/pages/guias/:slug',                   (req, res) => serveArticle(req, res, 'guias'));
+app.get('/pages/enem-2026/:slug.html',          (req, res) => serveArticle(req, res, 'enem-2026'));
+app.get('/pages/enem-2026/:slug',               (req, res) => serveArticle(req, res, 'enem-2026'));
+app.get('/pages/carreiras/salarios/:slug.html', (req, res) => serveArticle(req, res, 'carreiras/salarios'));
+app.get('/pages/carreiras/salarios/:slug',      (req, res) => serveArticle(req, res, 'carreiras/salarios'));
 
 // --- Admin (protegido) ---
 app.use('/admin', requireAdminAuth, express.static(path.join(__dirname, 'admin'), { index: 'index.html' }));
