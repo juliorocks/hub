@@ -101,7 +101,10 @@
       <section id="articles" class="section active">
         <div class="section-header">
           <h1>Gerenciar Artigos</h1>
-          <button class="btn btn-primary" id="new-btn">Novo Artigo</button>
+          <div style="display:flex;gap:.75rem">
+            <button class="btn btn-secondary" id="rebuild-search-btn" title="Atualiza o índice de busca do site com todos os artigos do Firestore">🔍 Atualizar busca</button>
+            <button class="btn btn-primary" id="new-btn">Novo Artigo</button>
+          </div>
         </div>
         <div class="filters">
           <input type="search" id="search" placeholder="Buscar por título...">
@@ -631,6 +634,24 @@
       a.download = `leads_${new Date().toISOString().slice(0,10)}.csv`;
       a.click();
     }
+
+    document.getElementById('rebuild-search-btn').addEventListener('click', async () => {
+      const btn = document.getElementById('rebuild-search-btn');
+      btn.disabled = true;
+      btn.textContent = '⏳ Atualizando...';
+      try {
+        const res = await fetch('/admin/rebuild-search-index', { method: 'POST' });
+        const data = await res.json();
+        if (data.success) {
+          btn.textContent = `✅ ${data.total} itens indexados`;
+        } else {
+          btn.textContent = '❌ Erro: ' + data.error;
+        }
+      } catch (e) {
+        btn.textContent = '❌ Falha na requisição';
+      }
+      setTimeout(() => { btn.disabled = false; btn.textContent = '🔍 Atualizar busca'; }, 3000);
+    });
 
     document.getElementById('leads-export-btn').addEventListener('click', exportLeadsCSV);
     document.getElementById('leads-refresh-btn').addEventListener('click', loadLeads);

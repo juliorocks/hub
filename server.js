@@ -1,4 +1,4 @@
-import { readFileSync, existsSync } from 'fs';
+import { readFileSync, existsSync, writeFileSync } from 'fs';
 import express from 'express';
 import path from 'path';
 import { fileURLToPath } from 'url';
@@ -156,6 +156,67 @@ app.post('/admin/login', (req, res) => {
 app.get('/admin/logout', (req, res) => {
   res.setHeader('Set-Cookie', `${COOKIE_NAME}=; HttpOnly; Path=/admin; Max-Age=0`);
   res.redirect('/admin');
+});
+
+// Rebuild search index from Firestore articles
+app.post('/admin/rebuild-search-index', requireAdminAuth, async (req, res) => {
+  try {
+    const db = getFirestore();
+    if (!db) return res.status(503).json({ error: 'Firestore indisponível' });
+
+    const STATIC_INDEX_PATH = path.join(__dirname, 'assets', 'data', 'search-index.json');
+    const existing = JSON.parse(readFileSync(STATIC_INDEX_PATH, 'utf8'));
+    const staticEntries = existing.filter(e => e.type !== 'artigo');
+
+    const CATEGORY_META = {
+      'guias':              { emoji: '📚', color: '#7c3aed', label: 'Guias' },
+      'enem-2026':          { emoji: '📝', color: '#0ea5e9', label: 'ENEM 2026' },
+      'carreiras/salarios': { emoji: '💼', color: '#f59e0b', label: 'Carreiras & Salários' },
+      'default':            { emoji: '📄', color: '#6b7280', label: 'Artigo' },
+    };
+
+    const articleUrl = (category, slug) => {
+      if (category === 'guias')              return `/pages/guias/${slug}`;
+      if (category === 'enem-2026')          return `/pages/enem-2026/${slug}`;
+      if (category === 'carreiras/salarios') return `/pages/carreiras/salarios/${slug}`;
+      return `/pages/${category}/${slug}`;
+    };
+
+    const normalize = s => s.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase();
+
+    const snap = await db.collection('articles').get();
+    const articleEntries = [];
+    snap.forEach(doc => {
+      const a = doc.data();
+      if (!a.slug || !a.title) return;
+      const meta = CATEGORY_META[a.category] || CATEGORY_META['default'];
+      const rawText = a.title + ' ' + (a.excerpt || '');
+      const words = rawText.toLowerCase().replace(/[^\wÀ-ÿ\s]/g, '').split(/\s+/).filter(w => w.length > 3).slice(0, 8);
+      const wordsNorm = words.map(normalize).filter(w => !words.includes(w));
+      articleEntries.push({
+        type: 'artigo',
+        area: a.category || 'geral',
+        areaLabel: meta.label,
+        areaColor: meta.color,
+        title: a.title,
+        excerpt: a.excerpt || a.metaDescription || '',
+        keywords: [...new Set([...words, ...wordsNorm])],
+        url: articleUrl(a.category, a.slug),
+        emoji: meta.emoji,
+        image: a.image || null,
+        publishDate: a.publishDate || null,
+      });
+    });
+
+    const finalIndex = [...staticEntries, ...articleEntries];
+    writeFileSync(STATIC_INDEX_PATH, JSON.stringify(finalIndex, null, 2), 'utf8');
+
+    console.log(`[Search] Índice reconstruído: ${staticEntries.length} estáticos + ${articleEntries.length} artigos`);
+    res.json({ success: true, static: staticEntries.length, articles: articleEntries.length, total: finalIndex.length });
+  } catch (e) {
+    console.error('[Search] rebuild error:', e.message);
+    res.status(500).json({ error: e.message });
+  }
 });
 
 // --- Arquivos estáticos públicos ---

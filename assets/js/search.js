@@ -130,12 +130,13 @@ function renderResults(dropdown, results, query, input) {
 
   // Agrupar por tipo
   const groups = {};
-  const typeOrder = ['universidade', 'curso', 'posgraduacao', 'carreira'];
+  const typeOrder = ['universidade', 'curso', 'posgraduacao', 'carreira', 'artigo'];
   const typeLabels = {
     universidade: 'Universidades',
     curso: 'Cursos de Graduação',
     posgraduacao: 'Pós-graduação',
-    carreira: 'Carreiras & Salários'
+    carreira: 'Carreiras & Salários',
+    artigo: 'Artigos & Guias',
   };
 
   results.forEach(({ item }) => {
