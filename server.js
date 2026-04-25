@@ -18,28 +18,30 @@ try {
   }
 } catch (_) {}
 
-// --- Firebase Admin ---
+// --- Firebase Admin — inicializa imediatamente no startup ---
 let firestoreDb = null;
-function getFirestore() {
-  if (firestoreDb) return firestoreDb;
-  try {
-    const serviceAccountEnv = process.env.FIREBASE_SERVICE_ACCOUNT;
-    if (serviceAccountEnv) {
-      const sa = JSON.parse(serviceAccountEnv);
+try {
+  const serviceAccountEnv = process.env.FIREBASE_SERVICE_ACCOUNT;
+  if (serviceAccountEnv) {
+    const sa = JSON.parse(serviceAccountEnv);
+    if (!admin.apps.length) admin.initializeApp({ credential: admin.credential.cert(sa) });
+    console.log('[Firebase Admin] iniciado via env var');
+  } else {
+    const saPath = path.join(__dirname, 'firebase-service-account.json');
+    if (existsSync(saPath)) {
+      const sa = JSON.parse(readFileSync(saPath, 'utf8'));
       if (!admin.apps.length) admin.initializeApp({ credential: admin.credential.cert(sa) });
+      console.log('[Firebase Admin] iniciado via arquivo local');
     } else {
-      const saPath = path.join(__dirname, 'firebase-service-account.json');
-      if (existsSync(saPath)) {
-        const sa = JSON.parse(readFileSync(saPath, 'utf8'));
-        if (!admin.apps.length) admin.initializeApp({ credential: admin.credential.cert(sa) });
-      }
+      console.warn('[Firebase Admin] sem credenciais — SSR desativado');
     }
-    if (admin.apps.length) firestoreDb = admin.firestore();
-  } catch (e) {
-    console.error('[Firebase Admin] init error:', e.message);
   }
-  return firestoreDb;
+  if (admin.apps.length) firestoreDb = admin.firestore();
+} catch (e) {
+  console.error('[Firebase Admin] init error:', e.message);
 }
+
+function getFirestore() { return firestoreDb; }
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -160,10 +162,11 @@ app.get('/admin/logout', (req, res) => {
 app.use('/assets', express.static(path.join(__dirname, 'assets')));
 app.use('/pages',  express.static(path.join(__dirname, 'pages')));
 
-// Raiz e arquivos públicos soltos (exclui /admin — protegido pela rota abaixo)
+// Raiz e arquivos públicos soltos (exclui /admin e index.html — ambos têm rota própria)
 app.use((req, res, next) => {
   if (req.path.startsWith('/admin')) return next();
-  express.static(__dirname, { index: 'index.html' })(req, res, next);
+  if (req.path === '/' || req.path === '/index.html') return next();
+  express.static(__dirname, { index: false })(req, res, next);
 });
 
 app.get('/index.html', (req, res) => res.redirect('/'));
@@ -439,31 +442,37 @@ function cardSmall(a, eager = false) {
   </article>`;
 }
 
-app.get('/', async (req, res, next) => {
+app.get(['/', '/index.html'], async (req, res) => {
+  if (req.path === '/index.html') return res.redirect(301, '/');
+
+  let html = readFileSync(path.join(__dirname, 'index.html'), 'utf8');
   const db = getFirestore();
-  if (!db) return next(); // fallback para static se Firebase não disponível
 
-  try {
-    const snap = await db.collection('articles').get();
-    const arts = [];
-    snap.forEach(d => arts.push(d.data()));
-    arts.sort((a, b) => new Date(b.publishDate) - new Date(a.publishDate));
+  if (db) {
+    try {
+      const snap = await db.collection('articles').get();
+      const arts = [];
+      snap.forEach(d => arts.push(d.data()));
+      arts.sort((a, b) => new Date(b.publishDate) - new Date(a.publishDate));
 
-    const featured   = arts[0];
-    const sideCards  = arts.slice(1, 3);
-    const gridCards  = arts.slice(3, 21); // 18 cards no grid
+      const featured  = arts[0];
+      const sideCards = arts.slice(1, 3);
+      const gridCards = arts.slice(3, 21);
 
-    let html = readFileSync(path.join(__dirname, 'index.html'), 'utf8');
-    html = html.replace('<!--DESTAQUE_FEATURED-->', cardFeatured(featured));
-    html = html.replace('<!--DESTAQUE_SIDE-->', sideCards.map(a => cardSmall(a, true)).join(''));
-    html = html.replace('<!--ARTICLES_GRID-->', gridCards.map(a => cardSmall(a)).join(''));
-
-    res.setHeader('Cache-Control', 'public, max-age=120, stale-while-revalidate=60');
-    res.send(html);
-  } catch (e) {
-    console.error('[Home SSR]', e);
-    next();
+      html = html.replace('<!--DESTAQUE_FEATURED-->', featured ? cardFeatured(featured) : '');
+      html = html.replace('<!--DESTAQUE_SIDE-->', sideCards.map(a => cardSmall(a, true)).join(''));
+      html = html.replace('<!--ARTICLES_GRID-->', gridCards.map(a => cardSmall(a)).join(''));
+    } catch (e) {
+      console.error('[Home SSR]', e.message);
+      html = html.replace('<!--DESTAQUE_FEATURED-->', '').replace('<!--DESTAQUE_SIDE-->', '').replace('<!--ARTICLES_GRID-->', '');
+    }
+  } else {
+    console.warn('[Home SSR] Firebase não disponível');
+    html = html.replace('<!--DESTAQUE_FEATURED-->', '').replace('<!--DESTAQUE_SIDE-->', '').replace('<!--ARTICLES_GRID-->', '');
   }
+
+  res.setHeader('Cache-Control', 'public, max-age=120, stale-while-revalidate=60');
+  res.send(html);
 });
 
 // Rotas SSR — antes dos estáticos para ter prioridade
