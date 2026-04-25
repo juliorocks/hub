@@ -279,6 +279,13 @@ function injectComponents() {
     applyAreaColor(area);
     wireActiveNav(area);
 
+    // Injeta lead-form.js dinamicamente (carrega em todas as páginas)
+    if (!document.querySelector('script[src*="lead-form"]')) {
+      const leadScript = document.createElement('script');
+      leadScript.src = `${basePath}assets/js/lead-form.js`;
+      document.body.appendChild(leadScript);
+    }
+
     // Marca como carregado
     window.componentsLoaded = true;
     document.documentElement.setAttribute('data-components-loaded', 'true');
