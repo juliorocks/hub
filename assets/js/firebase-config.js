@@ -3,6 +3,7 @@
 const firebaseConfig = {
   apiKey: "AIzaSyCFir3vbG5Qak0K36dhznwXf77RiFN0g2I",
   authDomain: "hub-do-estudante.firebaseapp.com",
+  databaseURL: "https://hub-do-estudante-default-rtdb.firebaseio.com",
   projectId: "hub-do-estudante",
   storageBucket: "hub-do-estudante.firebasestorage.app",
   messagingSenderId: "836885204421",

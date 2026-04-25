@@ -64,6 +64,18 @@
     .loading { text-align: center; color: #999; padding: 2rem; }
     .error { color: #dc2626; padding: 1rem; background: #fee2e2; border-radius: 4px; margin-bottom: 1rem; }
 
+    /* Leads */
+    .leads-stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1rem; margin-bottom: 2rem; }
+    .stat-card { background: white; border-radius: 8px; padding: 1.25rem; box-shadow: 0 1px 3px rgba(0,0,0,.1); text-align: center; }
+    .stat-card .stat-value { font-size: 2rem; font-weight: 700; color: #38bdf8; }
+    .stat-card .stat-label { font-size: 0.85rem; color: #888; margin-top: 0.25rem; }
+    .lead-row td { font-size: 0.9rem; }
+    .lead-course { background: #dbeafe; color: #1d4ed8; padding: 0.2rem 0.6rem; border-radius: 10px; font-size: 0.8rem; display: inline-block; white-space: nowrap; max-width: 180px; overflow: hidden; text-overflow: ellipsis; }
+    .lead-area { background: #d1fae5; color: #065f46; padding: 0.2rem 0.6rem; border-radius: 10px; font-size: 0.8rem; display: inline-block; }
+    .btn-export { background: #22c55e; color: white; }
+    .btn-export:hover { background: #16a34a; }
+    .leads-empty { text-align: center; padding: 3rem; color: #999; background: white; border-radius: 8px; }
+
     @media (max-width: 768px) {
       .admin-container { grid-template-columns: 1fr; }
       .admin-sidebar { height: auto; position: static; }
@@ -81,6 +93,7 @@
       <nav class="admin-nav">
         <button class="nav-btn active" data-section="articles">📄 Artigos</button>
         <button class="nav-btn" data-section="create">➕ Novo Artigo</button>
+        <button class="nav-btn" data-section="leads">📋 Leads</button>
       </nav>
     </aside>
 
@@ -99,6 +112,35 @@
           </select>
         </div>
         <div id="articles-container"></div>
+      </section>
+
+      <section id="leads" class="section">
+        <div class="section-header">
+          <h1>Leads Captados</h1>
+          <div style="display:flex;gap:.75rem">
+            <button class="btn btn-export" id="leads-export-btn">⬇ Exportar CSV</button>
+            <button class="btn btn-secondary" id="leads-refresh-btn">↻ Atualizar</button>
+          </div>
+        </div>
+        <div class="leads-stats" id="leads-stats"></div>
+        <div class="filters">
+          <input type="search" id="leads-search" placeholder="Buscar por nome, e-mail ou curso...">
+          <select id="leads-filter-area">
+            <option value="">Todas as áreas</option>
+            <option value="graduacao">Graduação</option>
+            <option value="pos-graduacao">Pós-Graduação</option>
+            <option value="cursos-tecnicos">Cursos Técnicos</option>
+            <option value="cursos-livres">Cursos Livres</option>
+            <option value="geral">Geral</option>
+          </select>
+          <select id="leads-filter-date">
+            <option value="">Qualquer período</option>
+            <option value="today">Hoje</option>
+            <option value="week">Últimos 7 dias</option>
+            <option value="month">Últimos 30 dias</option>
+          </select>
+        </div>
+        <div id="leads-container"><p class="loading">Carregando leads...</p></div>
       </section>
 
       <section id="create" class="section">
@@ -161,10 +203,12 @@
   <script type="module">
     import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js';
     import { getFirestore, collection, getDocs, getDoc, doc, addDoc, updateDoc, deleteDoc, query, orderBy } from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js';
+    import { getDatabase, ref, get, remove } from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js';
 
     const firebaseConfig = {
       apiKey: "AIzaSyCFir3vbG5Qak0K36dhznwXf77RiFN0g2I",
       authDomain: "hub-do-estudante.firebaseapp.com",
+      databaseURL: "https://hub-do-estudante-default-rtdb.firebaseio.com",
       projectId: "hub-do-estudante",
       storageBucket: "hub-do-estudante.firebasestorage.app",
       messagingSenderId: "836885204421",
@@ -173,6 +217,7 @@
 
     const app = initializeApp(firebaseConfig);
     const db = getFirestore(app);
+    const rtdb = getDatabase(app);
 
     let allArticles = [];
     let editingId = null;
@@ -416,6 +461,159 @@
 
     resetForm();
     loadArticles();
+
+    // ─── LEADS ───────────────────────────────────────────────────────────────
+    let allLeads = [];
+
+    async function loadLeads() {
+      const container = document.getElementById('leads-container');
+      container.innerHTML = '<p class="loading">Carregando leads...</p>';
+      try {
+        const snap = await get(ref(rtdb, 'leads'));
+        allLeads = [];
+        if (snap.exists()) {
+          snap.forEach(child => {
+            allLeads.push({ _key: child.key, ...child.val() });
+          });
+          allLeads.sort((a, b) => new Date(b.timestamp || 0) - new Date(a.timestamp || 0));
+        }
+        renderLeads(allLeads);
+      } catch (e) {
+        console.error(e);
+        container.innerHTML = `<p class="error">Erro ao carregar leads: ${e.message}</p>`;
+      }
+    }
+
+    function renderLeads(leads) {
+      const container = document.getElementById('leads-container');
+
+      // Stats
+      const today = new Date(); today.setHours(0,0,0,0);
+      const weekAgo = new Date(today); weekAgo.setDate(weekAgo.getDate() - 7);
+      const monthAgo = new Date(today); monthAgo.setDate(monthAgo.getDate() - 30);
+      const todayCount  = leads.filter(l => new Date(l.timestamp) >= today).length;
+      const weekCount   = leads.filter(l => new Date(l.timestamp) >= weekAgo).length;
+      const monthCount  = leads.filter(l => new Date(l.timestamp) >= monthAgo).length;
+      const areas = {};
+      leads.forEach(l => { const a = l.source_area || 'geral'; areas[a] = (areas[a] || 0) + 1; });
+      const topArea = Object.entries(areas).sort((a,b) => b[1]-a[1])[0];
+
+      document.getElementById('leads-stats').innerHTML = `
+        <div class="stat-card"><div class="stat-value">${leads.length}</div><div class="stat-label">Total de leads</div></div>
+        <div class="stat-card"><div class="stat-value">${todayCount}</div><div class="stat-label">Hoje</div></div>
+        <div class="stat-card"><div class="stat-value">${weekCount}</div><div class="stat-label">Últimos 7 dias</div></div>
+        <div class="stat-card"><div class="stat-value">${monthCount}</div><div class="stat-label">Últimos 30 dias</div></div>
+        <div class="stat-card"><div class="stat-value">${topArea ? topArea[1] : 0}</div><div class="stat-label">Top: ${topArea ? topArea[0] : '—'}</div></div>
+      `;
+
+      if (!leads.length) {
+        container.innerHTML = '<div class="leads-empty">Nenhum lead captado ainda</div>';
+        return;
+      }
+
+      const rows = leads.map(l => {
+        const date = l.timestamp ? new Date(l.timestamp).toLocaleString('pt-BR') : '—';
+        const course = l.course_name || l.source_course_id || '—';
+        const area   = l.source_area || 'geral';
+        const page   = l.source_path || l.source_url || '—';
+        const phone  = l.whatsapp  || l.phone || '—';
+        const safeVal = v => (v||'').toString().replace(/</g, '&lt;');
+        return `
+          <tr class="lead-row">
+            <td>${safeVal(date)}</td>
+            <td>${safeVal(l.name || '—')}</td>
+            <td><a href="mailto:${safeVal(l.email)}">${safeVal(l.email || '—')}</a></td>
+            <td>${safeVal(phone)}</td>
+            <td><span class="lead-course" title="${safeVal(course)}">${safeVal(course)}</span></td>
+            <td><span class="lead-area">${safeVal(area)}</span></td>
+            <td style="font-size:.8rem;color:#888;max-width:200px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap" title="${safeVal(page)}">${safeVal(page)}</td>
+            <td><button class="btn-small btn-delete lead-del-btn" data-key="${l._key}">✕</button></td>
+          </tr>`;
+      }).join('');
+
+      container.innerHTML = `
+        <table class="articles-table">
+          <thead><tr>
+            <th style="width:145px">Data/Hora</th>
+            <th>Nome</th><th>E-mail</th><th style="width:130px">WhatsApp</th>
+            <th style="width:190px">Curso</th>
+            <th style="width:110px">Área</th>
+            <th style="width:200px">Página</th>
+            <th style="width:50px"></th>
+          </tr></thead>
+          <tbody>${rows}</tbody>
+        </table>`;
+
+      container.querySelectorAll('.lead-del-btn').forEach(btn => {
+        btn.addEventListener('click', async () => {
+          if (!confirm('Remover este lead?')) return;
+          try {
+            await remove(ref(rtdb, `leads/${btn.dataset.key}`));
+            allLeads = allLeads.filter(l => l._key !== btn.dataset.key);
+            filterLeads();
+          } catch (e) { alert('Erro: ' + e.message); }
+        });
+      });
+    }
+
+    function filterLeads() {
+      const search = (document.getElementById('leads-search').value || '').toLowerCase();
+      const area   = document.getElementById('leads-filter-area').value;
+      const period = document.getElementById('leads-filter-date').value;
+      const now = new Date();
+
+      const filtered = allLeads.filter(l => {
+        const ts = new Date(l.timestamp || 0);
+        if (period === 'today') {
+          const d = new Date(); d.setHours(0,0,0,0);
+          if (ts < d) return false;
+        } else if (period === 'week') {
+          const d = new Date(now); d.setDate(d.getDate() - 7);
+          if (ts < d) return false;
+        } else if (period === 'month') {
+          const d = new Date(now); d.setDate(d.getDate() - 30);
+          if (ts < d) return false;
+        }
+        if (area && (l.source_area || 'geral') !== area) return false;
+        if (search) {
+          const haystack = `${l.name} ${l.email} ${l.course_name} ${l.source_course_id}`.toLowerCase();
+          if (!haystack.includes(search)) return false;
+        }
+        return true;
+      });
+      renderLeads(filtered);
+    }
+
+    function exportLeadsCSV() {
+      if (!allLeads.length) { alert('Nenhum lead para exportar.'); return; }
+      const cols = ['data','nome','email','whatsapp','curso','area','pagina'];
+      const rows = [cols.join(';')];
+      allLeads.forEach(l => {
+        const esc = v => `"${(v||'').toString().replace(/"/g,'""')}"`;
+        rows.push([
+          esc(l.timestamp ? new Date(l.timestamp).toLocaleString('pt-BR') : ''),
+          esc(l.name), esc(l.email), esc(l.whatsapp || l.phone),
+          esc(l.course_name || l.source_course_id), esc(l.source_area),
+          esc(l.source_path || l.source_url)
+        ].join(';'));
+      });
+      const blob = new Blob(['﻿' + rows.join('\n')], { type: 'text/csv;charset=utf-8' });
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = `leads_${new Date().toISOString().slice(0,10)}.csv`;
+      a.click();
+    }
+
+    document.getElementById('leads-export-btn').addEventListener('click', exportLeadsCSV);
+    document.getElementById('leads-refresh-btn').addEventListener('click', loadLeads);
+    document.getElementById('leads-search').addEventListener('input', filterLeads);
+    document.getElementById('leads-filter-area').addEventListener('change', filterLeads);
+    document.getElementById('leads-filter-date').addEventListener('change', filterLeads);
+
+    // Carrega leads quando a seção for aberta
+    document.querySelector('[data-section="leads"]').addEventListener('click', () => {
+      if (!allLeads.length) loadLeads();
+    });
   </script>
 </body>
 </html>
