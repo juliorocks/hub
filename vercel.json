@@ -4,10 +4,5 @@
       "source": "/admin/(.*)",
       "destination": "/admin/index.html"
     }
-  ],
-  "functions": {
-    "api/lead.js": {
-      "runtime": "nodejs20.x"
-    }
-  }
+  ]
 }
