@@ -214,6 +214,9 @@ class LeadForm {
   handleSubmit(e) {
     e.preventDefault();
 
+    // event_id único para deduplicação entre Pixel (client) e CAPI (server)
+    const eventId = `lead_${Date.now()}_${Math.random().toString(36).slice(2, 8)}`;
+
     const formData = new FormData(this.form);
     const data = {
       name: formData.get('name'),
@@ -229,21 +232,32 @@ class LeadForm {
     // Salvar no Firebase
     this.saveToFirebase(data);
 
-    // Disparar evento no Meta Pixel
+    // Disparar evento no Meta Pixel (client-side) com event_id para deduplicação
     if (window.fbq) {
       window.fbq('track', 'Lead', {
         content_name: data.course_name,
         content_category: data.category,
         value: 0,
         currency: 'BRL',
-      });
+      }, { eventID: eventId });
     }
+
+    // Enviar para Meta Conversions API (server-side) com mesmo event_id
+    this.sendToCapiApi({ ...data, event_id: eventId });
 
     // Mostrar mensagem de sucesso
     this.showSuccessMessage();
 
     // Limpar formulário
     this.form.reset();
+  }
+
+  sendToCapiApi(data) {
+    fetch('/api/lead', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data),
+    }).catch(err => console.warn('[CAPI] Falha ao enviar server-side event:', err));
   }
 
   saveToFirebase(data) {
