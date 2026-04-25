@@ -147,25 +147,52 @@ class LeadForm {
     this.form.addEventListener('submit', (e) => this.handleSubmit(e));
   }
 
+  detectCourseFromUrl() {
+    const path = window.location.pathname;
+    // Detecta slug da URL: /pages/{area}/{type}/{slug}/index.html
+    const match = path.match(/\/pages\/[\w-]+\/[\w-]+\/([\w-]+)\/?(?:index\.html)?$/);
+    if (!match) return null;
+    const slug = match[1];
+    // Converte slug em nome legível: mba-marketing-digital → MBA Marketing Digital
+    const name = slug
+      .replace(/^mba-/, 'MBA ')
+      .replace(/-/g, ' ')
+      .replace(/\b\w/g, c => c.toUpperCase());
+    return { id: slug, name };
+  }
+
   loadContextFromPage() {
     const body = document.body;
     const courseName = body.dataset.courseName;
     const courseId = body.dataset.course;
     const area = body.dataset.area;
 
+    // Fallback: tenta detectar pelo slug da URL
+    const fromUrl = (!courseName || !courseId) ? this.detectCourseFromUrl() : null;
+    const resolvedCourseId = courseId || fromUrl?.id || null;
+    const resolvedCourseName = courseName || fromUrl?.name || null;
+
+    // Guarda área e URL de origem para métricas
+    this.sourcePage = {
+      url: window.location.href,
+      path: window.location.pathname,
+      area: area || null,
+      course_id: resolvedCourseId,
+    };
+
     const container = document.getElementById('lead-course-container');
 
-    if (courseName && courseId) {
+    if (resolvedCourseName && resolvedCourseId) {
       // Página específica de curso
       container.innerHTML = `
         <div class="form-group">
           <label>Curso de interesse</label>
-          <div class="form-static-value">${courseName}</div>
-          <input type="hidden" name="course_id" value="${courseId}">
-          <input type="hidden" name="course_name" value="${courseName}">
+          <div class="form-static-value">${resolvedCourseName}</div>
+          <input type="hidden" name="course_id" value="${resolvedCourseId}">
+          <input type="hidden" name="course_name" value="${resolvedCourseName}">
         </div>
       `;
-      this.currentCourse = { id: courseId, name: courseName };
+      this.currentCourse = { id: resolvedCourseId, name: resolvedCourseName };
     } else {
       // Página geral: mostrar dropdowns
       container.innerHTML = `
@@ -224,9 +251,13 @@ class LeadForm {
       whatsapp: formData.get('whatsapp'),
       course_name: formData.get('course_name') || this.currentCourse?.name || 'Não especificado',
       course_id: formData.get('course_id') || this.currentCourse?.id || 'unknown',
-      category: formData.get('category') || 'general',
+      category: formData.get('category') || this.sourcePage?.area || 'general',
       created_at: new Date().toISOString(),
-      url: window.location.href,
+      // Dados de origem para métricas
+      source_url: this.sourcePage?.url || window.location.href,
+      source_path: this.sourcePage?.path || window.location.pathname,
+      source_area: this.sourcePage?.area || null,
+      source_course_id: this.sourcePage?.course_id || null,
     };
 
     // Salvar no Firebase
