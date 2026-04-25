@@ -1,24 +1,15 @@
 {
-  "rewrites": [
+  "version": 2,
+  "builds": [
     {
-      "source": "/admin/(.*)",
-      "destination": "/admin/index.html"
-    }
-  ],
-  "headers": [
-    {
-      "source": "/admin/:path*",
-      "headers": [
-        { "key": "X-Robots-Tag", "value": "noindex, nofollow" }
-      ]
+      "src": "server.js",
+      "use": "@vercel/node"
     }
   ],
   "routes": [
     {
-      "src": "/admin/(?!index\\.html$)(.+\\.(js|json|md|txt|html)$)",
-      "status": 403,
-      "headers": { "Content-Type": "text/plain" },
-      "dest": "/404.html"
+      "src": "/(.*)",
+      "dest": "server.js"
     }
   ]
 }

@@ -3,6 +3,8 @@
   "version": "1.0.0",
   "type": "module",
   "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js",
     "test:logos": "playwright test test-logos.spec.js"
   },
   "devDependencies": {
@@ -10,6 +12,8 @@
     "http-server": "^14.1.1"
   },
   "dependencies": {
+    "express": "^5.2.1",
+    "express-session": "^1.19.0",
     "fuse.js": "^7.3.0"
   }
 }

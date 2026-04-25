@@ -35,6 +35,10 @@ templates/
 projeto/
 
 # Dependências
-package.json
 package-lock.json
 admin/hub-do-estudante-firebase-adminsdk-fbsvc-69ccccc35c.json
+
+# Variáveis de ambiente
+.env
+.env.*
+!.env.example
