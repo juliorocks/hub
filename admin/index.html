@@ -533,8 +533,10 @@
       const rows = leads.map(l => {
         const date = l.timestamp ? new Date(l.timestamp).toLocaleString('pt-BR') : '—';
         const course = l.course_name || l.source_course_id || '—';
-        const area   = l.source_area || 'geral';
-        const page   = l.source_path || l.source_url || '—';
+        const categoryLabels = { graduacao: 'Graduação', pos_graduacao: 'Pós-Graduação', tecnico: 'Técnico', profissionalizante: 'Profissionalizante', livres: 'Cursos Livres', general: 'Geral' };
+        const area   = categoryLabels[l.category] || l.category || l.source_area || 'geral';
+        const rawPage = l.source_path || l.source_url || '—';
+        const page = rawPage === '/' ? 'Home' : rawPage;
         const phone  = l.whatsapp  || l.phone || '—';
         const safeVal = v => (v||'').toString().replace(/</g, '&lt;');
         const uf     = l.uf || '—';
@@ -599,7 +601,7 @@
           const d = new Date(now); d.setDate(d.getDate() - 30);
           if (ts < d) return false;
         }
-        if (area && (l.source_area || 'geral') !== area) return false;
+        if (area && (l.category || l.source_area || 'geral') !== area) return false;
         if (search) {
           const haystack = `${l.name} ${l.email} ${l.course_name} ${l.source_course_id}`.toLowerCase();
           if (!haystack.includes(search)) return false;
