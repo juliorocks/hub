@@ -279,22 +279,26 @@ class LeadForm {
     }).catch(err => console.warn('[CAPI] Falha ao enviar server-side event:', err));
   }
 
-  saveToFirebase(data) {
-    // Verifica se Firebase está disponível
-    if (typeof firebase === 'undefined' || !firebase.database) {
-      console.warn('Firebase não está inicializado. Lead capturado mas não salvo.');
-      console.log('Dados do lead:', data);
-      return;
-    }
-
+  async saveToFirebase(data) {
     try {
-      const db = firebase.database();
-      const leadsRef = db.ref('leads');
-      leadsRef.push(data)
-        .then(() => console.log('Lead salvo no Firebase com sucesso'))
-        .catch(err => console.error('Erro ao salvar lead:', err));
-    } catch (error) {
-      console.error('Erro ao acessar Firebase:', error);
+      const { initializeApp, getApps } = await import('https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js');
+      const { getFirestore, collection, addDoc } = await import('https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js');
+
+      const firebaseConfig = {
+        apiKey: "AIzaSyCFir3vbG5Qak0K36dhznwXf77RiFN0g2I",
+        authDomain: "hub-do-estudante.firebaseapp.com",
+        projectId: "hub-do-estudante",
+        storageBucket: "hub-do-estudante.firebasestorage.app",
+        messagingSenderId: "836885204421",
+        appId: "1:836885204421:web:d4cda9045c8d81914a8fac"
+      };
+
+      const app = getApps().length ? getApps()[0] : initializeApp(firebaseConfig);
+      const db  = getFirestore(app);
+      await addDoc(collection(db, 'leads'), { ...data, timestamp: new Date().toISOString() });
+      console.log('[Lead] salvo no Firestore');
+    } catch (err) {
+      console.error('[Lead] erro ao salvar:', err);
     }
   }
 

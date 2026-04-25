@@ -238,12 +238,11 @@
   <script type="module">
     import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js';
     import { getFirestore, collection, getDocs, getDoc, doc, addDoc, updateDoc, deleteDoc, query, orderBy } from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js';
-    import { getDatabase, ref, get, remove } from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js';
 
     const firebaseConfig = {
       apiKey: "AIzaSyCFir3vbG5Qak0K36dhznwXf77RiFN0g2I",
       authDomain: "hub-do-estudante.firebaseapp.com",
-      databaseURL: "https://hub-do-estudante-default-rtdb.firebaseio.com",
+
       projectId: "hub-do-estudante",
       storageBucket: "hub-do-estudante.firebasestorage.app",
       messagingSenderId: "836885204421",
@@ -252,7 +251,6 @@
 
     const app = initializeApp(firebaseConfig);
     const db = getFirestore(app);
-    const rtdb = getDatabase(app);
 
     let allArticles = [];
     let editingId = null;
@@ -494,14 +492,10 @@
       const container = document.getElementById('leads-container');
       container.innerHTML = '<p class="loading">Carregando leads...</p>';
       try {
-        const snap = await get(ref(rtdb, 'leads'));
+        const snap = await getDocs(collection(db, 'leads'));
         allLeads = [];
-        if (snap.exists()) {
-          snap.forEach(child => {
-            allLeads.push({ _key: child.key, ...child.val() });
-          });
-          allLeads.sort((a, b) => new Date(b.timestamp || 0) - new Date(a.timestamp || 0));
-        }
+        snap.forEach(d => allLeads.push({ _key: d.id, ...d.data() }));
+        allLeads.sort((a, b) => new Date(b.timestamp || b.created_at || 0) - new Date(a.timestamp || a.created_at || 0));
         renderLeads(allLeads);
       } catch (e) {
         console.error(e);
@@ -573,7 +567,7 @@
         btn.addEventListener('click', async () => {
           if (!confirm('Remover este lead?')) return;
           try {
-            await remove(ref(rtdb, `leads/${btn.dataset.key}`));
+            await deleteDoc(doc(db, 'leads', btn.dataset.key));
             allLeads = allLeads.filter(l => l._key !== btn.dataset.key);
             filterLeads();
           } catch (e) { alert('Erro: ' + e.message); }
