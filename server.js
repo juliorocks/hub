@@ -136,14 +136,11 @@ app.get('/admin/logout', (req, res) => {
 app.use('/assets', express.static(path.join(__dirname, 'assets')));
 app.use('/pages',  express.static(path.join(__dirname, 'pages')));
 
-// Raiz e arquivos públicos soltos
-app.use(express.static(__dirname, {
-  index: 'index.html',
-  // Não expõe arquivos sensíveis
-  setHeaders: (res, filePath) => {
-    if (filePath.includes('/admin/')) res.status(403).end();
-  }
-}));
+// Raiz e arquivos públicos soltos (exclui /admin — protegido pela rota abaixo)
+app.use((req, res, next) => {
+  if (req.path.startsWith('/admin')) return next();
+  express.static(__dirname, { index: 'index.html' })(req, res, next);
+});
 
 app.get('/index.html', (req, res) => res.redirect('/'));
 
