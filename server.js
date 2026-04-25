@@ -31,6 +31,21 @@ const getCookieSecret = () => process.env.SESSION_SECRET || 'hub-dev-secret';
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+// CSP permissivo — permite scripts externos (GA, Meta Pixel, Firebase, fontes Google)
+app.use((req, res, next) => {
+  res.setHeader('Content-Security-Policy',
+    "default-src 'self'; " +
+    "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://www.google-analytics.com https://connect.facebook.net https://www.gstatic.com https://www.gstatic.com/firebasejs/ https://pagead2.googlesyndication.com; " +
+    "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; " +
+    "font-src 'self' https://fonts.gstatic.com; " +
+    "img-src 'self' data: https://images.unsplash.com https://www.facebook.com https://www.google-analytics.com https://www.googletagmanager.com; " +
+    "connect-src 'self' https://www.google-analytics.com https://analytics.google.com https://graph.facebook.com https://*.firebaseio.com https://firestore.googleapis.com; " +
+    "frame-src 'self' https://pagead2.googlesyndication.com; " +
+    "object-src 'none';"
+  );
+  next();
+});
+
 // --- Cookie auth helpers ---
 function signToken(value) {
   const sig = crypto.createHmac('sha256', getCookieSecret()).update(value).digest('hex');
@@ -121,10 +136,15 @@ app.get('/admin/logout', (req, res) => {
 app.use('/assets', express.static(path.join(__dirname, 'assets')));
 app.use('/pages',  express.static(path.join(__dirname, 'pages')));
 
-const publicFiles = ['index.html', 'sobre.html', 'politica-privacidade.html', 'termos-de-uso.html', 'ads.txt', 'robots.txt', 'sitemap.xml', 'sitemap-index.xml'];
-publicFiles.forEach(file => {
-  app.get(`/${file === 'index.html' ? '' : file}`, (req, res) => res.sendFile(path.join(__dirname, file)));
-});
+// Raiz e arquivos públicos soltos
+app.use(express.static(__dirname, {
+  index: 'index.html',
+  // Não expõe arquivos sensíveis
+  setHeaders: (res, filePath) => {
+    if (filePath.includes('/admin/')) res.status(403).end();
+  }
+}));
+
 app.get('/index.html', (req, res) => res.redirect('/'));
 
 // --- API: Meta Conversions API ---
