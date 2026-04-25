@@ -537,15 +537,19 @@
         const page   = l.source_path || l.source_url || '—';
         const phone  = l.whatsapp  || l.phone || '—';
         const safeVal = v => (v||'').toString().replace(/</g, '&lt;');
+        const uf     = l.uf || '—';
+        const cidade = l.cidade || '—';
         return `
           <tr class="lead-row">
             <td>${safeVal(date)}</td>
             <td>${safeVal(l.name || '—')}</td>
             <td><a href="mailto:${safeVal(l.email)}">${safeVal(l.email || '—')}</a></td>
             <td>${safeVal(phone)}</td>
+            <td style="width:60px">${safeVal(uf)}</td>
+            <td>${safeVal(cidade)}</td>
             <td><span class="lead-course" title="${safeVal(course)}">${safeVal(course)}</span></td>
             <td><span class="lead-area">${safeVal(area)}</span></td>
-            <td style="font-size:.8rem;color:#888;max-width:200px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap" title="${safeVal(page)}">${safeVal(page)}</td>
+            <td style="font-size:.8rem;color:#888;max-width:180px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap" title="${safeVal(page)}">${safeVal(page)}</td>
             <td><button class="btn-small btn-delete lead-del-btn" data-key="${l._key}">✕</button></td>
           </tr>`;
       }).join('');
@@ -555,9 +559,11 @@
           <thead><tr>
             <th style="width:145px">Data/Hora</th>
             <th>Nome</th><th>E-mail</th><th style="width:130px">WhatsApp</th>
-            <th style="width:190px">Curso</th>
-            <th style="width:110px">Área</th>
-            <th style="width:200px">Página</th>
+            <th style="width:50px">UF</th>
+            <th style="width:130px">Cidade</th>
+            <th style="width:170px">Curso</th>
+            <th style="width:100px">Área</th>
+            <th style="width:180px">Página</th>
             <th style="width:50px"></th>
           </tr></thead>
           <tbody>${rows}</tbody>
@@ -605,13 +611,14 @@
 
     function exportLeadsCSV() {
       if (!allLeads.length) { alert('Nenhum lead para exportar.'); return; }
-      const cols = ['data','nome','email','whatsapp','curso','area','pagina'];
+      const cols = ['data','nome','email','whatsapp','uf','cidade','curso','area','pagina'];
       const rows = [cols.join(';')];
       allLeads.forEach(l => {
         const esc = v => `"${(v||'').toString().replace(/"/g,'""')}"`;
         rows.push([
           esc(l.timestamp ? new Date(l.timestamp).toLocaleString('pt-BR') : ''),
           esc(l.name), esc(l.email), esc(l.whatsapp || l.phone),
+          esc(l.uf), esc(l.cidade),
           esc(l.course_name || l.source_course_id), esc(l.source_area),
           esc(l.source_path || l.source_url)
         ].join(';'));

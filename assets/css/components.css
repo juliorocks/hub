@@ -1463,6 +1463,17 @@
   box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
 }
 
+.form-row-2 {
+  display: grid;
+  grid-template-columns: 80px 1fr;
+  gap: var(--space-3);
+  margin-bottom: var(--space-5);
+}
+
+.form-row-2 .form-group {
+  margin-bottom: 0;
+}
+
 .form-static-value {
   padding: var(--space-3);
   background: var(--color-bg);

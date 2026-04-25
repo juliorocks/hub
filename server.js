@@ -65,7 +65,7 @@ app.use((req, res, next) => {
     "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; " +
     "font-src 'self' https://fonts.gstatic.com; " +
     "img-src 'self' data: https://images.unsplash.com https://www.facebook.com https://www.google-analytics.com https://www.googletagmanager.com; " +
-    "connect-src 'self' https://www.google-analytics.com https://analytics.google.com https://graph.facebook.com https://*.firebaseio.com https://firestore.googleapis.com; " +
+    "connect-src 'self' https://www.google-analytics.com https://analytics.google.com https://graph.facebook.com https://*.firebaseio.com https://firestore.googleapis.com https://*.googleapis.com https://ipapi.co; " +
     "frame-src 'self' https://pagead2.googlesyndication.com; " +
     "object-src 'none';"
   );

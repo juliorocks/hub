@@ -22,7 +22,12 @@ class LeadForm {
         { id: 'engenharia', name: 'Engenharia' },
         { id: 'administracao', name: 'Administração' },
         { id: 'contabilidade', name: 'Contabilidade' },
-        // ... adicionar mais conforme necessário
+        { id: 'psicologia', name: 'Psicologia' },
+        { id: 'pedagogia', name: 'Pedagogia' },
+        { id: 'enfermagem', name: 'Enfermagem' },
+        { id: 'nutrição', name: 'Nutrição' },
+        { id: 'arquitetura', name: 'Arquitetura e Urbanismo' },
+        { id: 'outros', name: 'Outros' },
       ],
       pos_graduacao: [
         { id: 'mba-marketing-digital', name: 'MBA Marketing Digital' },
@@ -42,19 +47,23 @@ class LeadForm {
         { id: 'logistica-supply-chain', name: 'Especialização Logística Supply Chain' },
         { id: 'residencia-medica', name: 'Residência Médica' },
         { id: 'saude', name: 'Especialização Saúde Pública' },
+        { id: 'outros', name: 'Outros' },
       ],
       tecnico: [
         { id: 'tecnico-informatica', name: 'Técnico em Informática' },
         { id: 'tecnico-enfermagem', name: 'Técnico em Enfermagem' },
         { id: 'tecnico-administracao', name: 'Técnico em Administração' },
+        { id: 'outros', name: 'Outros' },
       ],
       profissionalizante: [
         { id: 'prog-web', name: 'Programação Web' },
         { id: 'ux-design', name: 'UX Design' },
+        { id: 'outros', name: 'Outros' },
       ],
       livres: [
         { id: 'excel-avancado', name: 'Excel Avançado' },
-        { id: 'inglés-online', name: 'Inglês Online' },
+        { id: 'ingles-online', name: 'Inglês Online' },
+        { id: 'outros', name: 'Outros' },
       ],
     };
   }
@@ -114,6 +123,17 @@ class LeadForm {
           <div class="form-group">
             <label for="lead-whatsapp">WhatsApp</label>
             <input type="tel" id="lead-whatsapp" name="whatsapp" placeholder="(11) 99999-9999" required>
+          </div>
+
+          <div class="form-group form-row-2">
+            <div>
+              <label for="lead-uf">Estado (UF)</label>
+              <input type="text" id="lead-uf" name="uf" placeholder="SP" maxlength="2" style="text-transform:uppercase">
+            </div>
+            <div>
+              <label for="lead-cidade">Cidade</label>
+              <input type="text" id="lead-cidade" name="cidade" placeholder="São Paulo">
+            </div>
           </div>
 
           <div id="lead-course-container" class="form-group">
@@ -237,6 +257,8 @@ class LeadForm {
       name: formData.get('name'),
       email: formData.get('email'),
       whatsapp: formData.get('whatsapp'),
+      uf: (formData.get('uf') || '').toUpperCase() || null,
+      cidade: formData.get('cidade') || null,
       course_name: formData.get('course_name') || this.currentCourse?.name || 'Não especificado',
       course_id: formData.get('course_id') || this.currentCourse?.id || 'unknown',
       category: formData.get('category') || this.sourcePage?.area || 'general',
@@ -328,6 +350,20 @@ class LeadForm {
     this.modal.classList.add('is-open');
     document.body.style.overflow = 'hidden';
     this.modal.querySelector('input')?.focus();
+    this.autoFillLocation();
+  }
+
+  async autoFillLocation() {
+    const ufInput = document.getElementById('lead-uf');
+    const cidadeInput = document.getElementById('lead-cidade');
+    if (!ufInput || !cidadeInput || ufInput.dataset.filled) return;
+    try {
+      const res = await fetch('https://ipapi.co/json/');
+      if (!res.ok) return;
+      const data = await res.json();
+      if (data.region_code) { ufInput.value = data.region_code; ufInput.dataset.filled = '1'; }
+      if (data.city) { cidadeInput.value = data.city; cidadeInput.dataset.filled = '1'; }
+    } catch (_) {}
   }
 
   close() {
