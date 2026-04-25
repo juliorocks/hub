@@ -42,3 +42,6 @@ admin/hub-do-estudante-firebase-adminsdk-fbsvc-69ccccc35c.json
 .env
 .env.*
 !.env.example
+
+# Firebase Service Account (chave privada — nunca subir)
+firebase-service-account.json
