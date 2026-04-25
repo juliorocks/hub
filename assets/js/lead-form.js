@@ -147,18 +147,11 @@ class LeadForm {
     this.form.addEventListener('submit', (e) => this.handleSubmit(e));
   }
 
-  detectCourseFromUrl() {
+  isCourseDetailPage() {
+    // Só considera página de curso se a URL seguir o padrão de detalhe de curso:
+    // /pages/{area}/{subcategoria}/{slug}/ ou /pages/pos-graduacao/{slug}/
     const path = window.location.pathname;
-    // Detecta slug da URL: /pages/{area}/{type}/{slug}/index.html
-    const match = path.match(/\/pages\/[\w-]+\/[\w-]+\/([\w-]+)\/?(?:index\.html)?$/);
-    if (!match) return null;
-    const slug = match[1];
-    // Converte slug em nome legível: mba-marketing-digital → MBA Marketing Digital
-    const name = slug
-      .replace(/^mba-/, 'MBA ')
-      .replace(/-/g, ' ')
-      .replace(/\b\w/g, c => c.toUpperCase());
-    return { id: slug, name };
+    return /\/pages\/(graduacao|pos-graduacao|cursos-tecnicos|cursos-livres)\/[^/]+\/[^/]+\/?(?:index\.html)?$/.test(path);
   }
 
   loadContextFromPage() {
@@ -167,32 +160,27 @@ class LeadForm {
     const courseId = body.dataset.course;
     const area = body.dataset.area;
 
-    // Fallback: tenta detectar pelo slug da URL
-    const fromUrl = (!courseName || !courseId) ? this.detectCourseFromUrl() : null;
-    const resolvedCourseId = courseId || fromUrl?.id || null;
-    const resolvedCourseName = courseName || fromUrl?.name || null;
-
     // Guarda área e URL de origem para métricas
     this.sourcePage = {
       url: window.location.href,
       path: window.location.pathname,
       area: area || null,
-      course_id: resolvedCourseId,
+      course_id: courseId || null,
     };
 
     const container = document.getElementById('lead-course-container');
 
-    if (resolvedCourseName && resolvedCourseId) {
-      // Página específica de curso
+    if (this.isCourseDetailPage() && courseName && courseId) {
+      // Página específica de curso — mostra campo pré-preenchido
       container.innerHTML = `
         <div class="form-group">
           <label>Curso de interesse</label>
-          <div class="form-static-value">${resolvedCourseName}</div>
-          <input type="hidden" name="course_id" value="${resolvedCourseId}">
-          <input type="hidden" name="course_name" value="${resolvedCourseName}">
+          <div class="form-static-value">${courseName}</div>
+          <input type="hidden" name="course_id" value="${courseId}">
+          <input type="hidden" name="course_name" value="${courseName}">
         </div>
       `;
-      this.currentCourse = { id: resolvedCourseId, name: resolvedCourseName };
+      this.currentCourse = { id: courseId, name: courseName };
     } else {
       // Página geral: mostrar dropdowns
       container.innerHTML = `
@@ -311,22 +299,23 @@ class LeadForm {
   }
 
   showSuccessMessage() {
-    const form = this.form;
-    const originalHTML = form.innerHTML;
-
-    form.innerHTML = `
+    const content = this.modal.querySelector('.lead-form__content');
+    content.innerHTML = `
       <div class="lead-form__success">
-        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <polyline points="20 6 9 17 4 12"/>
+        <svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="#7c3aed" stroke-width="2">
+          <circle cx="12" cy="12" r="10"/>
+          <polyline points="9 12 11 14 15 10"/>
         </svg>
-        <h3>Obrigado!</h3>
-        <p>Receberemos seus dados em breve e entraremos em contato.</p>
+        <h3>Recebemos seu contato!</h3>
+        <p>Em breve nossa equipe entrará em contato com você.</p>
       </div>
     `;
 
+    // Fecha o modal após 3s e NÃO reabre
     setTimeout(() => {
-      form.innerHTML = originalHTML;
-      this.attachEventListeners();
+      this.close();
+      // Esconde o botão flutuante permanentemente nesta visita
+      this.button.style.display = 'none';
     }, 3000);
   }
 
