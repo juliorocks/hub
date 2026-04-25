@@ -387,6 +387,85 @@ async function serveArticle(req, res, section) {
   }
 }
 
+// --- SSR: Home Page ---
+function articleUrl(a) {
+  const base = a.category === 'carreiras/salarios' ? '/pages/carreiras/salarios/'
+             : a.category === 'enem-2026'          ? '/pages/enem-2026/'
+             : '/pages/guias/';
+  return `${base}${a.slug}`;
+}
+
+function cardFeatured(a) {
+  const date = new Date(a.publishDate).toLocaleDateString('pt-BR', { day: '2-digit', month: 'short', year: 'numeric', timeZone: 'UTC' });
+  return `
+  <article class="card card--featured destaques-grid__main">
+    <div class="card__image">
+      <img width="800" height="450" fetchpriority="high" loading="eager" src="${a.image || ''}" alt="${a.title}">
+    </div>
+    <div class="card__body">
+      <div class="card__meta">
+        <span class="content-type-badge content-type-badge--${a.badgeType || 'guide'}">${a.badgeLabel || 'Guia'}</span>
+        ${a.badgeTag ? `<span class="badge badge--purple">${a.badgeTag}</span>` : ''}
+      </div>
+      <h3 class="card__title"><a href="${articleUrl(a)}">${a.title}</a></h3>
+      <p class="card__excerpt">${a.subtitle || ''}</p>
+      <div class="card__footer">
+        <span class="card__date">${date}</span>
+        <span class="card__read-time">${a.readTime || '5 min'}</span>
+      </div>
+    </div>
+  </article>`;
+}
+
+function cardSmall(a, eager = false) {
+  const date = new Date(a.publishDate).toLocaleDateString('pt-BR', { day: '2-digit', month: 'short', year: 'numeric', timeZone: 'UTC' });
+  return `
+  <article class="card">
+    <div class="card__image">
+      <img width="800" height="450" loading="${eager ? 'eager' : 'lazy'}" src="${a.image || ''}" alt="${a.title}">
+    </div>
+    <div class="card__body">
+      <div class="card__meta">
+        <span class="content-type-badge content-type-badge--${a.badgeType || 'guide'}">${a.badgeLabel || 'Guia'}</span>
+        ${a.badgeTag ? `<span class="badge badge--green">${a.badgeTag}</span>` : ''}
+      </div>
+      <h3 class="card__title"><a href="${articleUrl(a)}">${a.title}</a></h3>
+      <p class="card__excerpt">${a.subtitle || ''}</p>
+      <div class="card__footer">
+        <span class="card__date">${date}</span>
+        <span class="card__read-time">${a.readTime || '5 min'}</span>
+      </div>
+    </div>
+  </article>`;
+}
+
+app.get('/', async (req, res, next) => {
+  const db = getFirestore();
+  if (!db) return next(); // fallback para static se Firebase não disponível
+
+  try {
+    const snap = await db.collection('articles').get();
+    const arts = [];
+    snap.forEach(d => arts.push(d.data()));
+    arts.sort((a, b) => new Date(b.publishDate) - new Date(a.publishDate));
+
+    const featured   = arts[0];
+    const sideCards  = arts.slice(1, 3);
+    const gridCards  = arts.slice(3, 21); // 18 cards no grid
+
+    let html = readFileSync(path.join(__dirname, 'index.html'), 'utf8');
+    html = html.replace('<!--DESTAQUE_FEATURED-->', cardFeatured(featured));
+    html = html.replace('<!--DESTAQUE_SIDE-->', sideCards.map(a => cardSmall(a, true)).join(''));
+    html = html.replace('<!--ARTICLES_GRID-->', gridCards.map(a => cardSmall(a)).join(''));
+
+    res.setHeader('Cache-Control', 'public, max-age=120, stale-while-revalidate=60');
+    res.send(html);
+  } catch (e) {
+    console.error('[Home SSR]', e);
+    next();
+  }
+});
+
 // Rotas SSR — antes dos estáticos para ter prioridade
 app.get('/pages/guias/:slug.html',              (req, res) => serveArticle(req, res, 'guias'));
 app.get('/pages/guias/:slug',                   (req, res) => serveArticle(req, res, 'guias'));
