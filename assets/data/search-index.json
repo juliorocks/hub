@@ -803,6 +803,27 @@
     "area": "guias",
     "areaLabel": "Guias",
     "areaColor": "#7c3aed",
+    "title": "Inteligência emocional no trabalho: por que é mais importante que o QI",
+    "excerpt": "Inteligência emocional é a habilidade mais valorizada pelas empresas em 2026. Veja como desenvolver a sua e usá-la para crescer na carreira.",
+    "keywords": [
+      "inteligência",
+      "emocional",
+      "trabalho",
+      "mais",
+      "importante",
+      "habilidade",
+      "inteligencia"
+    ],
+    "url": "/pages/guias/inteligencia-emocional-no-trabalho",
+    "emoji": "📚",
+    "image": "https://images.unsplash.com/photo-1531496730074-83b68571d5b5?w=900&h=500&fit=crop",
+    "publishDate": "2026-04-26T00:00:00Z"
+  },
+  {
+    "type": "artigo",
+    "area": "guias",
+    "areaLabel": "Guias",
+    "areaColor": "#7c3aed",
     "title": "Soft Skills: As 10 Competências Que Recrutadores Mais Procuram",
     "excerpt": "Soft skills que recrutadores procuram 2026: competências comportamentais, liderança, comunicação e inteligência emocional no mercado de trabalho.",
     "keywords": [
@@ -931,6 +952,27 @@
   },
   {
     "type": "artigo",
+    "area": "carreiras/salarios",
+    "areaLabel": "Carreiras & Salários",
+    "areaColor": "#f59e0b",
+    "title": "Quanto ganha um Assistente Social em 2026?",
+    "excerpt": "Salário do assistente social em 2026 por setor: saúde, CRAS, CREAS, empresas e ONGs. Veja as médias reais e as melhores oportunidades na área.",
+    "keywords": [
+      "quanto",
+      "ganha",
+      "assistente",
+      "social",
+      "2026",
+      "salário",
+      "salario"
+    ],
+    "url": "/pages/carreiras/salarios/quanto-ganha-assistente-social",
+    "emoji": "💼",
+    "image": "https://images.unsplash.com/photo-1573497620053-ea5300f94f21?w=900&h=500&fit=crop",
+    "publishDate": "2026-04-26T00:00:00Z"
+  },
+  {
+    "type": "artigo",
     "area": "enem-2026",
     "areaLabel": "ENEM 2026",
     "areaColor": "#0ea5e9",
@@ -973,6 +1015,28 @@
     "emoji": "📚",
     "image": "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=900&h=500&fit=crop",
     "publishDate": "2026-04-21T00:00:00Z"
+  },
+  {
+    "type": "artigo",
+    "area": "guias",
+    "areaLabel": "Guias",
+    "areaColor": "#7c3aed",
+    "title": "Como escolher a pós-graduação certa: MBA, especialização ou mestrado?",
+    "excerpt": "MBA, especialização ou mestrado? Guia prático para escolher a pós-graduação certa para sua carreira e não desperdiçar tempo nem dinheiro.",
+    "keywords": [
+      "como",
+      "escolher",
+      "pósgraduação",
+      "certa",
+      "especialização",
+      "mestrado",
+      "posgraduacao",
+      "especializacao"
+    ],
+    "url": "/pages/guias/como-escolher-pos-graduacao",
+    "emoji": "📚",
+    "image": "https://images.unsplash.com/photo-1541339907198-e08756dedf3f?w=900&h=500&fit=crop",
+    "publishDate": "2026-04-26T00:00:00Z"
   },
   {
     "type": "artigo",
@@ -1265,6 +1329,31 @@
     "emoji": "💼",
     "image": "https://images.unsplash.com/photo-1628009368231-7bb7cfcb0def?w=900&h=500&fit=crop",
     "publishDate": "2026-04-25T00:00:00Z"
+  },
+  {
+    "type": "artigo",
+    "area": "carreiras/salarios",
+    "areaLabel": "Carreiras & Salários",
+    "areaColor": "#f59e0b",
+    "title": "Quanto ganha um Professor em 2026? (Educação Básica e Superior)",
+    "excerpt": "Salário de professor em 2026: da educação infantil ao ensino superior, rede pública e privada. Veja as médias reais e como crescer na carreira docente.",
+    "keywords": [
+      "quanto",
+      "ganha",
+      "professor",
+      "2026",
+      "educação",
+      "básica",
+      "superior",
+      "salário",
+      "educacao",
+      "basica",
+      "salario"
+    ],
+    "url": "/pages/carreiras/salarios/quanto-ganha-professor",
+    "emoji": "💼",
+    "image": "https://images.unsplash.com/photo-1580582932707-520aed937b7b?w=900&h=500&fit=crop",
+    "publishDate": "2026-04-26T00:00:00Z"
   },
   {
     "type": "artigo",
@@ -1909,6 +1998,28 @@
     "area": "guias",
     "areaLabel": "Guias",
     "areaColor": "#7c3aed",
+    "title": "Networking para estudantes: como construir uma rede profissional do zero",
+    "excerpt": "Você não precisa esperar se formar para construir uma rede profissional. Veja como fazer networking sendo estudante e abrir portas ainda na faculdade.",
+    "keywords": [
+      "networking",
+      "para",
+      "estudantes",
+      "como",
+      "construir",
+      "rede",
+      "profissional",
+      "zero"
+    ],
+    "url": "/pages/guias/networking-para-estudantes",
+    "emoji": "📚",
+    "image": "https://images.unsplash.com/photo-1515187029135-18ee286d815b?w=900&h=500&fit=crop",
+    "publishDate": "2026-04-26T00:00:00Z"
+  },
+  {
+    "type": "artigo",
+    "area": "guias",
+    "areaLabel": "Guias",
+    "areaColor": "#7c3aed",
     "title": "Como financiar uma pós-graduação em 2026: bolsas, FIES e parcelamento",
     "excerpt": "Guia completo com todas as opções para pagar o MBA ou especialização sem comprometer o orçamento — guia completo 2026 com salários, mercado de trabalho e especializações.",
     "keywords": [
@@ -1997,6 +2108,29 @@
     "area": "guias",
     "areaLabel": "Guias",
     "areaColor": "#7c3aed",
+    "title": "Como conseguir o primeiro estágio: guia completo 2026",
+    "excerpt": "Passo a passo para conquistar o primeiro estágio: onde procurar vagas, como montar o currículo, o que esperar da entrevista e seus direitos.",
+    "keywords": [
+      "como",
+      "conseguir",
+      "primeiro",
+      "estágio",
+      "guia",
+      "completo",
+      "2026",
+      "passo",
+      "estagio"
+    ],
+    "url": "/pages/guias/como-conseguir-primeiro-estagio",
+    "emoji": "📚",
+    "image": "https://images.unsplash.com/photo-1521791136064-7986c2920216?w=900&h=500&fit=crop",
+    "publishDate": "2026-04-26T00:00:00Z"
+  },
+  {
+    "type": "artigo",
+    "area": "guias",
+    "areaLabel": "Guias",
+    "areaColor": "#7c3aed",
     "title": "Intercambio durante a faculdade: guia completo 2026",
     "excerpt": "Guia completo sobre intercâmbio universitário: programas disponíveis, custos reais, como se inscrever e o impacto na sua carreira profissional.",
     "keywords": [
@@ -2075,6 +2209,27 @@
     "emoji": "📚",
     "image": "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=900&h=500&fit=crop",
     "publishDate": "2026-04-20T00:00:00Z"
+  },
+  {
+    "type": "artigo",
+    "area": "carreiras/salarios",
+    "areaLabel": "Carreiras & Salários",
+    "areaColor": "#f59e0b",
+    "title": "Quanto ganha um Arquiteto e Urbanista em 2026?",
+    "excerpt": "Salário do arquiteto e urbanista em 2026: da carreira recém-formada até o sênior. Veja médias por especialidade e como crescer na área.",
+    "keywords": [
+      "quanto",
+      "ganha",
+      "arquiteto",
+      "urbanista",
+      "2026",
+      "salário",
+      "salario"
+    ],
+    "url": "/pages/carreiras/salarios/quanto-ganha-arquiteto-urbanista",
+    "emoji": "💼",
+    "image": "https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=900&h=500&fit=crop",
+    "publishDate": "2026-04-26T00:00:00Z"
   },
   {
     "type": "artigo",
