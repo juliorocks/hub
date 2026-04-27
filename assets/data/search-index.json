@@ -816,7 +816,7 @@
     ],
     "url": "/pages/guias/inteligencia-emocional-no-trabalho",
     "emoji": "📚",
-    "image": "https://images.unsplash.com/photo-1531496730074-83b68571d5b5?w=900&h=500&fit=crop",
+    "image": "https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=900&h=500&fit=crop",
     "publishDate": "2026-04-26T00:00:00Z"
   },
   {
@@ -1015,6 +1015,29 @@
     "emoji": "📚",
     "image": "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=900&h=500&fit=crop",
     "publishDate": "2026-04-21T00:00:00Z"
+  },
+  {
+    "type": "artigo",
+    "area": "guias",
+    "areaLabel": "Guias",
+    "areaColor": "#7c3aed",
+    "title": "Finanças pessoais para estudantes: como organizar o dinheiro na faculdade",
+    "excerpt": "Como organizar o dinheiro na faculdade? Orçamento simples, dicas de economia, como evitar dívidas e dar os primeiros passos nos investimentos com pouco.",
+    "keywords": [
+      "finanças",
+      "pessoais",
+      "para",
+      "estudantes",
+      "como",
+      "organizar",
+      "dinheiro",
+      "faculdade",
+      "financas"
+    ],
+    "url": "/pages/guias/financas-pessoais-para-estudantes",
+    "emoji": "📚",
+    "image": "https://images.unsplash.com/photo-1526628953301-3e589a6a8b74?w=900&h=500&fit=crop",
+    "publishDate": "2026-04-26T00:00:00Z"
   },
   {
     "type": "artigo",
@@ -1379,6 +1402,28 @@
     "emoji": "💼",
     "image": "https://images.unsplash.com/photo-1537462715879-360eeb61a0ad?w=900&h=500&fit=crop",
     "publishDate": "2026-04-25T00:00:00Z"
+  },
+  {
+    "type": "artigo",
+    "area": "carreiras/salarios",
+    "areaLabel": "Carreiras & Salários",
+    "areaColor": "#f59e0b",
+    "title": "Quanto ganha um Designer Gráfico em 2026?",
+    "excerpt": "Salário do designer gráfico em 2026: do júnior ao sênior, CLT vs freela, e quais especialidades pagam mais no mercado atual.",
+    "keywords": [
+      "quanto",
+      "ganha",
+      "designer",
+      "gráfico",
+      "2026",
+      "salário",
+      "grafico",
+      "salario"
+    ],
+    "url": "/pages/carreiras/salarios/quanto-ganha-designer-grafico",
+    "emoji": "💼",
+    "image": "https://images.unsplash.com/photo-1574634534894-89d7576c8259?w=900&h=500&fit=crop",
+    "publishDate": "2026-04-26T00:00:00Z"
   },
   {
     "type": "artigo",
@@ -1909,6 +1954,31 @@
   },
   {
     "type": "artigo",
+    "area": "guias",
+    "areaLabel": "Guias",
+    "areaColor": "#7c3aed",
+    "title": "Saúde mental na faculdade: como lidar com ansiedade e pressão acadêmica",
+    "excerpt": "Ansiedade, burnout e síndrome do impostor são comuns na faculdade. Veja como identificar os sinais e estratégias práticas para cuidar da sua saúde mental.",
+    "keywords": [
+      "saúde",
+      "mental",
+      "faculdade",
+      "como",
+      "lidar",
+      "ansiedade",
+      "pressão",
+      "acadêmica",
+      "saude",
+      "pressao",
+      "academica"
+    ],
+    "url": "/pages/guias/saude-mental-na-faculdade",
+    "emoji": "📚",
+    "image": "https://images.unsplash.com/photo-1559136555-9303baea8ebd?w=900&h=500&fit=crop",
+    "publishDate": "2026-04-26T00:00:00Z"
+  },
+  {
+    "type": "artigo",
     "area": "carreiras/salarios",
     "areaLabel": "Carreiras & Salários",
     "areaColor": "#f59e0b",
@@ -2064,6 +2134,28 @@
     "area": "carreiras/salarios",
     "areaLabel": "Carreiras & Salários",
     "areaColor": "#f59e0b",
+    "title": "Quanto ganha um Publicitário em 2026?",
+    "excerpt": "Salário do publicitário em 2026: redator, diretor de arte, atendimento, mídia e planejamento. Agências vs empresas e quais cargos pagam mais.",
+    "keywords": [
+      "quanto",
+      "ganha",
+      "publicitário",
+      "2026",
+      "salário",
+      "redator",
+      "publicitario",
+      "salario"
+    ],
+    "url": "/pages/carreiras/salarios/quanto-ganha-publicitario",
+    "emoji": "💼",
+    "image": "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=900&h=500&fit=crop",
+    "publishDate": "2026-04-26T00:00:00Z"
+  },
+  {
+    "type": "artigo",
+    "area": "carreiras/salarios",
+    "areaLabel": "Carreiras & Salários",
+    "areaColor": "#f59e0b",
     "title": "Quanto ganha um Promotor de Justiça em 2026? Salário por instância e carreira",
     "excerpt": "Salário do promotor de justiça em 2026: estadual, federal (PGR), militar e mais. Dados por instância, estado e progressão de carreira.",
     "keywords": [
@@ -2145,6 +2237,27 @@
     "emoji": "📚",
     "image": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=900&h=500&fit=crop",
     "publishDate": "2026-04-18T00:00:00Z"
+  },
+  {
+    "type": "artigo",
+    "area": "carreiras/salarios",
+    "areaLabel": "Carreiras & Salários",
+    "areaColor": "#f59e0b",
+    "title": "Quanto ganha um Analista de RH em 2026?",
+    "excerpt": "Salário do analista de RH em 2026 por especialidade: recrutamento, T&D, HRBP e mais. Veja o que separa os profissionais de maior remuneração na área.",
+    "keywords": [
+      "quanto",
+      "ganha",
+      "analista",
+      "2026",
+      "salário",
+      "especialidade",
+      "salario"
+    ],
+    "url": "/pages/carreiras/salarios/quanto-ganha-analista-rh",
+    "emoji": "💼",
+    "image": "https://images.unsplash.com/photo-1573164713988-8665fc963095?w=900&h=500&fit=crop",
+    "publishDate": "2026-04-26T00:00:00Z"
   },
   {
     "type": "artigo",
@@ -2490,6 +2603,54 @@
     "emoji": "📚",
     "image": "https://images.unsplash.com/photo-1484480974693-6ca0a78fb36b?w=900&h=500&fit=crop",
     "publishDate": "2026-04-20T00:00:00Z"
+  },
+  {
+    "type": "artigo",
+    "area": "guias",
+    "areaLabel": "Guias",
+    "areaColor": "#7c3aed",
+    "title": "Como estudar para concurso público: método, tempo e organização",
+    "excerpt": "Método, cronograma e disciplina: o guia completo para quem quer passar em concurso público em 2026 sem desperdiçar tempo e energia.",
+    "keywords": [
+      "como",
+      "estudar",
+      "para",
+      "concurso",
+      "público",
+      "método",
+      "tempo",
+      "organização",
+      "publico",
+      "metodo",
+      "organizacao"
+    ],
+    "url": "/pages/guias/como-estudar-para-concurso-publico",
+    "emoji": "📚",
+    "image": "https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=900&h=500&fit=crop",
+    "publishDate": "2026-04-26T00:00:00Z"
+  },
+  {
+    "type": "artigo",
+    "area": "guias",
+    "areaLabel": "Guias",
+    "areaColor": "#7c3aed",
+    "title": "Como aprender programação do zero em 2026: roteiro completo",
+    "excerpt": "Por onde começar a programar em 2026? Roteiro completo do zero ao primeiro emprego: linguagens, plataformas gratuitas e quanto tempo leva.",
+    "keywords": [
+      "como",
+      "aprender",
+      "programação",
+      "zero",
+      "2026",
+      "roteiro",
+      "completo",
+      "onde",
+      "programacao"
+    ],
+    "url": "/pages/guias/como-aprender-programacao-do-zero",
+    "emoji": "📚",
+    "image": "https://images.unsplash.com/photo-1593642632559-0c6d3fc62b89?w=900&h=500&fit=crop",
+    "publishDate": "2026-04-26T00:00:00Z"
   },
   {
     "type": "artigo",
