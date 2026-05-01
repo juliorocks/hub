@@ -109,4 +109,13 @@
   <url><loc>https://hubdoestudante.com.br/pages/pos-graduacao/especializacao/direito-trabalho/index.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
   <url><loc>https://hubdoestudante.com.br/pages/guias/trabalho-remoto-para-estudantes.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
   <url><loc>https://hubdoestudante.com.br/pages/enem-2026/historia-enem-2026.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+
+  <!-- Batch 5 – 2026-05-01 (Dia do Trabalho) -->
+  <url><loc>https://www.hubdoestudante.com.br/guias/direitos-trabalhistas-todo-empregado-deve-conhecer/</loc><lastmod>2026-05-01</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.hubdoestudante.com.br/guias/como-negociar-salario/</loc><lastmod>2026-05-01</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.hubdoestudante.com.br/guias/clt-ou-pj-o-que-vale-mais/</loc><lastmod>2026-05-01</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.hubdoestudante.com.br/graduacao/negocios/ciencias-contabeis-guia/</loc><lastmod>2026-05-01</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.hubdoestudante.com.br/graduacao/tecnologia/desenvolvimento-web-fullstack/</loc><lastmod>2026-05-01</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.hubdoestudante.com.br/carreiras/salarios/quanto-ganha-administrador/</loc><lastmod>2026-05-01</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.hubdoestudante.com.br/pos-graduacao/especializacao/mba-gestao-pessoas/</loc><lastmod>2026-05-01</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
 </urlset>
