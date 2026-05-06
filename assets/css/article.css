@@ -162,6 +162,25 @@
   color: var(--color-primary-dark);
 }
 
+.article-content .cta-box {
+  color: white;
+}
+
+.article-content .cta-box p {
+  color: rgba(255, 255, 255, 0.92);
+}
+
+.article-content .cta-box a {
+  color: white;
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.article-content .cta-box a:hover {
+  color: rgba(255, 255, 255, 0.85);
+}
+
 .article-content blockquote {
   border-left: 4px solid var(--color-primary);
   padding: var(--space-4) var(--space-6);
