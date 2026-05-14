@@ -1,0 +1,1235 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Formação de Doula e Educadora Perinatal — Instituto Icimulher</title>
+  <meta name="description" content="Forme-se Doula e Educadora Perinatal em 12 semanas. +3.500 doulas formadas. Certificado Anhanguera reconhecido pelo MEC. Suporte vitalício. Inscreva-se já!">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&display=swap');
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --green:       #2D6A4F;
+      --green-dark:  #1a4230;
+      --green-xdark: #122d22;
+      --gold:        #D4A017;
+      --gold-light:  #F9C74F;
+      --bg:          #FAFAF7;
+      --mint:        #F0F7F2;
+      --dark:        #1C1C1C;
+      --muted:       #6B7280;
+      --white:       #FFFFFF;
+      --radius:      12px;
+      --radius-lg:   20px;
+      --shadow:      0 4px 24px rgba(0,0,0,.08);
+      --shadow-md:   0 8px 40px rgba(0,0,0,.12);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--bg);
+      color: var(--dark);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    h1,h2,h3,h4 { font-family: 'DM Serif Display', serif; line-height: 1.2; }
+
+    img { max-width: 100%; display: block; }
+
+    a { text-decoration: none; color: inherit; }
+
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+
+    /* ——— BUTTONS ——— */
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+      padding: 16px 32px; border-radius: 50px; font-family: 'DM Sans', sans-serif;
+      font-weight: 600; font-size: 1rem; cursor: pointer; transition: all .25s ease;
+      border: 2px solid transparent; white-space: nowrap;
+    }
+    .btn-gold {
+      background: var(--gold); color: var(--white);
+      box-shadow: 0 4px 20px rgba(212,160,23,.35);
+    }
+    .btn-gold:hover { background: #b8880f; transform: translateY(-2px); box-shadow: 0 8px 28px rgba(212,160,23,.45); }
+    .btn-outline-white {
+      background: transparent; color: var(--white);
+      border-color: rgba(255,255,255,.7);
+    }
+    .btn-outline-white:hover { background: rgba(255,255,255,.12); transform: translateY(-2px); }
+    .btn-green {
+      background: var(--green); color: var(--white);
+      box-shadow: 0 4px 20px rgba(45,106,79,.35);
+    }
+    .btn-green:hover { background: var(--green-dark); transform: translateY(-2px); }
+    .btn-lg { padding: 20px 44px; font-size: 1.1rem; }
+
+    /* ——— NAV ——— */
+    #nav {
+      position: fixed; top: 0; left: 0; width: 100%; z-index: 1000;
+      transition: background .35s ease, box-shadow .35s ease; padding: 16px 0;
+    }
+    #nav.scrolled { background: rgba(250,250,247,.97); backdrop-filter: blur(12px); box-shadow: 0 2px 20px rgba(0,0,0,.08); }
+    .nav-inner { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+    .nav-logo img { height: 44px; object-fit: contain; }
+    .nav-actions { display: flex; gap: 12px; align-items: center; }
+    .nav-actions .btn { padding: 11px 22px; font-size: .9rem; }
+    .btn-ghost-green { background: transparent; color: var(--green); border: 2px solid var(--green); }
+    .btn-ghost-green:hover { background: var(--green); color: var(--white); }
+    .nav-hamburger { display: none; background: none; border: none; cursor: pointer; padding: 4px; }
+    .nav-hamburger span { display: block; width: 24px; height: 2px; background: var(--dark); margin: 5px 0; transition: .3s; border-radius: 2px; }
+    #nav.scrolled .nav-hamburger span { background: var(--dark); }
+    #nav:not(.scrolled) .nav-hamburger span { background: var(--white); }
+    #nav:not(.scrolled) .btn-ghost-green { color: var(--white); border-color: rgba(255,255,255,.7); }
+    #nav:not(.scrolled) .btn-ghost-green:hover { background: rgba(255,255,255,.15); }
+    .mobile-menu { display: none; flex-direction: column; gap: 12px; padding: 16px 0 8px; }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu .btn { width: 100%; justify-content: center; }
+
+    /* ——— HERO ——— */
+    #hero {
+      min-height: 100vh; position: relative; display: flex; align-items: center;
+      background: var(--green-xdark); overflow: hidden; padding: 100px 0 60px;
+    }
+    .hero-bg {
+      position: absolute; inset: 0;
+      background-image: url('https://parindocomvoce.com/wp-content/uploads/2025/05/ChatGPT-Image-7-de-mai.-de-2025-14_25_55.png');
+      background-size: cover; background-position: center right;
+      opacity: .22;
+    }
+    .hero-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(105deg, rgba(18,45,34,.96) 0%, rgba(18,45,34,.75) 50%, rgba(18,45,34,.3) 100%);
+    }
+    .hero-inner {
+      position: relative; z-index: 2;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center;
+    }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(212,160,23,.18); border: 1px solid rgba(212,160,23,.5);
+      color: var(--gold-light); border-radius: 50px; padding: 8px 18px;
+      font-size: .82rem; font-weight: 600; letter-spacing: .04em; text-transform: uppercase;
+      margin-bottom: 24px;
+    }
+    .hero-title {
+      font-size: clamp(2.4rem, 5vw, 3.6rem); color: var(--white);
+      margin-bottom: 20px; line-height: 1.15;
+    }
+    .hero-title em { color: var(--gold-light); font-style: italic; }
+    .hero-subtitle { font-size: 1.1rem; color: rgba(255,255,255,.82); margin-bottom: 36px; max-width: 480px; }
+    .hero-ctas { display: flex; gap: 14px; flex-wrap: wrap; }
+    .hero-image-wrap {
+      position: relative; display: flex; justify-content: center; align-items: center;
+    }
+    .hero-img-frame {
+      width: 100%; max-width: 440px; aspect-ratio: 3/4; border-radius: 24px;
+      overflow: hidden; box-shadow: 0 24px 80px rgba(0,0,0,.5);
+      border: 3px solid rgba(255,255,255,.12);
+    }
+    .hero-img-frame img { width: 100%; height: 100%; object-fit: cover; object-position: top; }
+    .hero-float-badge {
+      position: absolute; bottom: -24px; left: -20px;
+      background: var(--white); border-radius: var(--radius); padding: 14px 18px;
+      box-shadow: var(--shadow-md); display: flex; align-items: center; gap: 10px;
+    }
+    .hero-float-badge .icon { font-size: 1.6rem; }
+    .hero-float-badge strong { display: block; font-size: .95rem; color: var(--dark); }
+    .hero-float-badge span { font-size: .78rem; color: var(--muted); }
+
+    /* Stats bar */
+    #stats {
+      background: var(--green); position: relative; z-index: 3;
+    }
+    .stats-inner {
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      padding: 32px 0;
+    }
+    .stat-item {
+      text-align: center; padding: 12px 20px;
+      border-right: 1px solid rgba(255,255,255,.2);
+    }
+    .stat-item:last-child { border-right: none; }
+    .stat-number { font-family: 'DM Serif Display', serif; font-size: 2.4rem; color: var(--gold-light); display: block; }
+    .stat-label { font-size: .85rem; color: rgba(255,255,255,.82); margin-top: 2px; }
+
+    /* ——— SECTION COMMON ——— */
+    section { padding: 96px 0; }
+    .section-label {
+      display: inline-block; font-size: .8rem; font-weight: 700; letter-spacing: .1em;
+      text-transform: uppercase; color: var(--green); margin-bottom: 12px;
+    }
+    .section-title { font-size: clamp(2rem, 4vw, 2.8rem); margin-bottom: 16px; }
+    .section-sub { font-size: 1.05rem; color: var(--muted); max-width: 580px; }
+    .text-center { text-align: center; }
+    .text-center .section-sub { margin: 0 auto; }
+
+    /* ——— IS IT FOR ME ——— */
+    #for-me { background: var(--mint); }
+    .for-me-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 72px; align-items: center; }
+    .check-list { list-style: none; margin-top: 32px; display: flex; flex-direction: column; gap: 18px; }
+    .check-list li {
+      display: flex; gap: 14px; align-items: flex-start;
+      font-size: 1rem; color: var(--dark);
+    }
+    .check-icon {
+      flex-shrink: 0; width: 28px; height: 28px; border-radius: 50%;
+      background: var(--green); display: flex; align-items: center; justify-content: center;
+      margin-top: 1px;
+    }
+    .check-icon svg { width: 14px; height: 14px; stroke: white; fill: none; stroke-width: 2.5; }
+    .for-me-img {
+      border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow-md);
+      aspect-ratio: 4/5; width: 100%;
+    }
+    .for-me-img img { width: 100%; height: 100%; object-fit: cover; }
+
+    /* ——— CURRICULUM ——— */
+    #curriculum { background: var(--bg); }
+    .curriculum-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 52px;
+    }
+    .module-card {
+      background: var(--white); border-radius: var(--radius-lg); padding: 28px;
+      box-shadow: var(--shadow); border: 1px solid rgba(45,106,79,.08);
+      transition: transform .25s ease, box-shadow .25s ease;
+    }
+    .module-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); }
+    .module-icon {
+      width: 48px; height: 48px; border-radius: var(--radius); background: var(--mint);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.4rem; margin-bottom: 16px;
+    }
+    .module-num { font-size: .72rem; font-weight: 700; color: var(--green); letter-spacing: .08em; text-transform: uppercase; margin-bottom: 6px; }
+    .module-title { font-family: 'DM Serif Display', serif; font-size: 1.15rem; margin-bottom: 8px; }
+    .module-desc { font-size: .9rem; color: var(--muted); line-height: 1.5; }
+
+    /* ——— HOW IT WORKS ——— */
+    #how { background: var(--mint); }
+    .how-item {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center;
+      margin-bottom: 80px;
+    }
+    .how-item:last-child { margin-bottom: 0; }
+    .how-item.reverse .how-text { order: 2; }
+    .how-item.reverse .how-photo { order: 1; }
+    .how-icon-wrap {
+      width: 60px; height: 60px; background: var(--green); border-radius: var(--radius);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.6rem; margin-bottom: 20px;
+    }
+    .how-title { font-size: 1.7rem; margin-bottom: 12px; }
+    .how-desc { color: var(--muted); font-size: 1rem; line-height: 1.7; }
+    .how-photo { border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow-md); }
+    .how-photo img { width: 100%; height: 340px; object-fit: cover; }
+
+    /* ——— CERTIFICATIONS ——— */
+    #certs { background: var(--green-dark); }
+    #certs .section-label { color: var(--gold-light); }
+    #certs .section-title { color: var(--white); }
+    #certs .section-sub { color: rgba(255,255,255,.7); }
+    .certs-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 52px; }
+    .cert-card {
+      background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.15);
+      border-radius: var(--radius-lg); padding: 36px 28px; text-align: center;
+      transition: transform .25s, background .25s;
+    }
+    .cert-card:hover { transform: translateY(-4px); background: rgba(255,255,255,.11); }
+    .cert-card img { height: 70px; object-fit: contain; margin: 0 auto 20px; }
+    .cert-card-title { font-family: 'DM Serif Display', serif; font-size: 1.2rem; color: var(--white); margin-bottom: 8px; }
+    .cert-card-desc { font-size: .9rem; color: rgba(255,255,255,.65); }
+    .cert-placeholder-icon { font-size: 3rem; margin-bottom: 20px; display: block; }
+    .mec-badge {
+      margin: 48px auto 0; display: inline-flex; align-items: center; gap: 14px;
+      background: rgba(249,199,79,.12); border: 1px solid rgba(249,199,79,.4);
+      border-radius: 50px; padding: 14px 28px;
+    }
+    .mec-badge-icon { font-size: 1.6rem; }
+    .mec-badge-text { color: var(--gold-light); font-weight: 600; font-size: .95rem; }
+    .mec-wrap { display: flex; justify-content: center; }
+
+    /* ——— INSTRUCTOR ——— */
+    #instructor { background: var(--bg); }
+    .instructor-inner { display: grid; grid-template-columns: 1fr 1.3fr; gap: 72px; align-items: center; }
+    .instructor-photo-wrap { position: relative; }
+    .instructor-photo {
+      border-radius: var(--radius-lg); overflow: hidden;
+      box-shadow: var(--shadow-md); aspect-ratio: 3/4;
+    }
+    .instructor-photo img { width: 100%; height: 100%; object-fit: cover; object-position: top; }
+    .instructor-deco {
+      position: absolute; bottom: -16px; right: -16px; width: 120px; height: 120px;
+      border-radius: var(--radius-lg); background: var(--mint); z-index: -1;
+    }
+    .instructor-label { color: var(--green); font-size: .82rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; margin-bottom: 8px; }
+    .instructor-name { font-size: 2.2rem; margin-bottom: 6px; }
+    .instructor-role { color: var(--muted); margin-bottom: 20px; font-size: .95rem; }
+    .instructor-bio { color: var(--dark); line-height: 1.8; font-size: .98rem; margin-bottom: 32px; }
+    .instructor-bio p + p { margin-top: 14px; }
+    .instructor-badges { display: flex; flex-wrap: wrap; gap: 12px; }
+    .instructor-badge {
+      display: flex; align-items: center; gap: 8px;
+      background: var(--mint); border-radius: 50px; padding: 8px 16px;
+      font-size: .85rem; font-weight: 600; color: var(--green);
+    }
+    .instructor-badge .b-icon { font-size: 1.1rem; }
+
+    /* ——— TESTIMONIALS ——— */
+    #testimonials { background: var(--mint); }
+    .testimonials-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-top: 52px;
+      align-items: start;
+    }
+    .testimonial-card {
+      border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow);
+      transition: transform .25s, box-shadow .25s;
+    }
+    .testimonial-card:hover { transform: translateY(-4px) rotate(0deg) !important; box-shadow: var(--shadow-md); }
+    .testimonial-card img { width: 100%; height: auto; display: block; }
+    .testimonial-card:nth-child(odd) { transform: rotate(-1deg); }
+    .testimonial-card:nth-child(even) { transform: rotate(.8deg); margin-top: 20px; }
+
+    /* ——— GALLERY ——— */
+    #gallery { background: var(--bg); padding: 72px 0; }
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      grid-template-rows: 240px 240px;
+      gap: 12px; margin-top: 40px;
+    }
+    .gallery-item { border-radius: var(--radius); overflow: hidden; }
+    .gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: transform .4s ease; }
+    .gallery-item:hover img { transform: scale(1.04); }
+    .gallery-item:nth-child(1) { grid-column: span 5; grid-row: span 2; }
+    .gallery-item:nth-child(2) { grid-column: span 4; }
+    .gallery-item:nth-child(3) { grid-column: span 3; }
+    .gallery-item:nth-child(4) { grid-column: span 3; }
+    .gallery-item:nth-child(5) { grid-column: span 4; }
+
+    /* ——— PRICING ——— */
+    #pricing { background: var(--green-xdark); }
+    #pricing .section-title { color: var(--white); }
+    #pricing .section-sub { color: rgba(255,255,255,.7); }
+    .pricing-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; margin-top: 52px; }
+    .price-card {
+      background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.12);
+      border-radius: var(--radius-lg); padding: 40px 36px;
+      transition: transform .25s, background .25s;
+    }
+    .price-card:hover { background: rgba(255,255,255,.1); transform: translateY(-4px); }
+    .price-card.featured {
+      background: var(--white); border-color: transparent;
+      box-shadow: 0 16px 60px rgba(0,0,0,.25);
+    }
+    .price-card.featured .price-title,
+    .price-card.featured .price-amount,
+    .price-card.featured .feature-item { color: var(--dark); }
+    .price-card.featured .price-installment { color: var(--muted); }
+    .price-card.featured .price-sub { color: var(--muted); }
+    .price-badge {
+      display: inline-block; background: var(--gold); color: var(--white);
+      border-radius: 50px; padding: 5px 14px; font-size: .78rem; font-weight: 700;
+      text-transform: uppercase; letter-spacing: .06em; margin-bottom: 16px;
+    }
+    .price-title { font-family: 'DM Serif Display', serif; font-size: 1.5rem; color: var(--white); margin-bottom: 24px; }
+    .price-amount { font-family: 'DM Serif Display', serif; font-size: 2.8rem; color: var(--white); line-height: 1; }
+    .price-amount span { font-size: 1.2rem; vertical-align: super; }
+    .price-installment { font-size: .9rem; color: rgba(255,255,255,.6); margin-top: 6px; margin-bottom: 28px; }
+    .price-sub { font-size: .82rem; color: rgba(255,255,255,.5); }
+    .divider { border: none; border-top: 1px solid rgba(255,255,255,.12); margin: 24px 0; }
+    .price-card.featured .divider { border-color: rgba(0,0,0,.08); }
+    .feature-list { list-style: none; display: flex; flex-direction: column; gap: 12px; margin-bottom: 32px; }
+    .feature-item { display: flex; gap: 10px; align-items: center; font-size: .92rem; color: rgba(255,255,255,.85); }
+    .feature-icon { color: var(--gold-light); font-size: 1rem; flex-shrink: 0; }
+    .price-card.featured .feature-icon { color: var(--green); }
+    .price-note {
+      text-align: center; margin-top: 32px; color: rgba(255,255,255,.65); font-size: .9rem;
+    }
+    .price-note strong { color: var(--gold-light); }
+
+    /* ——— GUARANTEE ——— */
+    #guarantee {
+      background: var(--green); padding: 72px 0;
+    }
+    .guarantee-inner {
+      display: flex; align-items: center; gap: 48px;
+      background: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.2);
+      border-radius: var(--radius-lg); padding: 48px; max-width: 900px; margin: 0 auto;
+    }
+    .guarantee-icon { font-size: 5rem; flex-shrink: 0; }
+    .guarantee-title { font-family: 'DM Serif Display', serif; font-size: 2rem; color: var(--white); margin-bottom: 10px; }
+    .guarantee-text { color: rgba(255,255,255,.85); font-size: 1rem; line-height: 1.7; }
+
+    /* ——— FAQ ——— */
+    #faq { background: var(--bg); }
+    .faq-list { max-width: 780px; margin: 48px auto 0; display: flex; flex-direction: column; gap: 12px; }
+    .faq-item {
+      background: var(--white); border-radius: var(--radius); overflow: hidden;
+      box-shadow: 0 2px 12px rgba(0,0,0,.06); border: 1px solid rgba(45,106,79,.08);
+    }
+    .faq-q {
+      width: 100%; background: none; border: none; cursor: pointer;
+      display: flex; align-items: center; justify-content: space-between; gap: 16px;
+      padding: 22px 24px; text-align: left; font-family: 'DM Sans', sans-serif;
+      font-size: 1rem; font-weight: 600; color: var(--dark);
+    }
+    .faq-q:hover { color: var(--green); }
+    .faq-arrow {
+      flex-shrink: 0; width: 24px; height: 24px; background: var(--mint);
+      border-radius: 50%; display: flex; align-items: center; justify-content: center;
+      transition: transform .3s ease;
+    }
+    .faq-arrow svg { width: 12px; height: 12px; stroke: var(--green); fill: none; stroke-width: 2.5; }
+    .faq-item.open .faq-arrow { transform: rotate(180deg); background: var(--green); }
+    .faq-item.open .faq-arrow svg { stroke: white; }
+    .faq-a { display: none; padding: 0 24px 22px; font-size: .95rem; color: var(--muted); line-height: 1.7; }
+    .faq-item.open .faq-a { display: block; }
+
+    /* ——— FINAL CTA ——— */
+    #final-cta {
+      background: var(--green-dark);
+      text-align: center; padding: 96px 0;
+    }
+    .final-quote {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      color: var(--white); max-width: 780px; margin: 0 auto 16px;
+      line-height: 1.3;
+    }
+    .final-quote em { color: var(--gold-light); }
+    .final-sub { color: rgba(255,255,255,.7); margin-bottom: 40px; font-size: 1.05rem; }
+    .final-ctas { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+
+    /* ——— FOOTER ——— */
+    #footer { background: var(--green-xdark); padding: 48px 0 32px; }
+    .footer-inner { display: grid; grid-template-columns: 1.5fr 1fr 1fr; gap: 48px; margin-bottom: 40px; }
+    .footer-logo { height: 40px; margin-bottom: 16px; }
+    .footer-tagline { color: rgba(255,255,255,.6); font-size: .9rem; line-height: 1.6; }
+    .footer-heading { font-weight: 700; color: var(--white); margin-bottom: 16px; font-size: .9rem; letter-spacing: .05em; text-transform: uppercase; }
+    .footer-links { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .footer-links a { color: rgba(255,255,255,.6); font-size: .9rem; transition: color .2s; }
+    .footer-links a:hover { color: var(--gold-light); }
+    .footer-bottom {
+      border-top: 1px solid rgba(255,255,255,.1);
+      padding-top: 24px; display: flex; justify-content: space-between; align-items: center;
+      flex-wrap: wrap; gap: 12px;
+    }
+    .footer-copy { color: rgba(255,255,255,.4); font-size: .82rem; }
+    .footer-wa {
+      display: flex; align-items: center; gap: 8px;
+      color: rgba(255,255,255,.7); font-size: .9rem; font-weight: 600;
+      background: rgba(255,255,255,.08); border-radius: 50px; padding: 8px 18px;
+      transition: background .2s, color .2s;
+    }
+    .footer-wa:hover { background: #25D366; color: white; }
+
+    /* ——— FLOATING WA ——— */
+    #float-wa {
+      position: fixed; bottom: 28px; right: 28px; z-index: 999;
+      width: 58px; height: 58px; background: #25D366; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 4px 24px rgba(37,211,102,.5); cursor: pointer;
+      transition: transform .3s, box-shadow .3s;
+    }
+    #float-wa:hover { transform: scale(1.1); box-shadow: 0 8px 32px rgba(37,211,102,.6); }
+    #float-wa::before {
+      content: ''; position: absolute; inset: -6px; border-radius: 50%;
+      border: 2px solid rgba(37,211,102,.5);
+      animation: pulse-ring 2s ease-out infinite;
+    }
+    @keyframes pulse-ring {
+      0% { opacity: .8; transform: scale(.9); }
+      100% { opacity: 0; transform: scale(1.35); }
+    }
+    #float-wa svg { width: 30px; height: 30px; fill: white; }
+
+    /* ——— RESPONSIVE ——— */
+    @media (max-width: 1024px) {
+      .hero-inner { grid-template-columns: 1fr; gap: 40px; }
+      .hero-image-wrap { display: none; }
+      #hero { min-height: auto; padding: 120px 0 60px; }
+      .hero-bg { opacity: .15; }
+      .hero-overlay { background: linear-gradient(105deg, rgba(18,45,34,.98) 0%, rgba(18,45,34,.85) 100%); }
+      .stats-inner { grid-template-columns: repeat(2, 1fr); }
+      .stat-item:nth-child(2) { border-right: none; }
+      .for-me-inner { grid-template-columns: 1fr; }
+      .for-me-img { display: none; }
+      .curriculum-grid { grid-template-columns: 1fr 1fr; }
+      .how-item { grid-template-columns: 1fr; gap: 32px; }
+      .how-item.reverse .how-text { order: 1; }
+      .how-item.reverse .how-photo { order: 2; }
+      .certs-grid { grid-template-columns: 1fr 1fr; }
+      .instructor-inner { grid-template-columns: 1fr; }
+      .instructor-photo-wrap { max-width: 400px; }
+      .testimonials-grid { grid-template-columns: 1fr 1fr; }
+      .gallery-grid { grid-template-columns: 1fr 1fr; grid-template-rows: auto; }
+      .gallery-item { grid-column: span 1 !important; grid-row: span 1 !important; height: 200px; }
+      .pricing-grid { grid-template-columns: 1fr; max-width: 520px; margin-left: auto; margin-right: auto; }
+      .footer-inner { grid-template-columns: 1fr 1fr; }
+    }
+
+    @media (max-width: 768px) {
+      section { padding: 64px 0; }
+      .nav-actions { display: none; }
+      .nav-hamburger { display: block; }
+      #nav.scrolled .nav-logo img { filter: none; }
+      .hero-title { font-size: 2rem; }
+      .stats-inner { grid-template-columns: repeat(2, 1fr); }
+      .curriculum-grid { grid-template-columns: 1fr; }
+      .certs-grid { grid-template-columns: 1fr; max-width: 380px; margin-left: auto; margin-right: auto; }
+      .testimonials-grid { grid-template-columns: 1fr; }
+      .testimonial-card:nth-child(odd),
+      .testimonial-card:nth-child(even) { transform: none; margin-top: 0; }
+      .gallery-grid { grid-template-columns: 1fr; }
+      .gallery-item { height: 220px; }
+      .guarantee-inner { flex-direction: column; text-align: center; padding: 36px 24px; gap: 24px; }
+      .footer-inner { grid-template-columns: 1fr; gap: 32px; }
+      .footer-bottom { flex-direction: column; align-items: flex-start; }
+      .final-ctas { flex-direction: column; align-items: center; }
+    }
+
+    @media (max-width: 480px) {
+      .container { padding: 0 16px; }
+      .hero-ctas { flex-direction: column; }
+      .hero-ctas .btn { width: 100%; justify-content: center; }
+      .stat-number { font-size: 1.9rem; }
+      .pricing-grid { grid-template-columns: 1fr; }
+      #float-wa { bottom: 20px; right: 20px; width: 52px; height: 52px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ===== NAV ===== -->
+<nav id="nav">
+  <div class="container">
+    <div class="nav-inner">
+      <a href="#" class="nav-logo">
+        <img src="https://parindocomvoce.com/wp-content/uploads/2025/05/Logo-versao-horizontal-02-fundo-verde-bege-icim-1024x280.png"
+             alt="Logo Instituto Icimulher">
+      </a>
+      <div class="nav-actions">
+        <a href="https://wa.me/message/BCRYQPZGGPDCG1" target="_blank" rel="noopener"
+           class="btn btn-ghost-green">💬 Falar com Especialista</a>
+        <a href="https://pay.voompcreators.com.br/2284/offer/O2ORyl" target="_blank" rel="noopener"
+           class="btn btn-gold">Quero me Matricular</a>
+      </div>
+      <button class="nav-hamburger" id="hamburger" aria-label="Abrir menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <div class="mobile-menu" id="mobile-menu">
+      <a href="https://wa.me/message/BCRYQPZGGPDCG1" target="_blank" rel="noopener"
+         class="btn btn-ghost-green">💬 Falar com Especialista</a>
+      <a href="https://pay.voompcreators.com.br/2284/offer/O2ORyl" target="_blank" rel="noopener"
+         class="btn btn-gold">Quero me Matricular</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ===== HERO ===== -->
+<section id="hero">
+  <div class="hero-bg" aria-hidden="true"></div>
+  <div class="hero-overlay" aria-hidden="true"></div>
+  <div class="container">
+    <div class="hero-inner">
+      <div class="hero-text">
+        <div class="hero-badge">
+          ✓ Reconhecido pelo MEC com Nota Máxima &nbsp;·&nbsp; Certificado Anhanguera
+        </div>
+        <h1 class="hero-title">
+          Seja a mulher que toda gestante<br><em>merece ter ao lado</em>
+        </h1>
+        <p class="hero-subtitle">
+          Forme-se Doula e Educadora Perinatal em 12 semanas, com certificado universitário reconhecido, suporte vitalício e uma comunidade de mais de 3.500 doulas transformando vidas pelo mundo.
+        </p>
+        <div class="hero-ctas">
+          <a href="https://pay.voompcreators.com.br/2284/offer/O2ORyl" target="_blank" rel="noopener"
+             class="btn btn-gold btn-lg">
+            ✨ Quero me Matricular Agora
+          </a>
+          <a href="https://wa.me/message/BCRYQPZGGPDCG1" target="_blank" rel="noopener"
+             class="btn btn-outline-white">
+            💬 Tire Suas Dúvidas
+          </a>
+        </div>
+      </div>
+      <div class="hero-image-wrap">
+        <div class="hero-img-frame">
+          <img src="https://parindocomvoce.com/wp-content/uploads/2025/05/ChatGPT-Image-7-de-mai.-de-2025-14_25_55.png"
+               alt="Doula apoiando gestante com carinho" loading="eager">
+        </div>
+        <div class="hero-float-badge">
+          <span class="icon">🎓</span>
+          <div>
+            <strong>180h de Conteúdo</strong>
+            <span>Online + Presencial</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== STATS ===== -->
+<div id="stats">
+  <div class="container">
+    <div class="stats-inner">
+      <div class="stat-item">
+        <span class="stat-number" data-target="3500">0</span>
+        <span class="stat-label">Doulas formadas pelo mundo</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-number" data-target="100000">0</span>
+        <span class="stat-label">Mulheres transformadas</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-number" data-target="15">0</span>
+        <span class="stat-label">Professoras especialistas</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-number" data-target="180">0</span>
+        <span class="stat-label">Horas de conteúdo</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== É PARA MIM? ===== -->
+<section id="for-me">
+  <div class="container">
+    <div class="for-me-inner">
+      <div>
+        <span class="section-label">Para quem é</span>
+        <h2 class="section-title">Esta formação foi feita para você se…</h2>
+        <ul class="check-list">
+          <li>
+            <span class="check-icon">
+              <svg viewBox="0 0 16 16"><polyline points="2 8 6 12 14 4"/></svg>
+            </span>
+            <span>Você quer uma <strong>carreira com propósito e liberdade</strong>, sem horários impostos e sem chefe</span>
+          </li>
+          <li>
+            <span class="check-icon">
+              <svg viewBox="0 0 16 16"><polyline points="2 8 6 12 14 4"/></svg>
+            </span>
+            <span>Se interessa pelo universo da <strong>maternidade e do parto humanizado</strong></span>
+          </li>
+          <li>
+            <span class="check-icon">
+              <svg viewBox="0 0 16 16"><polyline points="2 8 6 12 14 4"/></svg>
+            </span>
+            <span>Quer <strong>trabalhar do seu jeito, no seu horário</strong>, de onde quiser</span>
+          </li>
+          <li>
+            <span class="check-icon">
+              <svg viewBox="0 0 16 16"><polyline points="2 8 6 12 14 4"/></svg>
+            </span>
+            <span>Sonha em <strong>ganhar acima de R$ 12.000/mês</strong> fazendo algo que ama</span>
+          </li>
+          <li>
+            <span class="check-icon">
+              <svg viewBox="0 0 16 16"><polyline points="2 8 6 12 14 4"/></svg>
+            </span>
+            <span><strong>Não é da área da saúde</strong>, mas ama esse universo e quer fazer parte dele</span>
+          </li>
+          <li>
+            <span class="check-icon">
+              <svg viewBox="0 0 16 16"><polyline points="2 8 6 12 14 4"/></svg>
+            </span>
+            <span>Quer <strong>fazer a diferença na vida de mulheres e famílias</strong> num dos momentos mais especiais da vida</span>
+          </li>
+        </ul>
+      </div>
+      <div class="for-me-img">
+        <img src="https://parindocomvoce.com/wp-content/uploads/2025/05/IMG-20240409-WA0006.jpg"
+             alt="Doula apoiando cliente durante o parto" loading="lazy">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== CURRICULUM ===== -->
+<section id="curriculum">
+  <div class="container">
+    <div class="text-center">
+      <span class="section-label">Grade Curricular</span>
+      <h2 class="section-title">O que você vai aprender</h2>
+      <p class="section-sub">9 módulos completos com as principais especialistas do Brasil, do fundamento teórico à prática clínica e à construção da sua carreira.</p>
+    </div>
+    <div class="curriculum-grid">
+      <div class="module-card">
+        <div class="module-icon">🌱</div>
+        <p class="module-num">Módulo 01</p>
+        <h3 class="module-title">Fundamentos da Doulagem</h3>
+        <p class="module-desc">História da doula, papel e limites de atuação, evidências científicas sobre os benefícios do suporte contínuo.</p>
+      </div>
+      <div class="module-card">
+        <div class="module-icon">🫀</div>
+        <p class="module-num">Módulo 02</p>
+        <h3 class="module-title">Anatomia e Fisiologia</h3>
+        <p class="module-desc">Gestação semana a semana, fisiologia do trabalho de parto, tipos de parto e intervenções obstétricas.</p>
+      </div>
+      <div class="module-card">
+        <div class="module-icon">🤲</div>
+        <p class="module-num">Módulo 03</p>
+        <h3 class="module-title">Suporte e Alívio da Dor</h3>
+        <p class="module-desc">Técnicas não farmacológicas, posicionamento, hidroterapia, massagem, rebozo e respiração consciente.</p>
+      </div>
+      <div class="module-card">
+        <div class="module-icon">💚</div>
+        <p class="module-num">Módulo 04</p>
+        <h3 class="module-title">Suporte Emocional</h3>
+        <p class="module-desc">Comunicação não-violenta, escuta ativa, apoio ao casal, gestão do medo e do trauma obstétrico.</p>
+      </div>
+      <div class="module-card">
+        <div class="module-icon">🍼</div>
+        <p class="module-num">Módulo 05</p>
+        <h3 class="module-title">Aleitamento e Cuidados</h3>
+        <p class="module-desc">Amamentação efetiva, manejo de dificuldades, cuidados com o recém-nascido nas primeiras horas.</p>
+      </div>
+      <div class="module-card">
+        <div class="module-icon">📚</div>
+        <p class="module-num">Módulo 06</p>
+        <h3 class="module-title">Educação Perinatal</h3>
+        <p class="module-desc">Como conduzir rodas de gestantes, aulas e workshops presenciais e online com segurança e autoridade.</p>
+      </div>
+      <div class="module-card">
+        <div class="module-icon">🌙</div>
+        <p class="module-num">Módulo 07</p>
+        <h3 class="module-title">Pós-Parto e Resguardo</h3>
+        <p class="module-desc">Cuidados integrais com a puérpera, rituais de fechamento do corpo, prevenção da depressão pós-parto.</p>
+      </div>
+      <div class="module-card">
+        <div class="module-icon">⚖️</div>
+        <p class="module-num">Módulo 08</p>
+        <h3 class="module-title">Ética e Legislação</h3>
+        <p class="module-desc">Código de ética profissional, direitos da parturiente, atuação legal e relação com a equipe de saúde.</p>
+      </div>
+      <div class="module-card">
+        <div class="module-icon">🚀</div>
+        <p class="module-num">Módulo 09</p>
+        <h3 class="module-title">Carreira e Negócios</h3>
+        <p class="module-desc">Precificação estratégica, marketing digital, captação de clientes e como construir uma agenda cheia.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== HOW IT WORKS ===== -->
+<section id="how">
+  <div class="container">
+    <div class="text-center" style="margin-bottom: 64px;">
+      <span class="section-label">Metodologia</span>
+      <h2 class="section-title">Como funciona a formação</h2>
+      <p class="section-sub">Uma metodologia completa que une teoria, prática e comunidade para garantir a sua formação de ponta a ponta.</p>
+    </div>
+
+    <div class="how-item">
+      <div class="how-text">
+        <div class="how-icon-wrap">💻</div>
+        <h3 class="how-title">180 horas de aulas EAD</h3>
+        <p class="how-desc">Todo o conteúdo teórico na palma da sua mão, disponível 24h por dia na nossa plataforma EAD. Estude no seu ritmo, pause quando quiser e reveja as aulas quantas vezes precisar. O acesso é vitalício — o conteúdo fica com você para sempre.</p>
+      </div>
+      <div class="how-photo">
+        <img src="https://parindocomvoce.com/wp-content/uploads/2025/05/IMG-20240425-WA0025-1024x707.jpg"
+             alt="Alunas assistindo aulas online da formação de doula" loading="lazy">
+      </div>
+    </div>
+
+    <div class="how-item reverse">
+      <div class="how-text">
+        <div class="how-icon-wrap">📡</div>
+        <h3 class="how-title">Aulas ao vivo toda quinta-feira</h3>
+        <p class="how-desc">Toda semana você se conecta ao vivo com professoras especialistas para aprofundar os conteúdos, tirar dúvidas em tempo real e fazer parte de uma turma que se apoia. São 12 semanas de imersão com as maiores referências do Brasil no parto humanizado.</p>
+      </div>
+      <div class="how-photo">
+        <img src="https://parindocomvoce.com/wp-content/uploads/2025/05/IMG-20240425-WA0030-1024x410.jpg"
+             alt="Turma de doulas durante aula ao vivo online" loading="lazy">
+      </div>
+    </div>
+
+    <div class="how-item">
+      <div class="how-text">
+        <div class="how-icon-wrap">🏥</div>
+        <h3 class="how-title">16h de imersão presencial</h3>
+        <p class="how-desc">O diferencial da formação completa: um encontro presencial com 16 horas de prática intensiva. Você treina as técnicas corporais, vivencia simulações de parto, conecta-se profundamente com a sua turma e sai com a confiança de quem já praticou cada gesto.</p>
+      </div>
+      <div class="how-photo">
+        <img src="https://parindocomvoce.com/wp-content/uploads/2025/05/presencial--1024x724.png"
+             alt="Alunas durante encontro presencial da formação de doula" loading="lazy">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== CERTIFICATIONS ===== -->
+<section id="certs">
+  <div class="container">
+    <div class="text-center">
+      <span class="section-label">Certificação</span>
+      <h2 class="section-title">Três certificados que valem por toda a sua carreira</h2>
+      <p class="section-sub" style="color: rgba(255,255,255,.7);">Credenciais reconhecidas no mercado para você atuar com autoridade desde o primeiro dia.</p>
+    </div>
+    <div class="certs-grid">
+      <div class="cert-card">
+        <img src="https://parindocomvoce.com/wp-content/uploads/2025/05/Anhanguera.png"
+             alt="Logo Anhanguera Educacional" loading="lazy">
+        <h3 class="cert-card-title">Certificado Anhanguera</h3>
+        <p class="cert-card-desc">Extensão Universitária reconhecida pelo MEC com nota máxima. O certificado mais valorizado do mercado de doulagem.</p>
+      </div>
+      <div class="cert-card">
+        <span class="cert-placeholder-icon">🌿</span>
+        <h3 class="cert-card-title">Certificado Icimulher</h3>
+        <p class="cert-card-desc">Emitido diretamente pelo Instituto Icimulher, referência nacional na formação de doulas e educadoras perinatais desde 2015.</p>
+      </div>
+      <div class="cert-card">
+        <img src="https://parindocomvoce.com/wp-content/uploads/2025/05/CARTEIRINHA-DE-DOULA-E-EDUCADORA-PERINATAL-ICIMULHER.png"
+             alt="Carteirinha Profissional de Doula e Educadora Perinatal" loading="lazy"
+             style="border-radius: 8px;">
+        <h3 class="cert-card-title">Carteirinha Profissional</h3>
+        <p class="cert-card-desc">Identificação oficial de Doula e Educadora Perinatal. Apresente-se com credibilidade em qualquer maternidade ou cliente.</p>
+      </div>
+    </div>
+    <div class="mec-wrap">
+      <div class="mec-badge">
+        <span class="mec-badge-icon">🏅</span>
+        <span class="mec-badge-text">Reconhecido pelo MEC com Nota Máxima</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== INSTRUCTOR ===== -->
+<section id="instructor">
+  <div class="container">
+    <div class="instructor-inner">
+      <div class="instructor-photo-wrap">
+        <div class="instructor-photo">
+          <img src="https://parindocomvoce.com/wp-content/uploads/2025/05/WhatsApp-Image-2021-10-15-at-14.50.05-1-682x1024.jpeg"
+               alt="Maria Carolina Mollo, fundadora do Instituto Icimulher" loading="lazy">
+        </div>
+        <div class="instructor-deco" aria-hidden="true"></div>
+      </div>
+      <div class="instructor-bio-wrap">
+        <span class="instructor-label">Quem te acompanha</span>
+        <h2 class="instructor-name">Maria Carolina Mollo</h2>
+        <p class="instructor-role">Fundadora do Instituto Icimulher · Doula certificada · Empreendedora desde 2015</p>
+        <div class="instructor-bio">
+          <p>Carolina não seguiu o caminho "óbvio". Quando decidiu deixar a medicina para se dedicar ao universo do parto humanizado, muita gente duvidou. Hoje, ela lidera o maior instituto de formação de doulas do Brasil.</p>
+          <p>Em 2015 fundou o <em>Parindo com Você</em> com uma missão clara: transformar o cenário obstétrico do Brasil. Certificou-se como doula em 2020 e nunca mais parou. Desde então, já formou mais de 3.500 doulas que atuam em todos os cantos do mundo.</p>
+          <p>"Isso não é só um curso. É sobre transformar vidas, apoiar mulheres e mudar o cenário obstétrico. Cada doula que eu formo chega a dezenas de famílias. É assim que a gente muda o mundo."</p>
+        </div>
+        <div class="instructor-badges">
+          <span class="instructor-badge"><span class="b-icon">🎓</span> Doula certificada desde 2020</span>
+          <span class="instructor-badge"><span class="b-icon">🌎</span> +3.500 doulas formadas</span>
+          <span class="instructor-badge"><span class="b-icon">📅</span> 10 anos de experiência</span>
+          <span class="instructor-badge"><span class="b-icon">💚</span> Parindo com Você</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== TESTIMONIALS ===== -->
+<section id="testimonials">
+  <div class="container">
+    <div class="text-center">
+      <span class="section-label">Depoimentos</span>
+      <h2 class="section-title">O que nossas doulas dizem</h2>
+      <p class="section-sub">Histórias reais de mulheres que transformaram suas vidas e carreiras através da nossa formação.</p>
+    </div>
+    <div class="testimonials-grid">
+      <div class="testimonial-card">
+        <img src="https://parindocomvoce.com/wp-content/uploads/2025/05/Imagem-do-WhatsApp-de-2025-05-09-as-16.59.18_d26b6fa2.jpg"
+             alt="Depoimento de aluna formada como doula pelo Instituto Icimulher" loading="lazy">
+      </div>
+      <div class="testimonial-card">
+        <img src="https://parindocomvoce.com/wp-content/uploads/2025/05/Imagem-do-WhatsApp-de-2025-05-09-as-16.59.21_ed27ab30.jpg"
+             alt="Depoimento de doula formada compartilhando experiência" loading="lazy">
+      </div>
+      <div class="testimonial-card">
+        <img src="https://parindocomvoce.com/wp-content/uploads/2025/05/Imagem-do-WhatsApp-de-2025-05-09-as-16.59.20_0018c34e.jpg"
+             alt="Mensagem de gratidão de aluna da formação de doula" loading="lazy">
+      </div>
+      <div class="testimonial-card">
+        <img src="https://parindocomvoce.com/wp-content/uploads/2025/05/Imagem-do-WhatsApp-de-2023-05-13-as-19.48.59-869x1024.jpg"
+             alt="Depoimento real de doula formada pelo Icimulher" loading="lazy">
+      </div>
+      <div class="testimonial-card">
+        <img src="https://parindocomvoce.com/wp-content/uploads/2025/05/ffyyy-710x1024.jpg"
+             alt="Resultado e transformação de aluna após formação de doula" loading="lazy">
+      </div>
+      <div class="testimonial-card">
+        <img src="https://parindocomvoce.com/wp-content/uploads/2025/05/Imagem-do-WhatsApp-de-2025-05-14-as-14.05.41_c498faa7.jpg"
+             alt="Depoimento recente de nova doula formada pelo Instituto Icimulher" loading="lazy">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== GALLERY ===== -->
+<section id="gallery">
+  <div class="container">
+    <div class="text-center" style="margin-bottom: 0;">
+      <span class="section-label">Nossa Comunidade</span>
+      <h2 class="section-title">Momentos da nossa formação</h2>
+    </div>
+    <div class="gallery-grid">
+      <div class="gallery-item">
+        <img src="https://parindocomvoce.com/wp-content/uploads/2025/05/IMG-20240425-WA0025-1024x707.jpg"
+             alt="Turma de doulas em encontro presencial" loading="lazy">
+      </div>
+      <div class="gallery-item">
+        <img src="https://parindocomvoce.com/wp-content/uploads/2025/05/IMG-20240425-WA0030-1024x410.jpg"
+             alt="Alunas em imersão presencial da formação de doula" loading="lazy">
+      </div>
+      <div class="gallery-item">
+        <img src="https://parindocomvoce.com/wp-content/uploads/2025/05/IMG-20240425-WA0031-1024x566.jpg"
+             alt="Atividade prática durante formação de doula e educadora perinatal" loading="lazy">
+      </div>
+      <div class="gallery-item">
+        <img src="https://parindocomvoce.com/wp-content/uploads/2025/05/IMG-20240425-WA0032-1024x508.jpg"
+             alt="Grupo de doulas formadas pelo Instituto Icimulher" loading="lazy">
+      </div>
+      <div class="gallery-item">
+        <img src="https://parindocomvoce.com/wp-content/uploads/2025/05/presencial--1024x724.png"
+             alt="Momento de prática no encontro presencial da formação" loading="lazy">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== PRICING ===== -->
+<section id="pricing">
+  <div class="container">
+    <div class="text-center">
+      <span class="section-label" style="color: var(--gold-light);">Investimento</span>
+      <h2 class="section-title">Escolha o seu plano</h2>
+      <p class="section-sub">Comece sua nova carreira hoje. Você recupera o investimento já no primeiro atendimento.</p>
+    </div>
+    <div class="pricing-grid">
+      <!-- Plano Online -->
+      <div class="price-card">
+        <h3 class="price-title">Plano Online</h3>
+        <div class="price-amount"><span>12×</span> R$ 199,70</div>
+        <p class="price-installment">ou <strong style="color: var(--gold-light);">R$ 1.997,00</strong> à vista</p>
+        <hr class="divider">
+        <ul class="feature-list">
+          <li class="feature-item"><span class="feature-icon">✓</span> 180h de aulas EAD vitalícias</li>
+          <li class="feature-item"><span class="feature-icon">✓</span> Aulas ao vivo toda quinta-feira</li>
+          <li class="feature-item"><span class="feature-icon">✓</span> +15 professoras especialistas</li>
+          <li class="feature-item"><span class="feature-icon">✓</span> Suporte vitalício</li>
+          <li class="feature-item"><span class="feature-icon">✓</span> Certificado Icimulher</li>
+          <li class="feature-item"><span class="feature-icon">✓</span> Certificado Anhanguera (MEC)</li>
+          <li class="feature-item"><span class="feature-icon">✓</span> Carteirinha Profissional</li>
+          <li class="feature-item"><span class="feature-icon">✓</span> Comunidade exclusiva de doulas</li>
+        </ul>
+        <a href="https://pay.voompcreators.com.br/2284/offer/O2ORyl" target="_blank" rel="noopener"
+           class="btn btn-gold" style="width: 100%; justify-content: center;">
+          Quero o Plano Online
+        </a>
+      </div>
+
+      <!-- Plano Online + Presencial -->
+      <div class="price-card featured">
+        <span class="price-badge">⭐ Mais Completo</span>
+        <h3 class="price-title" style="color: var(--dark);">Online + Presencial</h3>
+        <div class="price-amount" style="color: var(--green-dark);"><span>12×</span> R$ 597,70</div>
+        <p class="price-installment" style="color: var(--muted);">ou <strong style="color: var(--green);">R$ 5.997,00</strong> à vista</p>
+        <hr class="divider">
+        <ul class="feature-list">
+          <li class="feature-item"><span class="feature-icon" style="color: var(--green);">✓</span> <strong>Tudo do Plano Online</strong></li>
+          <li class="feature-item"><span class="feature-icon" style="color: var(--green);">✓</span> <strong>16h de imersão presencial</strong></li>
+          <li class="feature-item"><span class="feature-icon" style="color: var(--green);">✓</span> Prática supervisionada de técnicas</li>
+          <li class="feature-item"><span class="feature-icon" style="color: var(--green);">✓</span> Simulações reais de parto</li>
+          <li class="feature-item"><span class="feature-icon" style="color: var(--green);">✓</span> Networking presencial com a turma</li>
+          <li class="feature-item"><span class="feature-icon" style="color: var(--green);">✓</span> Mentoria individual com Carolina</li>
+          <li class="feature-item"><span class="feature-icon" style="color: var(--green);">✓</span> Material de apoio exclusivo</li>
+          <li class="feature-item"><span class="feature-icon" style="color: var(--green);">✓</span> Certificação presencial especial</li>
+        </ul>
+        <a href="https://pay.voompcreators.com.br/2284/offer/5f9Zq7" target="_blank" rel="noopener"
+           class="btn btn-green" style="width: 100%; justify-content: center;">
+          Quero o Plano Completo
+        </a>
+      </div>
+    </div>
+    <p class="price-note">
+      Pagamento seguro · Parcelamento sem juros · <strong>Garantia de 7 dias</strong> · Acesso imediato após confirmação
+    </p>
+  </div>
+</section>
+
+<!-- ===== GUARANTEE ===== -->
+<section id="guarantee">
+  <div class="container">
+    <div class="guarantee-inner">
+      <div class="guarantee-icon">🛡️</div>
+      <div>
+        <h2 class="guarantee-title">Satisfação Garantida</h2>
+        <p class="guarantee-text">
+          Você tem <strong>7 dias após a matrícula</strong> para explorar todo o conteúdo sem compromisso. Se por qualquer motivo você não se sentir transformada, entre em contato e devolvemos 100% do seu investimento, sem perguntas e sem burocracia. O risco é todo nosso.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FAQ ===== -->
+<section id="faq">
+  <div class="container">
+    <div class="text-center">
+      <span class="section-label">Dúvidas</span>
+      <h2 class="section-title">Perguntas frequentes</h2>
+      <p class="section-sub">Tudo que você precisa saber antes de dar o próximo passo.</p>
+    </div>
+    <div class="faq-list">
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">
+          Preciso ser da área da saúde para fazer a formação?
+          <span class="faq-arrow"><svg viewBox="0 0 12 12"><polyline points="2 4 6 8 10 4"/></svg></span>
+        </button>
+        <div class="faq-a">Não! A maioria das nossas alunas não vem da área da saúde. Pedagogas, administradoras, professoras, donas de casa — todas se formam com excelência. A nossa formação foi desenhada para partir do zero e te levar à prática profissional completa.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">
+          Em quanto tempo me formo?
+          <span class="faq-arrow"><svg viewBox="0 0 12 12"><polyline points="2 4 6 8 10 4"/></svg></span>
+        </button>
+        <div class="faq-a">A formação dura 12 semanas online, com aulas ao vivo toda quinta-feira. Após concluir o módulo online, você agenda o encontro presencial de 16h (para o Plano Completo). A maioria das alunas está atuando profissionalmente em menos de 4 meses.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">
+          As aulas têm horário fixo?
+          <span class="faq-arrow"><svg viewBox="0 0 12 12"><polyline points="2 4 6 8 10 4"/></svg></span>
+        </button>
+        <div class="faq-a">As aulas gravadas ficam disponíveis na plataforma EAD 24 horas por dia, sem horário fixo. As aulas ao vivo acontecem toda quinta-feira em horário definido no início da turma. Caso não consiga assistir ao vivo, a gravação fica disponível logo após.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">
+          Como funciona o presencial?
+          <span class="faq-arrow"><svg viewBox="0 0 12 12"><polyline points="2 4 6 8 10 4"/></svg></span>
+        </button>
+        <div class="faq-a">O encontro presencial tem 16 horas de imersão prática, distribuídas em 2 dias. Ele é exclusivo para alunas do Plano Online + Presencial. As datas e localidade são divulgadas com antecedência e você escolhe a turma que melhor se encaixa na sua agenda.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">
+          Quando posso começar a atender clientes?
+          <span class="faq-arrow"><svg viewBox="0 0 12 12"><polyline points="2 4 6 8 10 4"/></svg></span>
+        </button>
+        <div class="faq-a">Você pode começar a atender a partir do momento em que se sentir preparada, mesmo antes de concluir 100% da formação. Muitas alunas já atenderam seu primeiro cliente durante o curso. Com o certificado em mãos, você está oficialmente habilitada para exercer a profissão.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">
+          Qual é o potencial de ganhos como doula?
+          <span class="faq-arrow"><svg viewBox="0 0 12 12"><polyline points="2 4 6 8 10 4"/></svg></span>
+        </button>
+        <div class="faq-a">Uma doula experiente cobra entre R$ 1.500 e R$ 4.000 por acompanhamento de parto. Atendendo entre 4 e 8 partos por mês — o que é totalmente viável — você supera os R$ 12.000 mensais. Além disso, como Educadora Perinatal, você pode criar cursos, rodas de gestantes e mentorias que escalam ainda mais a sua renda.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">
+          O certificado é reconhecido?
+          <span class="faq-arrow"><svg viewBox="0 0 12 12"><polyline points="2 4 6 8 10 4"/></svg></span>
+        </button>
+        <div class="faq-a">Sim! Você recebe três credenciais: o Certificado de Extensão Universitária da Anhanguera (reconhecido pelo MEC com nota máxima), o Certificado do Instituto Icimulher e a Carteirinha Profissional de Doula e Educadora Perinatal. São os documentos mais valorizados do mercado.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">
+          Tenho suporte depois que me formar?
+          <span class="faq-arrow"><svg viewBox="0 0 12 12"><polyline points="2 4 6 8 10 4"/></svg></span>
+        </button>
+        <div class="faq-a">Sim, o suporte é vitalício! Você entra para uma comunidade exclusiva de mais de 3.500 doulas formadas pelo Icimulher e continua tendo acesso a conteúdos atualizados, eventos e suporte da nossa equipe. Você nunca vai estar sozinha na sua jornada profissional.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FINAL CTA ===== -->
+<section id="final-cta">
+  <div class="container">
+    <p class="final-quote">
+      "Há uma gestante esperando por você.<br>A pergunta é: <em>quando você vai estar pronta?</em>"
+    </p>
+    <p class="final-sub">
+      Mais de 3.500 mulheres já responderam essa pergunta. Chegou a sua vez.
+    </p>
+    <div class="final-ctas">
+      <a href="https://pay.voompcreators.com.br/2284/offer/O2ORyl" target="_blank" rel="noopener"
+         class="btn btn-gold btn-lg">
+        ✨ Quero o Plano Online — 12× R$ 199,70
+      </a>
+      <a href="https://pay.voompcreators.com.br/2284/offer/5f9Zq7" target="_blank" rel="noopener"
+         class="btn btn-outline-white btn-lg">
+        Quero o Plano Completo — 12× R$ 597,70
+      </a>
+    </div>
+    <p style="color: rgba(255,255,255,.45); font-size: .82rem; margin-top: 24px;">
+      Garantia incondicional de 7 dias · Acesso imediato · Suporte vitalício
+    </p>
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer id="footer">
+  <div class="container">
+    <div class="footer-inner">
+      <div>
+        <img src="https://parindocomvoce.com/wp-content/uploads/2025/05/Logo-versao-horizontal-02-fundo-verde-amarelo-icim.png"
+             alt="Logo Instituto Icimulher" class="footer-logo" loading="lazy">
+        <p class="footer-tagline">
+          Transformando vidas, apoiando mulheres e mudando o cenário obstétrico desde 2015.
+          +3.500 doulas formadas pelo mundo.
+        </p>
+      </div>
+      <div>
+        <p class="footer-heading">Links</p>
+        <ul class="footer-links">
+          <li><a href="#for-me">Para quem é</a></li>
+          <li><a href="#curriculum">Grade Curricular</a></li>
+          <li><a href="#how">Como Funciona</a></li>
+          <li><a href="#certs">Certificações</a></li>
+          <li><a href="#testimonials">Depoimentos</a></li>
+          <li><a href="#pricing">Preços</a></li>
+          <li><a href="#faq">FAQ</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="footer-heading">Contato</p>
+        <ul class="footer-links">
+          <li>
+            <a href="https://wa.me/message/BCRYQPZGGPDCG1" target="_blank" rel="noopener">
+              💬 WhatsApp
+            </a>
+          </li>
+          <li>
+            <a href="https://parindocomvoce.com" target="_blank" rel="noopener">
+              🌐 parindocomvoce.com
+            </a>
+          </li>
+        </ul>
+        <div style="margin-top: 24px;">
+          <a href="https://pay.voompcreators.com.br/2284/offer/O2ORyl" target="_blank" rel="noopener"
+             class="btn btn-gold" style="font-size: .88rem; padding: 12px 20px;">
+            Matricule-se Agora
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p class="footer-copy">© 2025 Instituto Icimulher · Parindo com Você · Todos os direitos reservados.</p>
+      <a href="https://wa.me/message/BCRYQPZGGPDCG1" target="_blank" rel="noopener" class="footer-wa">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
+          <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
+        </svg>
+        Falar pelo WhatsApp
+      </a>
+    </div>
+  </div>
+</footer>
+
+<!-- ===== FLOATING WHATSAPP ===== -->
+<a id="float-wa" href="https://wa.me/message/BCRYQPZGGPDCG1" target="_blank" rel="noopener"
+   aria-label="Falar pelo WhatsApp">
+  <svg viewBox="0 0 24 24">
+    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
+  </svg>
+</a>
+
+<script>
+  // ——— NAV SCROLL ———
+  const nav = document.getElementById('nav');
+  function updateNav() {
+    if (window.scrollY > 60) nav.classList.add('scrolled');
+    else nav.classList.remove('scrolled');
+  }
+  window.addEventListener('scroll', updateNav, { passive: true });
+  updateNav();
+
+  // ——— HAMBURGER ———
+  const hamburger = document.getElementById('hamburger');
+  const mobileMenu = document.getElementById('mobile-menu');
+  hamburger.addEventListener('click', () => {
+    mobileMenu.classList.toggle('open');
+  });
+  mobileMenu.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => mobileMenu.classList.remove('open'));
+  });
+
+  // ——— FAQ ACCORDION ———
+  document.querySelectorAll('.faq-q').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const item = btn.closest('.faq-item');
+      const isOpen = item.classList.contains('open');
+      document.querySelectorAll('.faq-item.open').forEach(i => {
+        i.classList.remove('open');
+        i.querySelector('.faq-q').setAttribute('aria-expanded', 'false');
+      });
+      if (!isOpen) {
+        item.classList.add('open');
+        btn.setAttribute('aria-expanded', 'true');
+      }
+    });
+  });
+
+  // ——— SMOOTH SCROLL ———
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      const target = document.querySelector(a.getAttribute('href'));
+      if (target) {
+        e.preventDefault();
+        const offset = 80;
+        const top = target.getBoundingClientRect().top + window.scrollY - offset;
+        window.scrollTo({ top, behavior: 'smooth' });
+      }
+    });
+  });
+
+  // ——— COUNTER ANIMATION ———
+  function formatNumber(n, target) {
+    if (target >= 1000) {
+      return '+' + (n >= 1000 ? (n / 1000).toFixed(n >= 10000 ? 0 : 1).replace('.0', '') + '.000' : n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.'));
+    }
+    return '+' + n;
+  }
+
+  function animateCounter(el) {
+    const target = parseInt(el.dataset.target, 10);
+    const duration = 2000;
+    const start = performance.now();
+    function step(now) {
+      const elapsed = now - start;
+      const progress = Math.min(elapsed / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      const current = Math.round(eased * target);
+      el.textContent = formatNumber(current, target);
+      if (progress < 1) requestAnimationFrame(step);
+      else el.textContent = formatNumber(target, target);
+    }
+    requestAnimationFrame(step);
+  }
+
+  const statNumbers = document.querySelectorAll('.stat-number[data-target]');
+  const statsObserver = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        animateCounter(entry.target);
+        statsObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.3 });
+  statNumbers.forEach(el => statsObserver.observe(el));
+
+  // ——— LAZY LOAD ENHANCEMENT ———
+  if ('loading' in HTMLImageElement.prototype === false) {
+    document.querySelectorAll('img[loading="lazy"]').forEach(img => {
+      img.src = img.src;
+    });
+  }
+</script>
+</body>
+</html>
