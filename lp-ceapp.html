@@ -1,0 +1,1786 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CEAPp — A Netflix da Psicopedagogia | Comunidade de Estudo e Aprimoramento</title>
+  <meta name="description" content="Acesse centenas de aulas em vídeo, materiais prontos para a clínica e lives semanais de estudo de caso. A plataforma Netflix de psicopedagogia por menos de R$3 por dia.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    /* ===== RESET & BASE ===== */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; font-size: 16px; }
+    body {
+      font-family: 'Inter', sans-serif;
+      color: #1E1B4B;
+      background: #F5F3FF;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+    h1, h2, h3, h4 { font-family: 'Nunito', sans-serif; line-height: 1.2; }
+    a { text-decoration: none; color: inherit; }
+    img { max-width: 100%; display: block; }
+    ul { list-style: none; }
+
+    /* ===== VARIABLES ===== */
+    :root {
+      --purple: #7C3AED;
+      --deep-purple: #5B21B6;
+      --pink: #EC4899;
+      --orange: #F97316;
+      --yellow: #F59E0B;
+      --teal: #0D9488;
+      --bg-light: #F5F3FF;
+      --dark: #1E1B4B;
+      --muted: #6B7280;
+      --white: #FFFFFF;
+      --grad-main: linear-gradient(135deg, #5B21B6 0%, #7C3AED 50%, #EC4899 100%);
+      --grad-btn: linear-gradient(135deg, #7C3AED, #EC4899);
+      --shadow-card: 0 4px 24px rgba(124, 58, 237, 0.12);
+      --shadow-card-hover: 0 12px 40px rgba(124, 58, 237, 0.22);
+      --radius: 16px;
+      --radius-sm: 10px;
+      --radius-pill: 50px;
+    }
+
+    /* ===== UTILITIES ===== */
+    .container { max-width: 1160px; margin: 0 auto; padding: 0 24px; }
+    .section-pad { padding: 80px 0; }
+    .section-pad-sm { padding: 56px 0; }
+    .text-center { text-align: center; }
+    .highlight {
+      background: #FEF08A;
+      color: #92400E;
+      border-radius: 4px;
+      padding: 0 4px;
+      font-weight: 700;
+    }
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(255,255,255,0.18);
+      border: 1.5px solid rgba(255,255,255,0.35);
+      color: #fff;
+      font-family: 'Nunito', sans-serif;
+      font-weight: 700;
+      font-size: 0.85rem;
+      padding: 6px 16px;
+      border-radius: var(--radius-pill);
+      backdrop-filter: blur(8px);
+    }
+    .badge-dark {
+      background: rgba(124,58,237,0.10);
+      border: 1.5px solid rgba(124,58,237,0.25);
+      color: var(--purple);
+    }
+
+    /* ===== BUTTONS ===== */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      font-family: 'Nunito', sans-serif;
+      font-weight: 800;
+      font-size: 1rem;
+      border-radius: var(--radius-pill);
+      padding: 14px 32px;
+      cursor: pointer;
+      border: none;
+      transition: all 0.25s ease;
+      text-decoration: none;
+      white-space: nowrap;
+    }
+    .btn-yellow {
+      background: var(--yellow);
+      color: #1E1B4B;
+      box-shadow: 0 4px 18px rgba(245,158,11,0.35);
+    }
+    .btn-yellow:hover {
+      background: #FBBF24;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 28px rgba(245,158,11,0.45);
+    }
+    .btn-gradient {
+      background: var(--grad-btn);
+      color: #fff;
+      box-shadow: 0 4px 18px rgba(124,58,237,0.35);
+    }
+    .btn-gradient:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 28px rgba(124,58,237,0.45);
+    }
+    .btn-outline-white {
+      background: transparent;
+      color: #fff;
+      border: 2px solid rgba(255,255,255,0.7);
+    }
+    .btn-outline-white:hover {
+      background: rgba(255,255,255,0.12);
+      border-color: #fff;
+      transform: translateY(-2px);
+    }
+    .btn-ghost {
+      background: transparent;
+      color: var(--purple);
+      border: 2px solid var(--purple);
+    }
+    .btn-ghost:hover {
+      background: var(--purple);
+      color: #fff;
+    }
+    .btn-sm { padding: 10px 22px; font-size: 0.9rem; }
+    .btn-lg { padding: 18px 42px; font-size: 1.1rem; }
+
+    /* ===== NAV ===== */
+    #navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      padding: 16px 0;
+      transition: all 0.3s ease;
+    }
+    #navbar.scrolled {
+      background: rgba(255,255,255,0.97);
+      backdrop-filter: blur(16px);
+      box-shadow: 0 2px 20px rgba(91,33,182,0.12);
+      padding: 10px 0;
+    }
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .nav-logo img {
+      height: 52px;
+      width: auto;
+      filter: drop-shadow(0 2px 8px rgba(0,0,0,0.15));
+    }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      padding: 8px;
+      background: none;
+      border: none;
+    }
+    .hamburger span {
+      display: block;
+      width: 24px;
+      height: 2.5px;
+      background: #fff;
+      border-radius: 2px;
+      transition: all 0.3s ease;
+    }
+    #navbar.scrolled .hamburger span { background: var(--dark); }
+    .mobile-menu {
+      display: none;
+      flex-direction: column;
+      gap: 12px;
+      padding: 16px 24px 24px;
+      background: #fff;
+      border-top: 1px solid #EDE9FE;
+    }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu .btn { width: 100%; justify-content: center; }
+
+    /* ===== HERO ===== */
+    #hero {
+      background: var(--grad-main);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding-top: 88px;
+      position: relative;
+      overflow: hidden;
+    }
+    #hero::before {
+      content: '';
+      position: absolute;
+      top: -40%;
+      right: -20%;
+      width: 700px;
+      height: 700px;
+      background: radial-gradient(circle, rgba(255,255,255,0.07) 0%, transparent 65%);
+      pointer-events: none;
+    }
+    #hero::after {
+      content: '';
+      position: absolute;
+      bottom: -30%;
+      left: -10%;
+      width: 500px;
+      height: 500px;
+      background: radial-gradient(circle, rgba(255,255,255,0.05) 0%, transparent 65%);
+      pointer-events: none;
+    }
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 56px;
+      align-items: center;
+      padding: 56px 0 72px;
+    }
+    .hero-left { position: relative; z-index: 1; }
+    .hero-badge { margin-bottom: 20px; }
+    .hero-h1 {
+      font-size: clamp(2rem, 4vw, 3.1rem);
+      font-weight: 900;
+      color: #fff;
+      margin-bottom: 20px;
+      letter-spacing: -0.5px;
+    }
+    .hero-subtitle {
+      font-size: 1.15rem;
+      color: rgba(255,255,255,0.88);
+      margin-bottom: 36px;
+      max-width: 520px;
+      line-height: 1.7;
+    }
+    .hero-ctas {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-bottom: 36px;
+    }
+    .trust-strip {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px 20px;
+    }
+    .trust-item {
+      font-size: 0.85rem;
+      color: rgba(255,255,255,0.9);
+      font-weight: 600;
+      font-family: 'Nunito', sans-serif;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+    .hero-right {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      justify-content: center;
+    }
+    .hero-img-wrap {
+      position: relative;
+      border-radius: 24px;
+      overflow: hidden;
+      box-shadow: 0 24px 80px rgba(0,0,0,0.3);
+      transform: perspective(1000px) rotateY(-4deg) rotateX(2deg);
+      transition: transform 0.4s ease;
+    }
+    .hero-img-wrap:hover { transform: perspective(1000px) rotateY(-1deg) rotateX(0); }
+    .hero-img-wrap img { width: 100%; height: auto; }
+    .hero-float-badge {
+      position: absolute;
+      bottom: -18px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #fff;
+      color: var(--deep-purple);
+      font-family: 'Nunito', sans-serif;
+      font-weight: 800;
+      font-size: 0.85rem;
+      padding: 10px 20px;
+      border-radius: var(--radius-pill);
+      box-shadow: 0 8px 24px rgba(91,33,182,0.2);
+      white-space: nowrap;
+    }
+
+    /* ===== SOCIAL PROOF BAR ===== */
+    #proof-bar {
+      background: var(--deep-purple);
+      padding: 28px 0;
+    }
+    .proof-bar-inner {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 48px;
+      flex-wrap: wrap;
+    }
+    .proof-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      color: #fff;
+    }
+    .proof-item-icon { font-size: 1.6rem; }
+    .proof-item-label {
+      font-family: 'Nunito', sans-serif;
+      font-weight: 800;
+      font-size: 1.05rem;
+    }
+    .proof-item-sub {
+      font-size: 0.8rem;
+      color: rgba(255,255,255,0.72);
+    }
+    .proof-divider {
+      width: 1px;
+      height: 50px;
+      background: rgba(255,255,255,0.2);
+    }
+
+    /* ===== WHAT IS CEAPP ===== */
+    #what-is {
+      background: var(--white);
+    }
+    .what-is-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+      align-items: center;
+    }
+    .what-is-img {
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: var(--shadow-card);
+      position: relative;
+    }
+    .what-is-img img { width: 100%; height: auto; }
+    .what-is-tag {
+      position: absolute;
+      top: 16px;
+      left: 16px;
+      background: var(--grad-btn);
+      color: #fff;
+      font-family: 'Nunito', sans-serif;
+      font-weight: 800;
+      font-size: 0.78rem;
+      padding: 5px 14px;
+      border-radius: var(--radius-pill);
+    }
+    .what-is-content h2 {
+      font-size: clamp(1.7rem, 3vw, 2.4rem);
+      font-weight: 900;
+      color: var(--dark);
+      margin-bottom: 16px;
+    }
+    .what-is-content p {
+      color: var(--muted);
+      margin-bottom: 28px;
+      font-size: 1.05rem;
+      line-height: 1.75;
+    }
+    .feature-list { display: flex; flex-direction: column; gap: 16px; }
+    .feature-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      padding: 14px 18px;
+      border-radius: var(--radius-sm);
+      background: var(--bg-light);
+      border-left: 4px solid var(--purple);
+      transition: all 0.2s;
+    }
+    .feature-item:nth-child(2) { border-left-color: var(--pink); }
+    .feature-item:nth-child(3) { border-left-color: var(--orange); }
+    .feature-item:nth-child(4) { border-left-color: var(--teal); }
+    .feature-item:hover { transform: translateX(4px); box-shadow: var(--shadow-card); }
+    .feature-icon { font-size: 1.5rem; flex-shrink: 0; margin-top: 2px; }
+    .feature-text h4 {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--dark);
+      margin-bottom: 2px;
+    }
+    .feature-text p { font-size: 0.9rem; color: var(--muted); }
+
+    /* ===== FOR WHO ===== */
+    #for-who {
+      background: var(--bg-light);
+    }
+    .section-header { text-align: center; margin-bottom: 52px; }
+    .section-label {
+      display: inline-block;
+      font-family: 'Nunito', sans-serif;
+      font-weight: 700;
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: var(--purple);
+      background: rgba(124,58,237,0.1);
+      padding: 5px 16px;
+      border-radius: var(--radius-pill);
+      margin-bottom: 14px;
+    }
+    .section-header h2 {
+      font-size: clamp(1.7rem, 3vw, 2.5rem);
+      font-weight: 900;
+      color: var(--dark);
+      margin-bottom: 14px;
+    }
+    .section-header p {
+      font-size: 1.05rem;
+      color: var(--muted);
+      max-width: 580px;
+      margin: 0 auto;
+    }
+    .who-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+    .who-card {
+      background: var(--white);
+      border-radius: var(--radius);
+      padding: 28px 24px;
+      box-shadow: var(--shadow-card);
+      border-top: 4px solid var(--purple);
+      transition: all 0.25s ease;
+      cursor: default;
+    }
+    .who-card:nth-child(2) { border-top-color: var(--pink); }
+    .who-card:nth-child(3) { border-top-color: var(--orange); }
+    .who-card:nth-child(4) { border-top-color: var(--teal); }
+    .who-card:nth-child(5) { border-top-color: var(--yellow); }
+    .who-card:nth-child(6) { border-top-color: #10B981; }
+    .who-card:hover {
+      transform: translateY(-6px);
+      box-shadow: var(--shadow-card-hover);
+    }
+    .who-emoji { font-size: 2.2rem; margin-bottom: 14px; }
+    .who-card h3 { font-size: 0.95rem; font-weight: 700; color: var(--dark); line-height: 1.5; }
+
+    /* ===== FEATURES DEEP DIVE ===== */
+    #features {
+      background: var(--white);
+    }
+    .features-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+    .feature-card {
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: var(--shadow-card);
+      transition: all 0.25s ease;
+      background: #fff;
+    }
+    .feature-card:hover {
+      transform: translateY(-6px);
+      box-shadow: var(--shadow-card-hover);
+    }
+    .feature-card-top {
+      height: 6px;
+      background: var(--grad-btn);
+    }
+    .feature-card:nth-child(1) .feature-card-top { background: linear-gradient(90deg, var(--deep-purple), var(--purple)); }
+    .feature-card:nth-child(2) .feature-card-top { background: linear-gradient(90deg, var(--pink), #F472B6); }
+    .feature-card:nth-child(3) .feature-card-top { background: linear-gradient(90deg, var(--orange), var(--yellow)); }
+    .feature-card:nth-child(4) .feature-card-top { background: linear-gradient(90deg, var(--teal), #34D399); }
+    .feature-card-body { padding: 32px 28px; }
+    .feature-card-icon { font-size: 2.8rem; margin-bottom: 14px; }
+    .feature-card h3 {
+      font-size: 1.3rem;
+      font-weight: 800;
+      color: var(--dark);
+      margin-bottom: 10px;
+    }
+    .feature-card p {
+      font-size: 0.95rem;
+      color: var(--muted);
+      margin-bottom: 20px;
+      line-height: 1.65;
+    }
+    .feature-card-gains h4 {
+      font-size: 0.78rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--purple);
+      margin-bottom: 10px;
+    }
+    .feature-card:nth-child(2) .feature-card-gains h4 { color: var(--pink); }
+    .feature-card:nth-child(3) .feature-card-gains h4 { color: var(--orange); }
+    .feature-card:nth-child(4) .feature-card-gains h4 { color: var(--teal); }
+    .gains-list { display: flex; flex-direction: column; gap: 8px; }
+    .gain-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.92rem;
+      color: var(--dark);
+      font-weight: 500;
+    }
+    .gain-check {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: var(--purple);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.65rem;
+      flex-shrink: 0;
+      font-weight: 900;
+    }
+    .feature-card:nth-child(2) .gain-check { background: var(--pink); }
+    .feature-card:nth-child(3) .gain-check { background: var(--orange); }
+    .feature-card:nth-child(4) .gain-check { background: var(--teal); }
+
+    /* ===== HOW IT WORKS ===== */
+    #how-it-works {
+      background: var(--grad-main);
+      position: relative;
+      overflow: hidden;
+    }
+    #how-it-works::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -20%;
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(255,255,255,0.06) 0%, transparent 60%);
+      pointer-events: none;
+    }
+    .how-header { text-align: center; margin-bottom: 56px; }
+    .how-header .section-label { background: rgba(255,255,255,0.18); color: #fff; }
+    .how-header h2 {
+      font-size: clamp(1.7rem, 3vw, 2.5rem);
+      font-weight: 900;
+      color: #fff;
+      margin-bottom: 10px;
+    }
+    .how-header p { color: rgba(255,255,255,0.8); font-size: 1.05rem; }
+    .steps-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 32px;
+      position: relative;
+      z-index: 1;
+    }
+    .steps-grid::before {
+      content: '';
+      position: absolute;
+      top: 52px;
+      left: calc(16.66% + 16px);
+      right: calc(16.66% + 16px);
+      height: 2px;
+      background: rgba(255,255,255,0.25);
+      z-index: 0;
+    }
+    .step-card {
+      text-align: center;
+      position: relative;
+    }
+    .step-num {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.18);
+      border: 2px solid rgba(255,255,255,0.4);
+      color: #fff;
+      font-family: 'Nunito', sans-serif;
+      font-weight: 900;
+      font-size: 1.4rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 20px;
+      position: relative;
+      z-index: 1;
+      backdrop-filter: blur(8px);
+    }
+    .step-icon { font-size: 1.6rem; margin-bottom: 14px; }
+    .step-card h3 {
+      font-size: 1.1rem;
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 8px;
+    }
+    .step-card p {
+      font-size: 0.92rem;
+      color: rgba(255,255,255,0.8);
+      line-height: 1.6;
+    }
+
+    /* ===== INSTRUCTOR ===== */
+    #instructor {
+      background: var(--white);
+    }
+    .instructor-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.2fr;
+      gap: 64px;
+      align-items: center;
+    }
+    .instructor-img-wrap {
+      position: relative;
+    }
+    .instructor-img-wrap img {
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-card);
+      width: 100%;
+    }
+    .instructor-decor {
+      position: absolute;
+      bottom: -20px;
+      right: -20px;
+      width: 80%;
+      height: 80%;
+      border-radius: var(--radius);
+      background: linear-gradient(135deg, rgba(124,58,237,0.12), rgba(236,72,153,0.12));
+      z-index: -1;
+    }
+    .instructor-pre {
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: var(--pink);
+      margin-bottom: 8px;
+    }
+    .instructor-content h2 {
+      font-size: clamp(1.6rem, 3vw, 2.3rem);
+      font-weight: 900;
+      color: var(--dark);
+      margin-bottom: 20px;
+    }
+    .instructor-content p {
+      color: var(--muted);
+      line-height: 1.8;
+      font-size: 1.02rem;
+      margin-bottom: 32px;
+    }
+    .achievement-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .achievement-badge {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--bg-light);
+      border: 1.5px solid rgba(124,58,237,0.2);
+      color: var(--dark);
+      font-family: 'Nunito', sans-serif;
+      font-weight: 700;
+      font-size: 0.85rem;
+      padding: 8px 18px;
+      border-radius: var(--radius-pill);
+    }
+
+    /* ===== PRICING ===== */
+    #pricing {
+      background: var(--bg-light);
+    }
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 28px;
+      max-width: 860px;
+      margin: 0 auto 32px;
+    }
+    .price-card {
+      background: var(--white);
+      border-radius: var(--radius);
+      padding: 40px 36px;
+      box-shadow: var(--shadow-card);
+      position: relative;
+      transition: all 0.25s ease;
+    }
+    .price-card:hover {
+      transform: translateY(-6px);
+      box-shadow: var(--shadow-card-hover);
+    }
+    .price-card.featured {
+      background: var(--grad-main);
+      color: #fff;
+      transform: scale(1.03);
+      box-shadow: 0 12px 50px rgba(91,33,182,0.35);
+    }
+    .price-card.featured:hover {
+      transform: scale(1.03) translateY(-6px);
+    }
+    .popular-badge {
+      position: absolute;
+      top: -14px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--yellow);
+      color: #1E1B4B;
+      font-family: 'Nunito', sans-serif;
+      font-weight: 800;
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      padding: 5px 18px;
+      border-radius: var(--radius-pill);
+      white-space: nowrap;
+    }
+    .plan-name {
+      font-family: 'Nunito', sans-serif;
+      font-weight: 700;
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: var(--purple);
+      margin-bottom: 8px;
+    }
+    .price-card.featured .plan-name { color: rgba(255,255,255,0.8); }
+    .price-amount {
+      display: flex;
+      align-items: baseline;
+      gap: 4px;
+      margin-bottom: 4px;
+    }
+    .price-currency {
+      font-family: 'Nunito', sans-serif;
+      font-weight: 700;
+      font-size: 1.2rem;
+      color: var(--dark);
+    }
+    .price-card.featured .price-currency { color: #fff; }
+    .price-value {
+      font-family: 'Nunito', sans-serif;
+      font-weight: 900;
+      font-size: 3rem;
+      color: var(--dark);
+      line-height: 1;
+    }
+    .price-card.featured .price-value { color: #fff; }
+    .price-period {
+      font-size: 0.9rem;
+      color: var(--muted);
+      margin-bottom: 6px;
+    }
+    .price-card.featured .price-period { color: rgba(255,255,255,0.75); }
+    .price-equiv {
+      font-family: 'Nunito', sans-serif;
+      font-weight: 700;
+      font-size: 0.9rem;
+      color: var(--purple);
+      margin-bottom: 20px;
+    }
+    .price-card.featured .price-equiv { color: #FEF08A; }
+    .savings-badge-price {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(255,255,255,0.2);
+      border: 1px solid rgba(255,255,255,0.35);
+      color: #fff;
+      font-family: 'Nunito', sans-serif;
+      font-weight: 700;
+      font-size: 0.82rem;
+      padding: 5px 14px;
+      border-radius: var(--radius-pill);
+      margin-bottom: 22px;
+    }
+    .price-divider {
+      height: 1px;
+      background: rgba(124,58,237,0.12);
+      margin: 20px 0;
+    }
+    .price-card.featured .price-divider { background: rgba(255,255,255,0.2); }
+    .price-features { display: flex; flex-direction: column; gap: 10px; margin-bottom: 28px; }
+    .price-feature-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.92rem;
+      color: var(--dark);
+    }
+    .price-card.featured .price-feature-item { color: rgba(255,255,255,0.92); }
+    .pf-check {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: #D1FAE5;
+      color: #065F46;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.7rem;
+      font-weight: 900;
+      flex-shrink: 0;
+    }
+    .price-card.featured .pf-check {
+      background: rgba(255,255,255,0.25);
+      color: #fff;
+    }
+    .price-cta { width: 100%; text-align: center; }
+    .price-note {
+      font-size: 0.78rem;
+      color: var(--muted);
+      text-align: center;
+      margin-top: 10px;
+    }
+    .price-card.featured .price-note { color: rgba(255,255,255,0.65); }
+    .pricing-guarantee {
+      text-align: center;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px 24px;
+    }
+    .guarantee-item {
+      font-size: 0.9rem;
+      color: var(--muted);
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    /* ===== COMPARISON ===== */
+    #comparison {
+      background: var(--white);
+    }
+    .comparison-table {
+      max-width: 720px;
+      margin: 0 auto;
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: var(--shadow-card);
+    }
+    .comparison-header {
+      display: grid;
+      grid-template-columns: 1fr 160px 160px;
+      background: var(--dark);
+      padding: 18px 24px;
+    }
+    .comp-col-label {
+      font-family: 'Nunito', sans-serif;
+      font-weight: 800;
+      font-size: 0.95rem;
+      text-align: center;
+      color: #fff;
+    }
+    .comp-col-label.ceapp { color: var(--yellow); }
+    .comp-col-label.feature { text-align: left; color: rgba(255,255,255,0.7); font-size: 0.82rem; }
+    .comparison-row {
+      display: grid;
+      grid-template-columns: 1fr 160px 160px;
+      padding: 16px 24px;
+      border-bottom: 1px solid #F3F4F6;
+      transition: background 0.2s;
+    }
+    .comparison-row:last-child { border-bottom: none; }
+    .comparison-row:nth-child(even) { background: var(--bg-light); }
+    .comparison-row:hover { background: #EDE9FE; }
+    .comp-feature {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--dark);
+      display: flex;
+      align-items: center;
+    }
+    .comp-yes {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .check-circle {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--purple), var(--pink));
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.75rem;
+      font-weight: 900;
+    }
+    .x-circle {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      background: #F3F4F6;
+      color: #9CA3AF;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+      font-weight: 900;
+    }
+
+    /* ===== FAQ ===== */
+    #faq {
+      background: var(--bg-light);
+    }
+    .faq-list { max-width: 760px; margin: 0 auto; display: flex; flex-direction: column; gap: 14px; }
+    .faq-item {
+      background: var(--white);
+      border-radius: var(--radius-sm);
+      border-left: 4px solid var(--purple);
+      box-shadow: 0 2px 12px rgba(124,58,237,0.07);
+      overflow: hidden;
+      transition: box-shadow 0.2s;
+    }
+    .faq-item:nth-child(2) { border-left-color: var(--pink); }
+    .faq-item:nth-child(3) { border-left-color: var(--orange); }
+    .faq-item:nth-child(4) { border-left-color: var(--teal); }
+    .faq-item:nth-child(5) { border-left-color: var(--yellow); }
+    .faq-item:nth-child(6) { border-left-color: #10B981; }
+    .faq-item.open { box-shadow: 0 6px 24px rgba(124,58,237,0.13); }
+    .faq-question {
+      padding: 18px 22px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      user-select: none;
+    }
+    .faq-question h3 {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--dark);
+      line-height: 1.4;
+    }
+    .faq-icon {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: var(--bg-light);
+      border: 1.5px solid rgba(124,58,237,0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      color: var(--purple);
+      font-size: 1rem;
+      font-weight: 700;
+      transition: transform 0.25s ease, background 0.25s;
+    }
+    .faq-item.open .faq-icon {
+      transform: rotate(45deg);
+      background: var(--purple);
+      color: #fff;
+    }
+    .faq-answer {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.35s ease;
+    }
+    .faq-answer-inner {
+      padding: 0 22px 18px;
+      font-size: 0.95rem;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    /* ===== FINAL CTA ===== */
+    #final-cta {
+      background: var(--grad-main);
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    #final-cta::before {
+      content: '';
+      position: absolute;
+      top: -30%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(255,255,255,0.08) 0%, transparent 65%);
+      pointer-events: none;
+    }
+    .final-cta-inner { position: relative; z-index: 1; }
+    .final-cta-inner h2 {
+      font-size: clamp(1.8rem, 4vw, 3rem);
+      font-weight: 900;
+      color: #fff;
+      margin-bottom: 16px;
+    }
+    .final-cta-inner p {
+      font-size: 1.15rem;
+      color: rgba(255,255,255,0.85);
+      max-width: 540px;
+      margin: 0 auto 36px;
+      line-height: 1.7;
+    }
+    .final-ctas {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 16px;
+      margin-bottom: 28px;
+    }
+    .final-note {
+      font-size: 0.85rem;
+      color: rgba(255,255,255,0.65);
+    }
+
+    /* ===== FOOTER ===== */
+    footer {
+      background: var(--dark);
+      padding: 48px 0 28px;
+    }
+    .footer-inner {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 24px;
+      text-align: center;
+    }
+    .footer-logo img {
+      height: 56px;
+      width: auto;
+      filter: brightness(0) invert(1) opacity(0.85);
+    }
+    .footer-links {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 8px 24px;
+    }
+    .footer-links a {
+      font-size: 0.9rem;
+      color: rgba(255,255,255,0.6);
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+    .footer-links a:hover { color: var(--yellow); }
+    .footer-copy {
+      font-size: 0.82rem;
+      color: rgba(255,255,255,0.4);
+    }
+    .footer-divider {
+      width: 100%;
+      height: 1px;
+      background: rgba(255,255,255,0.08);
+    }
+
+    /* ===== WHATSAPP FLOAT ===== */
+    .wa-float {
+      position: fixed;
+      bottom: 28px;
+      right: 28px;
+      z-index: 9999;
+      width: 58px;
+      height: 58px;
+      border-radius: 50%;
+      background: #25D366;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 6px 24px rgba(37,211,102,0.45);
+      cursor: pointer;
+      transition: transform 0.2s ease;
+      animation: waPulse 2.5s infinite;
+    }
+    .wa-float:hover {
+      transform: scale(1.1);
+      animation: none;
+    }
+    .wa-float svg {
+      width: 30px;
+      height: 30px;
+      fill: #fff;
+    }
+    @keyframes waPulse {
+      0%, 100% { box-shadow: 0 6px 24px rgba(37,211,102,0.45); }
+      50% { box-shadow: 0 6px 36px rgba(37,211,102,0.7), 0 0 0 10px rgba(37,211,102,0.12); }
+    }
+
+    /* ===== SAVINGS ANIMATION ===== */
+    .savings-anim {
+      transition: all 0.3s ease;
+    }
+    .savings-anim.pulse {
+      animation: savingsPop 0.5s ease;
+    }
+    @keyframes savingsPop {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.12); }
+    }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 1024px) {
+      .hero-grid { grid-template-columns: 1fr; gap: 40px; padding: 40px 0 56px; }
+      .hero-right { order: -1; }
+      .hero-h1 { font-size: 2.2rem; }
+      .hero-subtitle { font-size: 1rem; }
+      .what-is-grid { grid-template-columns: 1fr; gap: 40px; }
+      .instructor-grid { grid-template-columns: 1fr; gap: 40px; }
+      .instructor-img-wrap { max-width: 480px; margin: 0 auto; }
+      .steps-grid::before { display: none; }
+    }
+
+    @media (max-width: 768px) {
+      .section-pad { padding: 56px 0; }
+      .hamburger { display: flex; }
+      .nav-links { display: none; }
+      .hero-grid { text-align: center; }
+      .hero-ctas { justify-content: center; }
+      .trust-strip { justify-content: center; }
+      .who-grid { grid-template-columns: 1fr 1fr; }
+      .features-grid { grid-template-columns: 1fr; }
+      .steps-grid { grid-template-columns: 1fr; gap: 24px; }
+      .pricing-grid { grid-template-columns: 1fr; max-width: 420px; }
+      .price-card.featured { transform: scale(1); }
+      .price-card.featured:hover { transform: translateY(-6px); }
+      .comparison-header { grid-template-columns: 1fr 100px 100px; }
+      .comparison-row { grid-template-columns: 1fr 100px 100px; }
+      .proof-divider { display: none; }
+      .proof-bar-inner { gap: 24px; }
+    }
+
+    @media (max-width: 480px) {
+      .hero-h1 { font-size: 1.75rem; }
+      .who-grid { grid-template-columns: 1fr; }
+      .achievement-badges { flex-direction: column; }
+      .final-ctas { flex-direction: column; align-items: center; }
+      .btn-lg { padding: 15px 28px; font-size: 1rem; }
+      .comparison-header { grid-template-columns: 1fr 80px 80px; }
+      .comparison-row { grid-template-columns: 1fr 80px 80px; }
+      .comp-col-label { font-size: 0.78rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ===== NAV ===== -->
+  <nav id="navbar">
+    <div class="container">
+      <div class="nav-inner">
+        <a href="#" class="nav-logo">
+          <img src="https://static.wixstatic.com/media/14d000_999931f812674270963a477d31d6367e~mv2.png/v1/crop/x_287,y_226,w_579,h_672/fill/w_180,h_209,al_c,q_85,enc_avif,quality_auto/LOGO%202024.png" alt="CEAPp Logo">
+        </a>
+        <div class="nav-links">
+          <a href="https://dashboard.kiwify.com.br/courses" class="btn btn-ghost btn-sm">Entrar</a>
+          <a href="https://pay.kiwify.com.br/fcgHKnM" class="btn btn-gradient btn-sm">Quero Entrar</a>
+        </div>
+        <button class="hamburger" id="hamburger" aria-label="Menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+      <div class="mobile-menu" id="mobile-menu">
+        <a href="https://dashboard.kiwify.com.br/courses" class="btn btn-ghost btn-sm">Entrar na Plataforma</a>
+        <a href="https://pay.kiwify.com.br/fcgHKnM" class="btn btn-gradient">Quero Entrar — R$ 67,90/mês</a>
+        <a href="https://pay.kiwify.com.br/g7MNr4r" class="btn btn-yellow">Plano Anual — R$ 650/ano</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ===== HERO ===== -->
+  <section id="hero">
+    <div class="container">
+      <div class="hero-grid">
+        <div class="hero-left">
+          <div class="hero-badge">
+            <span class="badge">🎓 Mais de 15 anos de experiência</span>
+          </div>
+          <h1 class="hero-h1">A Netflix da Psicopedagogia chegou para <span style="color:#FEF08A;">transformar sua prática</span></h1>
+          <p class="hero-subtitle">Acesse centenas de aulas em vídeo, materiais prontos para usar na clínica e lives semanais de estudo de caso — tudo por <strong style="color:#FEF08A;">menos de R$&nbsp;3 por dia</strong></p>
+          <div class="hero-ctas">
+            <a href="https://pay.kiwify.com.br/fcgHKnM" class="btn btn-yellow btn-lg">Começar por R$ 67,90/mês →</a>
+            <a href="#pricing" class="btn btn-outline-white btn-lg">Ver plano anual</a>
+          </div>
+          <div class="trust-strip">
+            <span class="trust-item">✅ Cancele quando quiser</span>
+            <span class="trust-item">📱 Acesse em qualquer dispositivo</span>
+            <span class="trust-item">🔄 Conteúdo novo toda semana</span>
+            <span class="trust-item">🎥 Ao vivo toda segunda</span>
+          </div>
+        </div>
+        <div class="hero-right">
+          <div class="hero-img-wrap">
+            <img src="https://static.wixstatic.com/media/14d000_24f7ad734dc74864966ab57685e670d4~mv2.png/v1/fill/w_1200,h_675,al_c,q_95,enc_avif,quality_auto/Design%20sem%20nome-2.png" alt="CEAPp — Plataforma de Psicopedagogia" width="580" height="326">
+            <div class="hero-float-badge">🎬 Aulas novas toda semana</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== SOCIAL PROOF BAR ===== -->
+  <section id="proof-bar">
+    <div class="container">
+      <div class="proof-bar-inner">
+        <div class="proof-item">
+          <span class="proof-item-icon">📚</span>
+          <span class="proof-item-label">+15 anos de experiência</span>
+          <span class="proof-item-sub">em psicopedagogia clínica</span>
+        </div>
+        <div class="proof-divider"></div>
+        <div class="proof-item">
+          <span class="proof-item-icon">🎥</span>
+          <span class="proof-item-label">Lives toda segunda-feira</span>
+          <span class="proof-item-sub">às 19h30 via Zoom</span>
+        </div>
+        <div class="proof-divider"></div>
+        <div class="proof-item">
+          <span class="proof-item-icon">📥</span>
+          <span class="proof-item-label">Materiais novos todo mês</span>
+          <span class="proof-item-sub">prontos para usar na clínica</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== WHAT IS CEAPP ===== -->
+  <section id="what-is" class="section-pad">
+    <div class="container">
+      <div class="what-is-grid">
+        <div class="what-is-img">
+          <img src="https://static.wixstatic.com/media/14d000_ca4d5a76730e4c5191ffe6efeddcd6ba~mv2.png/v1/fill/w_900,h_480,al_c,q_90,enc_avif,quality_auto/3.png" alt="Plataforma CEAPp — screenshot" loading="lazy" width="900" height="480">
+          <span class="what-is-tag">📺 Plataforma Netflix-style</span>
+        </div>
+        <div class="what-is-content">
+          <p class="section-label">O que é a CEAPp?</p>
+          <h2>Uma plataforma completa para <span class="highlight">psicopedagogos que levam a sério</span> sua prática</h2>
+          <p>A CEAPp é a Comunidade de Estudo e Aprimoramento de Psicopedagogos e Psicopedagogas — uma plataforma no estilo Netflix dedicada exclusivamente ao desenvolvimento profissional de quem trabalha com psicopedagogia e neuropsicopedagogia.<br><br>Aqui você encontra tudo o que precisa para se manter atualizada, atender com mais segurança e se destacar no mercado — sem precisar gastar horas procurando conteúdo ou criando materiais do zero.</p>
+          <div class="feature-list">
+            <div class="feature-item">
+              <span class="feature-icon">🎬</span>
+              <div class="feature-text">
+                <h4>Aulas em vídeo ilimitadas</h4>
+                <p>Centenas de aulas sobre psicopedagogia e neuropsicopedagogia, com novas aulas toda semana</p>
+              </div>
+            </div>
+            <div class="feature-item">
+              <span class="feature-icon">📖</span>
+              <div class="feature-text">
+                <h4>Materiais e artigos para estudo</h4>
+                <p>Apostilas, artigos científicos selecionados e indicação de livros essenciais da área</p>
+              </div>
+            </div>
+            <div class="feature-item">
+              <span class="feature-icon">🛠️</span>
+              <div class="feature-text">
+                <h4>Recursos prontos para a prática clínica</h4>
+                <p>Materiais de intervenção novos todo mês: testes, jogos e atividades para baixar e imprimir</p>
+              </div>
+            </div>
+            <div class="feature-item">
+              <span class="feature-icon">📡</span>
+              <div class="feature-text">
+                <h4>Lives semanais exclusivas</h4>
+                <p>Toda segunda-feira às 19h30 via Zoom — estudo de caso ao vivo, exclusivo para membros</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FOR WHO ===== -->
+  <section id="for-who" class="section-pad">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-label">Para quem é?</span>
+        <h2>Esta plataforma foi feita <span class="highlight">para você que...</span></h2>
+        <p>Reconhece ao menos um desses cenários? A CEAPp foi criada exatamente para isso.</p>
+      </div>
+      <div class="who-grid">
+        <div class="who-card">
+          <div class="who-emoji">🧠</div>
+          <h3>É psicopedagoga ou neuropsicopedagoga e quer se atualizar constantemente com conteúdo de qualidade</h3>
+        </div>
+        <div class="who-card">
+          <div class="who-emoji">📚</div>
+          <h3>Busca materiais prontos para usar nas suas sessões sem perder horas criando do zero</h3>
+        </div>
+        <div class="who-card">
+          <div class="who-emoji">🏆</div>
+          <h3>Quer se destacar no mercado e oferecer um atendimento de excelência aos seus pacientes</h3>
+        </div>
+        <div class="who-card">
+          <div class="who-emoji">⏰</div>
+          <h3>Tem pouco tempo e precisa de uma forma prática e flexível de estudar no seu ritmo</h3>
+        </div>
+        <div class="who-card">
+          <div class="who-emoji">💰</div>
+          <h3>Quer valorizar seus honorários com conhecimento atualizado e respaldo técnico sólido</h3>
+        </div>
+        <div class="who-card">
+          <div class="who-emoji">🌱</div>
+          <h3>Está iniciando na psicopedagogia e quer uma base sólida, prática e acessível</h3>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FEATURES DEEP DIVE ===== -->
+  <section id="features" class="section-pad">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-label">O que está incluído</span>
+        <h2>Tudo que você precisa para <span class="highlight">elevar sua prática</span></h2>
+        <p>A CEAPp reúne em um só lugar tudo o que uma psicopedagoga precisa para crescer profissionalmente.</p>
+      </div>
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-card-top"></div>
+          <div class="feature-card-body">
+            <div class="feature-card-icon">🎬</div>
+            <h3>Aulas em Vídeo</h3>
+            <p>Centenas de aulas sobre os mais diversos temas da psicopedagogia e neuropsicopedagogia, ministradas por uma profissional com mais de 15 anos de experiência clínica. Assista no seu ritmo, onde e quando quiser.</p>
+            <div class="feature-card-gains">
+              <h4>O que você ganha:</h4>
+              <div class="gains-list">
+                <div class="gain-item"><span class="gain-check">✓</span> Assista quando e onde quiser</div>
+                <div class="gain-item"><span class="gain-check">✓</span> Atualizações semanais com novos conteúdos</div>
+                <div class="gain-item"><span class="gain-check">✓</span> Do básico ao avançado em uma só plataforma</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="feature-card">
+          <div class="feature-card-top"></div>
+          <div class="feature-card-body">
+            <div class="feature-card-icon">📥</div>
+            <h3>Materiais de Intervenção</h3>
+            <p>Recursos prontos para usar diretamente nas suas sessões clínicas. Testes, jogos, fichas e atividades desenvolvidas por especialistas — é só baixar, imprimir e aplicar. Novos materiais chegam todo mês.</p>
+            <div class="feature-card-gains">
+              <h4>O que você ganha:</h4>
+              <div class="gains-list">
+                <div class="gain-item"><span class="gain-check">✓</span> Novos materiais chegando todo mês</div>
+                <div class="gain-item"><span class="gain-check">✓</span> Prontos para usar — só baixar e imprimir</div>
+                <div class="gain-item"><span class="gain-check">✓</span> Para todas as faixas etárias e necessidades</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="feature-card">
+          <div class="feature-card-top"></div>
+          <div class="feature-card-body">
+            <div class="feature-card-icon">📖</div>
+            <h3>Biblioteca de Estudo</h3>
+            <p>Apostilas elaboradas, artigos científicos selecionados e indicação de livros essenciais da psicopedagogia. Mantenha-se atualizada com a literatura atual sem precisar garimpar a internet.</p>
+            <div class="feature-card-gains">
+              <h4>O que você ganha:</h4>
+              <div class="gains-list">
+                <div class="gain-item"><span class="gain-check">✓</span> Embasamento teórico sólido e confiável</div>
+                <div class="gain-item"><span class="gain-check">✓</span> Artigos científicos selecionados pela especialista</div>
+                <div class="gain-item"><span class="gain-check">✓</span> Curadoria especializada — zero tempo perdido</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="feature-card">
+          <div class="feature-card-top"></div>
+          <div class="feature-card-body">
+            <div class="feature-card-icon">📡</div>
+            <h3>Lives Semanais Exclusivas</h3>
+            <p>Toda segunda-feira às 19h30, via Zoom, você participa ao vivo de um estudo de caso com a especialista. Interaja em tempo real, tire dúvidas e aprenda com casos reais da prática clínica.</p>
+            <div class="feature-card-gains">
+              <h4>O que você ganha:</h4>
+              <div class="gains-list">
+                <div class="gain-item"><span class="gain-check">✓</span> Interação em tempo real com a especialista</div>
+                <div class="gain-item"><span class="gain-check">✓</span> Casos reais discutidos e analisados ao vivo</div>
+                <div class="gain-item"><span class="gain-check">✓</span> Exclusivo para membros — conteúdo inédito</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== HOW IT WORKS ===== -->
+  <section id="how-it-works" class="section-pad">
+    <div class="container">
+      <div class="how-header">
+        <span class="section-label">Como funciona</span>
+        <h2>Em 3 passos simples você já está aprendendo</h2>
+        <p>O acesso é imediato — em menos de 5 minutos você já pode estar assistindo às aulas.</p>
+      </div>
+      <div class="steps-grid">
+        <div class="step-card">
+          <div class="step-num">1</div>
+          <div class="step-icon">📝</div>
+          <h3>Escolha seu plano</h3>
+          <p>Mensal ou anual, com pagamento seguro via cartão de crédito, boleto ou PIX. Processo simples e rápido.</p>
+        </div>
+        <div class="step-card">
+          <div class="step-num">2</div>
+          <div class="step-icon">📧</div>
+          <h3>Acesse sua conta</h3>
+          <p>Você recebe o login por e-mail imediatamente após a confirmação do pagamento. Acesso 100% imediato.</p>
+        </div>
+        <div class="step-card">
+          <div class="step-num">3</div>
+          <div class="step-icon">🚀</div>
+          <h3>Comece a aprender</h3>
+          <p>Explore as aulas, baixe os materiais, entre no grupo de WhatsApp e participe das lives toda segunda.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== INSTRUCTOR ===== -->
+  <section id="instructor" class="section-pad">
+    <div class="container">
+      <div class="instructor-grid">
+        <div class="instructor-img-wrap">
+          <img src="https://static.wixstatic.com/media/14d000_65cac66bf3c24702b7f62ded7aa63eff~mv2.png/v1/fill/w_900,h_506,al_c,q_90,enc_avif,quality_auto/Ol%C3%A1%2C%20Psico!%20Sou%20eu%2C-3.png" alt="Instrutora CEAPp" loading="lazy" width="900" height="506">
+          <div class="instructor-decor"></div>
+        </div>
+        <div class="instructor-content">
+          <p class="instructor-pre">Quem está por trás da CEAPp</p>
+          <h2>Olá, Psico! Sou eu, a especialista por trás de tudo isso 💜</h2>
+          <p>Sou a profissional por trás da CEAPp e tenho mais de 15 anos dedicados à psicopedagogia. Ao longo desses anos, atendi centenas de pacientes, formei profissionais e desenvolvi materiais usados em todo o Brasil.<br><br>Criei a CEAPp porque sei o quanto é difícil se manter atualizada com os estudos, criar materiais de qualidade e ainda atender. A plataforma é tudo que eu gostaria de ter tido quando estava começando — e que continuo precisando hoje.<br><br>Aqui você encontra uma comunidade acolhedora, conteúdo sério e prático, e uma especialista que entende exatamente os desafios do seu dia a dia.</p>
+          <div class="achievement-badges">
+            <span class="achievement-badge">🏆 +15 anos de experiência</span>
+            <span class="achievement-badge">📚 Materiais em todo o Brasil</span>
+            <span class="achievement-badge">🎓 Referência em psicopedagogia</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== PRICING ===== -->
+  <section id="pricing" class="section-pad">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-label">Planos e Preços</span>
+        <h2>Invista no seu <span class="highlight">desenvolvimento profissional</span></h2>
+        <p>Por menos de R$ 3 por dia, tenha acesso a tudo que a CEAPp oferece.</p>
+      </div>
+      <div class="pricing-grid">
+        <div class="price-card">
+          <p class="plan-name">Mensal</p>
+          <div class="price-amount">
+            <span class="price-currency">R$</span>
+            <span class="price-value">67</span>
+            <span style="font-family:'Nunito';font-weight:900;font-size:2rem;color:var(--dark);align-self:flex-start;margin-top:8px;">,90</span>
+          </div>
+          <p class="price-period">por mês — cancele quando quiser</p>
+          <p class="price-equiv">= apenas R$ 2,26 por dia</p>
+          <div class="price-divider"></div>
+          <div class="price-features">
+            <div class="price-feature-item"><span class="pf-check">✓</span> Acesso a todas as aulas em vídeo</div>
+            <div class="price-feature-item"><span class="pf-check">✓</span> Materiais de intervenção (novos todo mês)</div>
+            <div class="price-feature-item"><span class="pf-check">✓</span> Apostilas e artigos de estudo</div>
+            <div class="price-feature-item"><span class="pf-check">✓</span> Lives semanais toda segunda às 19h30</div>
+            <div class="price-feature-item"><span class="pf-check">✓</span> Grupo exclusivo de membros no WhatsApp</div>
+            <div class="price-feature-item"><span class="pf-check">✓</span> Cancele quando quiser, sem multa</div>
+          </div>
+          <a href="https://pay.kiwify.com.br/fcgHKnM" class="btn btn-gradient price-cta">Começar Agora →</a>
+          <p class="price-note">💳 PIX | Boleto | Cartão de crédito</p>
+        </div>
+        <div class="price-card featured">
+          <span class="popular-badge">⭐ MAIS POPULAR</span>
+          <p class="plan-name">Anual</p>
+          <div class="price-amount">
+            <span class="price-currency">R$</span>
+            <span class="price-value">650</span>
+            <span style="font-family:'Nunito';font-weight:900;font-size:2rem;color:#fff;align-self:flex-start;margin-top:8px;">,00</span>
+          </div>
+          <p class="price-period">por ano — acesso garantido por 12 meses</p>
+          <p class="price-equiv savings-anim">= apenas R$ 54,16/mês</p>
+          <div class="savings-badge-price savings-anim">🏷️ Economize R$ 164,80 — 2 meses grátis!</div>
+          <div class="price-divider"></div>
+          <div class="price-features">
+            <div class="price-feature-item"><span class="pf-check">✓</span> Acesso a todas as aulas em vídeo</div>
+            <div class="price-feature-item"><span class="pf-check">✓</span> Materiais de intervenção (novos todo mês)</div>
+            <div class="price-feature-item"><span class="pf-check">✓</span> Apostilas e artigos de estudo</div>
+            <div class="price-feature-item"><span class="pf-check">✓</span> Lives semanais toda segunda às 19h30</div>
+            <div class="price-feature-item"><span class="pf-check">✓</span> Grupo exclusivo de membros no WhatsApp</div>
+            <div class="price-feature-item"><span class="pf-check">✓</span> Acesso garantido por 12 meses sem reajuste</div>
+          </div>
+          <a href="https://pay.kiwify.com.br/g7MNr4r" class="btn btn-yellow price-cta">Garantir Plano Anual →</a>
+          <p class="price-note">💳 PIX | Boleto | Cartão de crédito</p>
+        </div>
+      </div>
+      <div class="pricing-guarantee">
+        <span class="guarantee-item">🔒 Pagamento seguro via Kiwify</span>
+        <span class="guarantee-item">✅ Cancele quando quiser</span>
+        <span class="guarantee-item">📧 Acesso imediato por e-mail</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== COMPARISON ===== -->
+  <section id="comparison" class="section-pad">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-label">Por que a CEAPp?</span>
+        <h2>A diferença é <span class="highlight">clara e concreta</span></h2>
+        <p>Veja por que fazer parte da CEAPp é a escolha mais inteligente para a sua carreira.</p>
+      </div>
+      <div class="comparison-table">
+        <div class="comparison-header">
+          <span class="comp-col-label feature">Benefício</span>
+          <span class="comp-col-label ceapp">Com CEAPp</span>
+          <span class="comp-col-label">Sem CEAPp</span>
+        </div>
+        <div class="comparison-row">
+          <span class="comp-feature">Conteúdo atualizado semanalmente</span>
+          <div class="comp-yes"><span class="check-circle">✓</span></div>
+          <div class="comp-yes"><span class="x-circle">✕</span></div>
+        </div>
+        <div class="comparison-row">
+          <span class="comp-feature">Materiais prontos para a clínica</span>
+          <div class="comp-yes"><span class="check-circle">✓</span></div>
+          <div class="comp-yes"><span class="x-circle">✕</span></div>
+        </div>
+        <div class="comparison-row">
+          <span class="comp-feature">Lives exclusivas de estudo de caso</span>
+          <div class="comp-yes"><span class="check-circle">✓</span></div>
+          <div class="comp-yes"><span class="x-circle">✕</span></div>
+        </div>
+        <div class="comparison-row">
+          <span class="comp-feature">Suporte de especialista com 15+ anos</span>
+          <div class="comp-yes"><span class="check-circle">✓</span></div>
+          <div class="comp-yes"><span class="x-circle">✕</span></div>
+        </div>
+        <div class="comparison-row">
+          <span class="comp-feature">Comunidade de profissionais ativos</span>
+          <div class="comp-yes"><span class="check-circle">✓</span></div>
+          <div class="comp-yes"><span class="x-circle">✕</span></div>
+        </div>
+        <div class="comparison-row">
+          <span class="comp-feature">Custo acessível (menos de R$3/dia)</span>
+          <div class="comp-yes"><span class="check-circle">✓</span></div>
+          <div class="comp-yes"><span class="x-circle">✕</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FAQ ===== -->
+  <section id="faq" class="section-pad">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-label">Dúvidas Frequentes</span>
+        <h2>Ficou alguma <span class="highlight">dúvida?</span></h2>
+        <p>As perguntas mais comuns respondidas de forma direta e clara.</p>
+      </div>
+      <div class="faq-list">
+        <div class="faq-item">
+          <div class="faq-question">
+            <h3>Quanto custa e quais são as formas de pagamento?</h3>
+            <span class="faq-icon">+</span>
+          </div>
+          <div class="faq-answer">
+            <div class="faq-answer-inner">O plano mensal custa R$ 67,90/mês e o plano anual custa R$ 650,00 (equivalente a R$ 54,16/mês, economizando R$ 164,80). Aceitamos cartão de crédito, boleto bancário e PIX — tudo com pagamento seguro via Kiwify.</div>
+          </div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question">
+            <h3>Como faço para acessar a plataforma?</h3>
+            <span class="faq-icon">+</span>
+          </div>
+          <div class="faq-answer">
+            <div class="faq-answer-inner">Após a confirmação do pagamento, a Kiwify enviará automaticamente um e-mail com seu login e senha de acesso. O processo é imediato — em poucos minutos você já está dentro da plataforma.</div>
+          </div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question">
+            <h3>Posso cancelar quando quiser?</h3>
+            <span class="faq-icon">+</span>
+          </div>
+          <div class="faq-answer">
+            <div class="faq-answer-inner">Sim! O plano mensal pode ser cancelado a qualquer momento, sem multa e sem burocracia. Basta entrar em contato pelo WhatsApp de suporte (87 99627-1439) e o cancelamento é feito na hora. Você não perde nada além do acesso a partir do próximo ciclo.</div>
+          </div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question">
+            <h3>Como funcionam as lives semanais?</h3>
+            <span class="faq-icon">+</span>
+          </div>
+          <div class="faq-answer">
+            <div class="faq-answer-inner">Toda segunda-feira às 19h30, é realizada uma live via Zoom com estudo de caso ao vivo. O link de acesso fica disponível dentro da plataforma e também é compartilhado no grupo exclusivo de WhatsApp dos membros. As lives são 100% exclusivas para assinantes ativos.</div>
+          </div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question">
+            <h3>Não consigo abrir os PDFs. O que faço?</h3>
+            <span class="faq-icon">+</span>
+          </div>
+          <div class="faq-answer">
+            <div class="faq-answer-inner">Para visualizar os materiais em PDF, recomendamos o uso de aplicativos como Adobe Acrobat Reader (gratuito), Google PDF Viewer ou iBooks (para usuários Apple). Qualquer um desses leitores resolve o problema. Em caso de dúvida, o suporte está disponível pelo WhatsApp.</div>
+          </div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question">
+            <h3>A plataforma funciona no celular?</h3>
+            <span class="faq-icon">+</span>
+          </div>
+          <div class="faq-answer">
+            <div class="faq-answer-inner">Sim! Você pode acessar a plataforma pelo navegador do seu celular, tablet ou computador, em qualquer sistema operacional (Android, iOS, Windows, Mac). O acesso é flexível — estude onde e quando quiser.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FINAL CTA ===== -->
+  <section id="final-cta" class="section-pad">
+    <div class="container">
+      <div class="final-cta-inner">
+        <h2>Sua prática merece o melhor 💜</h2>
+        <p>Junte-se a profissionais que já transformaram seu atendimento com a CEAPp. Comece hoje por apenas R$ 67,90 — menos de R$ 3 por dia.</p>
+        <div class="final-ctas">
+          <a href="https://pay.kiwify.com.br/fcgHKnM" class="btn btn-yellow btn-lg">Começar por R$ 67,90/mês →</a>
+          <a href="https://pay.kiwify.com.br/g7MNr4r" class="btn btn-outline-white btn-lg">Ver plano anual — R$ 650/ano</a>
+        </div>
+        <p class="final-note">🔒 Pagamento seguro &nbsp;|&nbsp; 📧 Acesso imediato &nbsp;|&nbsp; ✅ Cancele quando quiser</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer>
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-logo">
+          <img src="https://static.wixstatic.com/media/14d000_999931f812674270963a477d31d6367e~mv2.png/v1/crop/x_287,y_226,w_579,h_672/fill/w_180,h_209,al_c,q_85,enc_avif,quality_auto/LOGO%202024.png" alt="CEAPp Logo">
+        </div>
+        <div class="footer-links">
+          <a href="https://dashboard.kiwify.com.br/courses">Entrar na plataforma</a>
+          <a href="https://wa.me/5587996271439">Suporte no WhatsApp</a>
+          <a href="https://pay.kiwify.com.br/fcgHKnM">Plano Mensal</a>
+          <a href="https://pay.kiwify.com.br/g7MNr4r">Plano Anual</a>
+        </div>
+        <div class="footer-divider"></div>
+        <p class="footer-copy">© 2025 CEAPp | Psicopedagogiando — psicopedagogiandope.com &nbsp;|&nbsp; Todos os direitos reservados.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ===== WHATSAPP FLOAT ===== -->
+  <a href="https://wa.me/5587996271439" class="wa-float" target="_blank" rel="noopener" aria-label="Falar no WhatsApp">
+    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+    </svg>
+  </a>
+
+  <!-- ===== JAVASCRIPT ===== -->
+  <script>
+    // ===== NAV SCROLL =====
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 40) {
+        navbar.classList.add('scrolled');
+      } else {
+        navbar.classList.remove('scrolled');
+      }
+    }, { passive: true });
+
+    // ===== HAMBURGER MENU =====
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobile-menu');
+    hamburger.addEventListener('click', () => {
+      const isOpen = mobileMenu.classList.toggle('open');
+      hamburger.setAttribute('aria-expanded', isOpen);
+      const spans = hamburger.querySelectorAll('span');
+      if (isOpen) {
+        spans[0].style.transform = 'translateY(7.5px) rotate(45deg)';
+        spans[1].style.opacity = '0';
+        spans[2].style.transform = 'translateY(-7.5px) rotate(-45deg)';
+      } else {
+        spans[0].style.transform = '';
+        spans[1].style.opacity = '';
+        spans[2].style.transform = '';
+      }
+    });
+
+    // Close mobile menu on link click
+    mobileMenu.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        mobileMenu.classList.remove('open');
+        hamburger.querySelectorAll('span').forEach(s => {
+          s.style.transform = '';
+          s.style.opacity = '';
+        });
+      });
+    });
+
+    // ===== FAQ ACCORDION =====
+    document.querySelectorAll('.faq-question').forEach(question => {
+      question.addEventListener('click', () => {
+        const item = question.parentElement;
+        const answer = item.querySelector('.faq-answer');
+        const isOpen = item.classList.contains('open');
+
+        // Close all
+        document.querySelectorAll('.faq-item').forEach(fi => {
+          fi.classList.remove('open');
+          fi.querySelector('.faq-answer').style.maxHeight = '0';
+        });
+
+        // Open clicked if it was closed
+        if (!isOpen) {
+          item.classList.add('open');
+          answer.style.maxHeight = answer.scrollHeight + 'px';
+        }
+      });
+    });
+
+    // ===== SMOOTH SCROLL =====
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', e => {
+        const target = document.querySelector(anchor.getAttribute('href'));
+        if (target) {
+          e.preventDefault();
+          const offset = 80;
+          const top = target.getBoundingClientRect().top + window.scrollY - offset;
+          window.scrollTo({ top, behavior: 'smooth' });
+        }
+      });
+    });
+
+    // ===== SAVINGS ANIMATION ON HOVER =====
+    const featuredCard = document.querySelector('.price-card.featured');
+    if (featuredCard) {
+      const animEls = featuredCard.querySelectorAll('.savings-anim');
+      featuredCard.addEventListener('mouseenter', () => {
+        animEls.forEach(el => {
+          el.classList.remove('pulse');
+          void el.offsetWidth; // reflow
+          el.classList.add('pulse');
+        });
+      });
+      featuredCard.addEventListener('mouseleave', () => {
+        animEls.forEach(el => el.classList.remove('pulse'));
+      });
+    }
+
+    // ===== INTERSECTION OBSERVER — lazy reveal =====
+    if ('IntersectionObserver' in window) {
+      const revealEls = document.querySelectorAll('.feature-card, .who-card, .step-card, .price-card');
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.style.opacity = '1';
+            entry.target.style.transform = entry.target.classList.contains('featured')
+              ? 'scale(1.03)'
+              : 'translateY(0)';
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.1 });
+
+      revealEls.forEach(el => {
+        if (!el.classList.contains('featured')) {
+          el.style.opacity = '0';
+          el.style.transform = 'translateY(24px)';
+          el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+        }
+        observer.observe(el);
+      });
+    }
+  </script>
+</body>
+</html>
