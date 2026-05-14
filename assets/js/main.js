@@ -44,21 +44,31 @@ if (document.readyState === 'loading') {
   init();
 }
 
-// "Ver mais" matérias
+// "Ver mais" matérias — load more (6 por clique)
 (function initVerMais() {
+  const BATCH = 6;
   const btn = document.getElementById('ver-mais-btn');
   if (!btn) return;
-  btn.addEventListener('click', () => {
-    const extras = document.querySelectorAll('.materias-extras');
-    const isOpen = btn.getAttribute('aria-expanded') === 'true';
-    if (isOpen) {
-      extras.forEach(el => el.classList.remove('is-visible'));
-      btn.setAttribute('aria-expanded', 'false');
-      btn.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="16" height="16"><path d="M12 5v14M5 12l7 7 7-7"/></svg> Ver mais matérias`;
+
+  function getHidden() {
+    return Array.from(document.querySelectorAll('.materias-extras')).filter(
+      el => !el.classList.contains('is-visible')
+    );
+  }
+
+  function updateBtn() {
+    const remaining = getHidden().length;
+    if (remaining === 0) {
+      btn.style.display = 'none';
     } else {
-      extras.forEach(el => el.classList.add('is-visible'));
-      btn.setAttribute('aria-expanded', 'true');
-      btn.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="16" height="16"><path d="M12 19V5M5 12l7-7 7 7"/></svg> Ver menos`;
+      btn.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="16" height="16"><path d="M12 5v14M5 12l7 7 7-7"/></svg> Ver mais matérias`;
     }
+  }
+
+  btn.addEventListener('click', () => {
+    getHidden().slice(0, BATCH).forEach(el => el.classList.add('is-visible'));
+    updateBtn();
   });
+
+  updateBtn();
 })();
