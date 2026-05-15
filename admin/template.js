@@ -74,7 +74,6 @@ export function buildPage({
   <link rel="stylesheet" href="/assets/css/components.css">
   <link rel="stylesheet" href="/assets/css/article.css">
   <link rel="stylesheet" href="/assets/css/responsive.css">
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4663943063143621" crossorigin="anonymous"></script>
 </head>
 <body class="page-wrapper" data-area="${area}"${courseSlug ? ` data-course="${courseSlug}" data-course-name="${courseName}"` : ''}>
 

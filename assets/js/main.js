@@ -4,7 +4,6 @@
  */
 
 import { initSearch } from './search.js';
-import './ads.js';
 import './faq.js';
 
 function init() {

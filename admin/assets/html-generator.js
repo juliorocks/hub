@@ -39,7 +39,6 @@ function generateArticleHTML(article) {
   <link rel="stylesheet" href="${basePath}assets/css/components.css">
   <link rel="stylesheet" href="${basePath}assets/css/article.css">
   <link rel="stylesheet" href="${basePath}assets/css/responsive.css">
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4663943063143621" crossorigin="anonymous"></script>
   <link rel="icon" type="image/svg+xml" href="${basePath}assets/img/favicon.svg">
 </head>
 <body class="page-wrapper">
