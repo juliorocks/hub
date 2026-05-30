@@ -64,7 +64,7 @@ app.use((req, res, next) => {
     "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://www.google-analytics.com https://connect.facebook.net https://www.gstatic.com https://www.gstatic.com/firebasejs/; " +
     "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; " +
     "font-src 'self' https://fonts.gstatic.com; " +
-    "img-src 'self' data: https://images.unsplash.com https://www.facebook.com https://www.google-analytics.com https://www.googletagmanager.com https://static.wixstatic.com https://parindocomvoce.com https://i.ibb.co https://faculdadesaomarcos.com.br https://institutooliver.com.br https://institutoolivercursos.com; " +
+    "img-src 'self' data: https://images.unsplash.com https://www.facebook.com https://www.google-analytics.com https://www.googletagmanager.com https://static.wixstatic.com https://parindocomvoce.com https://i.ibb.co https://faculdadesaomarcos.com.br https://institutooliver.com.br https://institutoolivercursos.com https://supletivoeja.perfectuead.com.br; " +
     "connect-src 'self' https://www.google-analytics.com https://analytics.google.com https://graph.facebook.com https://*.firebaseio.com https://firestore.googleapis.com https://*.googleapis.com https://ipapi.co; " +
     "frame-src 'self' https://video.wixstatic.com https://www.youtube.com https://player.vimeo.com; " +
     "media-src 'self' https://video.wixstatic.com https://static.wixstatic.com https://parindocomvoce.com; " +
