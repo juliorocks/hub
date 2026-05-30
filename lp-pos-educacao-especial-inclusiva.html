@@ -196,6 +196,25 @@
     .hero-subtitle {
       font-size: 1.05rem; color: var(--gray-500); margin-bottom: 32px; max-width: 500px;
     }
+    .hero-price {
+      display: inline-flex; flex-direction: column;
+      background: linear-gradient(135deg, #FFF7ED, #FEF3C7);
+      border: 2px solid #FCD34D; border-radius: var(--radius-lg);
+      padding: 16px 24px; margin-bottom: 24px; gap: 4px;
+    }
+    .hero-price-label {
+      font-size: .72rem; font-weight: 700; text-transform: uppercase;
+      letter-spacing: .08em; color: var(--yellow);
+    }
+    .hero-price-value {
+      font-size: 2.8rem; font-weight: 800; line-height: 1;
+      color: var(--dark); letter-spacing: -1px;
+    }
+    .hero-price-installment {
+      font-size: .88rem; color: var(--gray-700);
+    }
+    .hero-price-installment strong { color: var(--orange); }
+
     .hero-ctas { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 36px; }
 
     .hero-badges {
@@ -610,6 +629,15 @@
         <p class="hero-subtitle">
           Transforme sua carreira e a vida de pessoas com necessidades especiais. Certificado reconhecido pelo MEC, em 2 a 3 meses, no seu ritmo.
         </p>
+        <div class="hero-price">
+          <div class="hero-price-main">
+            <span class="hero-price-label">por apenas</span>
+            <span class="hero-price-value">R$ 707<span style="font-size:1.6rem;">,64</span></span>
+          </div>
+          <div class="hero-price-installment">
+            ou <strong>12x de R$ 73,19</strong> no cartão*
+          </div>
+        </div>
         <div class="hero-ctas">
           <a href="#matricula" class="btn btn-purple btn-lg">Quero Me Matricular</a>
           <a href="#sobre" class="btn btn-outline-purple">Conhecer o curso</a>
