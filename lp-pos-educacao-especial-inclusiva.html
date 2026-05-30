@@ -325,6 +325,47 @@
     .check-icon svg { width: 12px; height: 12px; stroke: var(--white); fill: none; stroke-width: 3; }
     .check-item span { font-size: .95rem; color: var(--gray-700); }
 
+    /* ——— GRADE CURRICULAR ——— */
+    .curriculum-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-top: 48px;
+    }
+    @media(max-width:1024px){ .curriculum-grid { grid-template-columns: repeat(2,1fr); } }
+    @media(max-width:640px){ .curriculum-grid { grid-template-columns: 1fr; } }
+
+    .curriculum-card {
+      background: var(--white); border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-sm); border: 1px solid var(--gray-100);
+      overflow: hidden; transition: transform .3s ease, box-shadow .3s ease;
+    }
+    .curriculum-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); }
+    .curriculum-header {
+      display: flex; align-items: center; gap: 14px;
+      padding: 18px 20px; color: var(--white);
+    }
+    .curriculum-num {
+      font-size: 1.8rem; font-weight: 800; line-height: 1; opacity: .7; flex-shrink: 0;
+    }
+    .curriculum-title { font-weight: 700; font-size: .92rem; line-height: 1.3; }
+    .curriculum-hours { font-size: .72rem; opacity: .8; margin-top: 2px; font-weight: 500; }
+    .curriculum-aulas {
+      padding: 16px 20px; display: flex; flex-direction: column; gap: 8px;
+    }
+    .curriculum-aulas li {
+      display: flex; align-items: flex-start; gap: 8px;
+      font-size: .82rem; color: var(--gray-700); line-height: 1.4;
+    }
+    .curriculum-aulas li::before {
+      content: ''; flex-shrink: 0; width: 6px; height: 6px; border-radius: 50%;
+      background: var(--gray-300); margin-top: 5px;
+    }
+    .curriculum-prova {
+      margin: 0 20px 16px; padding: 8px 14px; border-radius: 50px;
+      background: var(--gray-100); color: var(--gray-500);
+      font-size: .75rem; font-weight: 700; text-align: center;
+      text-transform: uppercase; letter-spacing: .06em;
+    }
+    .curriculum-card--final .curriculum-header { min-height: 88px; }
+
     /* ——— COMO FUNCIONA ——— */
     #como-funciona { background: linear-gradient(135deg, #F0FDF4, #E0F2FE, #F3E8FF); }
     .steps-wrap { position: relative; margin-top: 48px; }
@@ -849,6 +890,161 @@
           </div>
         </div>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== GRADE CURRICULAR ===== -->
+<section id="grade-curricular" style="background:var(--bg);">
+  <div class="container">
+    <div class="text-center">
+      <span class="section-pill pill-purple reveal">Grade curricular</span>
+      <h2 class="section-title reveal d1">O que você vai estudar</h2>
+      <p class="section-lead reveal d2">8 módulos com conteúdo completo, avaliações por disciplina e prova final para garantir seu aprendizado.</p>
+    </div>
+    <div class="curriculum-grid">
+
+      <div class="curriculum-card reveal d1">
+        <div class="curriculum-header" style="background:linear-gradient(135deg,#7C3AED,#A855F7);">
+          <span class="curriculum-num">01</span>
+          <div>
+            <div class="curriculum-title">Fundamentos da Educação</div>
+            <div class="curriculum-hours">70h</div>
+          </div>
+        </div>
+        <ul class="curriculum-aulas">
+          <li>Epistemologia e Sistemas de Ensino na Educação Brasileira</li>
+          <li>Currículo, Gestão da Educação, o Público e o Privado</li>
+          <li>Educação e Sociedade: Escola, Formação e Mercado</li>
+          <li>Educação Especial e Profissional</li>
+          <li>Avaliação</li>
+        </ul>
+        <div class="curriculum-prova">Prova avaliativa</div>
+      </div>
+
+      <div class="curriculum-card reveal d2">
+        <div class="curriculum-header" style="background:linear-gradient(135deg,#0D9488,#14B8A6);">
+          <span class="curriculum-num">02</span>
+          <div>
+            <div class="curriculum-title">Saberes e Práticas Educativas</div>
+            <div class="curriculum-hours">70h</div>
+          </div>
+        </div>
+        <ul class="curriculum-aulas">
+          <li>Currículo Escolar, Cultura e Prática Educativa</li>
+          <li>Cotidiano Escolar e a Relação entre Professor e Aluno</li>
+          <li>Linguagens, Processos de Leitura e Escrita</li>
+          <li>Educação Popular, Especial e Atendimento Educacional Especializado</li>
+          <li>Tendências Pedagógicas Contemporâneas</li>
+        </ul>
+        <div class="curriculum-prova">Prova avaliativa</div>
+      </div>
+
+      <div class="curriculum-card reveal d3">
+        <div class="curriculum-header" style="background:linear-gradient(135deg,#2563EB,#3B82F6);">
+          <span class="curriculum-num">03</span>
+          <div>
+            <div class="curriculum-title">Bases Neuropsicologia e Distúrbios da Aprendizagem</div>
+            <div class="curriculum-hours">70h</div>
+          </div>
+        </div>
+        <ul class="curriculum-aulas">
+          <li>Neurociências, Neuropsicologia e as Bases Estruturais do Sistema Nervoso</li>
+          <li>Funcionamento do Sistema Nervoso — Funções Importantes</li>
+          <li>Educação e Sociedade: Escola, Formação e Mercado</li>
+          <li>Distúrbios Cognitivos e Comportamentais na Visão Neuropsicológica</li>
+          <li>Avaliação, Diagnóstico e Intervenção em Distúrbios</li>
+        </ul>
+        <div class="curriculum-prova">Prova avaliativa</div>
+      </div>
+
+      <div class="curriculum-card reveal d1">
+        <div class="curriculum-header" style="background:linear-gradient(135deg,#EA580C,#F97316);">
+          <span class="curriculum-num">04</span>
+          <div>
+            <div class="curriculum-title">Metodologia do Trabalho Científico</div>
+            <div class="curriculum-hours">70h</div>
+          </div>
+        </div>
+        <ul class="curriculum-aulas">
+          <li>Objetivos do MTC e Tipos de Conhecimento</li>
+          <li>Pôster Científico</li>
+          <li>Elementos Textuais e Pesquisas</li>
+          <li>Estrutura dos Trabalhos Científicos</li>
+          <li>Citações</li>
+        </ul>
+      </div>
+
+      <div class="curriculum-card reveal d2">
+        <div class="curriculum-header" style="background:linear-gradient(135deg,#DB2777,#EC4899);">
+          <span class="curriculum-num">05</span>
+          <div>
+            <div class="curriculum-title">Legislação e Políticas Públicas em Educação Inclusiva</div>
+            <div class="curriculum-hours">70h</div>
+          </div>
+        </div>
+        <ul class="curriculum-aulas">
+          <li>História da Inclusão Social</li>
+          <li>Documentos Internacionais</li>
+          <li>Declaração de Salamanca</li>
+          <li>Marcos Políticos e Legais da Educação Especial no Brasil — Parte 1</li>
+          <li>Marcos Políticos e Legais da Educação Especial no Brasil — Parte 2</li>
+        </ul>
+        <div class="curriculum-prova">Prova avaliativa</div>
+      </div>
+
+      <div class="curriculum-card reveal d3">
+        <div class="curriculum-header" style="background:linear-gradient(135deg,#059669,#10B981);">
+          <span class="curriculum-num">06</span>
+          <div>
+            <div class="curriculum-title">Fundamentos Teóricos e Metodológicos da Inclusão</div>
+            <div class="curriculum-hours">70h</div>
+          </div>
+        </div>
+        <ul class="curriculum-aulas">
+          <li>A Política da Integração e da Inclusão Social</li>
+          <li>Glossário e Terminologias em Educação Especial</li>
+          <li>Transtornos e Síndromes em Educação Especial</li>
+          <li>Deficiência Visual e Intelectual</li>
+          <li>Deficiências Físicas e Altas Habilidades/Superdotação</li>
+        </ul>
+        <div class="curriculum-prova">Prova avaliativa</div>
+      </div>
+
+      <div class="curriculum-card reveal d1">
+        <div class="curriculum-header" style="background:linear-gradient(135deg,#D97706,#F59E0B);">
+          <span class="curriculum-num">07</span>
+          <div>
+            <div class="curriculum-title">Comunicação Alternativa e Tecnologia Assistiva</div>
+            <div class="curriculum-hours">14h</div>
+          </div>
+        </div>
+        <ul class="curriculum-aulas">
+          <li>Conceitos de Tecnologia Assistiva e Comunicação Alternativa</li>
+          <li>Evolução da Tecnologia Assistiva</li>
+          <li>Tecnologias Assistivas para Inclusão de Pessoas com NEE</li>
+          <li>A Comunicação Alternativa</li>
+        </ul>
+        <div class="curriculum-prova">Prova avaliativa</div>
+      </div>
+
+      <div class="curriculum-card curriculum-card--final reveal d2">
+        <div class="curriculum-header" style="background:linear-gradient(135deg,#1F0B3A,#3B0764);">
+          <span class="curriculum-num">08</span>
+          <div>
+            <div class="curriculum-title">Prova Final</div>
+            <div class="curriculum-hours">Todo o conteúdo</div>
+          </div>
+        </div>
+        <div style="padding:20px 24px;text-align:center;">
+          <svg viewBox="0 0 48 48" style="width:48px;height:48px;margin:0 auto 12px;display:block;">
+            <circle cx="24" cy="24" r="22" fill="#F3E8FF"/>
+            <path d="M24 10l3.6 9.6 10.4 1-7.6 6.8 2.4 10.6L24 32.4 15.2 38l2.4-10.6L10 20.6l10.4-1z" fill="#7C3AED"/>
+          </svg>
+          <p style="font-size:.88rem;color:var(--gray-700);line-height:1.6;">Avaliação abrangente cobrindo todo o conteúdo do curso. Média mínima <strong>7,0</strong> para aprovação.</p>
+        </div>
+      </div>
+
     </div>
   </div>
 </section>
