@@ -200,20 +200,23 @@
       display: inline-flex; flex-direction: column;
       background: linear-gradient(135deg, #FFF7ED, #FEF3C7);
       border: 2px solid #FCD34D; border-radius: var(--radius-lg);
-      padding: 16px 24px; margin-bottom: 24px; gap: 4px;
+      padding: 16px 24px; margin-bottom: 24px; gap: 2px;
     }
     .hero-price-label {
       font-size: .72rem; font-weight: 700; text-transform: uppercase;
       letter-spacing: .08em; color: var(--yellow);
     }
-    .hero-price-value {
-      font-size: 2.8rem; font-weight: 800; line-height: 1;
-      color: var(--dark); letter-spacing: -1px;
-    }
     .hero-price-installment {
-      font-size: .88rem; color: var(--gray-700);
+      font-size: .88rem; color: var(--gray-500); font-weight: 500;
     }
-    .hero-price-installment strong { color: var(--orange); }
+    .hero-price-value {
+      font-size: 1rem; font-weight: 600; color: var(--gray-500);
+      letter-spacing: 0; margin-top: 2px;
+    }
+    .hero-price-parcela {
+      font-size: 2.8rem; font-weight: 800; line-height: 1;
+      color: var(--orange); letter-spacing: -1px;
+    }
 
     .hero-ctas { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 36px; }
 
@@ -630,13 +633,11 @@
           Transforme sua carreira e a vida de pessoas com necessidades especiais. Certificado reconhecido pelo MEC, em 2 a 3 meses, no seu ritmo.
         </p>
         <div class="hero-price">
-          <div class="hero-price-main">
-            <span class="hero-price-label">por apenas</span>
-            <span class="hero-price-value">R$ 707<span style="font-size:1.6rem;">,64</span></span>
+          <span class="hero-price-label">no cartão em até</span>
+          <div>
+            <span style="font-size:1.4rem;font-weight:800;color:var(--orange);">12x de </span><span class="hero-price-parcela">R$ 73,19</span><span style="font-size:1rem;font-weight:600;color:var(--orange);">*</span>
           </div>
-          <div class="hero-price-installment">
-            ou <strong>12x de R$ 73,19</strong> no cartão*
-          </div>
+          <span class="hero-price-value">ou R$ 707,64 à vista</span>
         </div>
         <div class="hero-ctas">
           <a href="#matricula" class="btn btn-purple btn-lg">Quero Me Matricular</a>
