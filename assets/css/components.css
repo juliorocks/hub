@@ -351,6 +351,10 @@
   font-size: var(--text-2xl);
 }
 
+.card--featured .card__excerpt {
+  flex: 0;
+}
+
 /* Card compacto */
 .card--compact .card__body {
   padding: var(--space-4);
