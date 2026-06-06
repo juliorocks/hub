@@ -287,6 +287,51 @@ app.post('/api/lead', async (req, res) => {
   }
 });
 
+// --- API: Meta CAPI — eventos genéricos (ViewContent, InitiateCheckout, etc.) ---
+app.post('/api/event', async (req, res) => {
+  const ACCESS_TOKEN = process.env.META_CAPI_TOKEN;
+  if (!ACCESS_TOKEN) return res.status(500).json({ error: 'Server misconfigured' });
+
+  try {
+    const { event_name, event_id, url, content_name, content_category, value, currency } = req.body;
+
+    if (!event_name) return res.status(400).json({ error: 'event_name required' });
+
+    const payload = {
+      data: [{
+        event_name,
+        event_time: Math.floor(Date.now() / 1000),
+        event_id: event_id || `${event_name.toLowerCase()}_${Date.now()}`,
+        event_source_url: url,
+        action_source: 'website',
+        user_data: {
+          client_user_agent: req.headers['user-agent'],
+          client_ip_address: req.headers['x-forwarded-for']?.split(',')[0] || req.socket?.remoteAddress,
+        },
+        custom_data: {
+          content_name: content_name || '',
+          content_category: content_category || '',
+          value: value || 0,
+          currency: currency || 'BRL',
+        },
+      }],
+    };
+
+    const response = await fetch(`${META_API_URL}?access_token=${ACCESS_TOKEN}`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload),
+    });
+    const result = await response.json();
+    if (!response.ok) return res.status(502).json({ error: 'Meta API error', details: result });
+    return res.status(200).json({ success: true, events_received: result.events_received });
+
+  } catch (error) {
+    console.error('[CAPI /api/event] Erro:', error);
+    return res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
 // --- SSR: Artigos do Firestore ---
 const ARTICLE_COLLECTIONS = {
   guias:    { section: 'guias',    label: 'Guias',    area: 'guias' },

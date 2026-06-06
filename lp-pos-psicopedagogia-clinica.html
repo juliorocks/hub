@@ -951,5 +951,63 @@
   const cObs = new IntersectionObserver(entries => entries.forEach(e => { if (e.isIntersecting) { animateCounter(e.target); cObs.unobserve(e.target); } }), { threshold: 0.3 });
   document.querySelectorAll('[data-target]').forEach(el => cObs.observe(el));
 </script>
+
+<!-- ═══ META PIXEL + CAPI ═══ -->
+<script>
+!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+document,'script','https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '1598794954687611');
+fbq('track', 'PageView');
+
+const CAPI_COURSE = 'Pós-Graduação em Psicopedagogia Clínica';
+const CAPI_CATEGORY = 'pos-graduacao';
+const CAPI_VALUE = 707.64;
+
+function capiEvent(eventName, eventId) {
+  fetch('/api/event', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      event_name: eventName,
+      event_id: eventId,
+      url: window.location.href,
+      content_name: CAPI_COURSE,
+      content_category: CAPI_CATEGORY,
+      value: CAPI_VALUE,
+      currency: 'BRL',
+    }),
+  }).catch(() => {});
+}
+
+// ViewContent — disparado uma vez quando a LP carrega
+(function() {
+  const eid = 'vc_psico_' + Date.now();
+  fbq('track', 'ViewContent', {
+    content_name: CAPI_COURSE,
+    content_category: CAPI_CATEGORY,
+    value: CAPI_VALUE,
+    currency: 'BRL',
+  }, { eventID: eid });
+  capiEvent('ViewContent', eid);
+})();
+
+// InitiateCheckout — disparado no clique de qualquer botão de matrícula
+document.querySelectorAll('a[href*="go.hotmart.com"]').forEach(function(btn) {
+  btn.addEventListener('click', function() {
+    const eid = 'ic_psico_' + Date.now();
+    fbq('track', 'InitiateCheckout', {
+      content_name: CAPI_COURSE,
+      content_category: CAPI_CATEGORY,
+      value: CAPI_VALUE,
+      currency: 'BRL',
+    }, { eventID: eid });
+    capiEvent('InitiateCheckout', eid);
+  });
+});
+</script>
+<noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=1598794954687611&ev=PageView&noscript=1"/></noscript>
 </body>
 </html>
