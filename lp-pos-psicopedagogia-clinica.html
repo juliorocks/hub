@@ -959,9 +959,10 @@ n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
 n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
 t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
 document,'script','https://connect.facebook.net/en_US/fbevents.js');
-fbq('init', '1598794954687611');
+fbq('init', '2235612570577304');
 fbq('track', 'PageView');
 
+const CAPI_PIXEL_ID = '2235612570577304';
 const CAPI_COURSE = 'Pós-Graduação em Psicopedagogia Clínica';
 const CAPI_CATEGORY = 'pos-graduacao';
 const CAPI_VALUE = 707.64;
@@ -973,6 +974,7 @@ function capiEvent(eventName, eventId) {
     body: JSON.stringify({
       event_name: eventName,
       event_id: eventId,
+      pixel_id: CAPI_PIXEL_ID,
       url: window.location.href,
       content_name: CAPI_COURSE,
       content_category: CAPI_CATEGORY,
@@ -1008,6 +1010,6 @@ document.querySelectorAll('a[href*="go.hotmart.com"]').forEach(function(btn) {
   });
 });
 </script>
-<noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=1598794954687611&ev=PageView&noscript=1"/></noscript>
+<noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=2235612570577304&ev=PageView&noscript=1"/></noscript>
 </body>
 </html>

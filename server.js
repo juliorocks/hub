@@ -293,9 +293,12 @@ app.post('/api/event', async (req, res) => {
   if (!ACCESS_TOKEN) return res.status(500).json({ error: 'Server misconfigured' });
 
   try {
-    const { event_name, event_id, url, content_name, content_category, value, currency } = req.body;
+    const { event_name, event_id, url, content_name, content_category, value, currency, pixel_id } = req.body;
 
     if (!event_name) return res.status(400).json({ error: 'event_name required' });
+
+    const targetPixelId = pixel_id || PIXEL_ID;
+    const targetApiUrl = `https://graph.facebook.com/v19.0/${targetPixelId}/events`;
 
     const payload = {
       data: [{
@@ -317,7 +320,7 @@ app.post('/api/event', async (req, res) => {
       }],
     };
 
-    const response = await fetch(`${META_API_URL}?access_token=${ACCESS_TOKEN}`, {
+    const response = await fetch(`${targetApiUrl}?access_token=${ACCESS_TOKEN}`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(payload),
