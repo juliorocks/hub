@@ -581,7 +581,7 @@ app.get(['/', '/index.html'], async (req, res) => {
     html = html.replace('<!--DESTAQUE_FEATURED-->', '').replace('<!--DESTAQUE_SIDE-->', '').replace('<!--ARTICLES_GRID-->', '');
   }
 
-  res.setHeader('Cache-Control', 'public, max-age=120, stale-while-revalidate=60');
+  res.setHeader('Cache-Control', 'no-store');
   res.send(html);
 });
 
