@@ -75,7 +75,6 @@ function getHeaderHTML(basePath) {
       </div>
 
       <div class="header-actions">
-        <a href="${basePath}pages/universidades/index.html" class="btn btn--secondary btn--sm header-actions__btn">Universidades</a>
         <button type="button" class="mobile-search-toggle" id="mobile-search-toggle" aria-label="Buscar" aria-expanded="false">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="22" height="22">
             <circle cx="11" cy="11" r="8"/>
@@ -99,7 +98,6 @@ function getHeaderHTML(basePath) {
         <li class="nav-item"><a href="${basePath}pages/cursos-tecnicos/index.html" class="nav-link">Técnicos</a></li>
         <li class="nav-item"><a href="${basePath}pages/cursos-livres/index.html" class="nav-link">Cursos Livres</a></li>
         <li class="nav-item"><a href="${basePath}pages/carreiras/salarios/" class="nav-link">Carreiras & Salários</a></li>
-        <li class="nav-item"><a href="${basePath}pages/universidades/index.html" class="nav-link">Universidades</a></li>
         <li class="nav-item"><a href="${basePath}pages/enem-2026/index.html" class="nav-link" style="color:#38bdf8;font-weight:700;">ENEM 2026</a></li>
       </ul>
     </div>
@@ -126,14 +124,6 @@ function getFooterHTML(basePath) {
             <a href="${basePath}pages/cursos-livres/index.html">Cursos Livres</a>
             <a href="${basePath}pages/carreiras/salarios/">Carreiras & Salários</a>
             <a href="${basePath}pages/enem-2026/index.html">ENEM 2026</a>
-          </nav>
-        </div>
-        <div>
-          <h3 class="footer-col__title">Universidades</h3>
-          <nav class="footer-links">
-            <a href="${basePath}pages/universidades/anhanguera.html">Anhanguera</a>
-            <a href="${basePath}pages/universidades/unopar.html">Unopar</a>
-            <a href="${basePath}pages/universidades/ampli.html">Ampli</a>
           </nav>
         </div>
         <div>
