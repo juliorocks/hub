@@ -500,11 +500,11 @@
   display: grid;
   grid-template-columns: 2fr 1fr;
   gap: var(--space-6);
-  align-items: stretch;
+  align-items: start;
 }
 
 .destaques-grid__main {
-  height: 100%;
+  height: auto;
 }
 
 .destaques-grid__side {
