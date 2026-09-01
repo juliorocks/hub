@@ -8,8 +8,7 @@ const CATEGORIES = {
   'graduacao': 'pages/graduacao',
   'pos-graduacao': 'pages/pos-graduacao',
   'cursos-tecnicos': 'pages/cursos-tecnicos',
-  'cursos-livres': 'pages/cursos-livres',
-  'universidades': 'pages/universidades'
+  'cursos-livres': 'pages/cursos-livres'
 };
 
 // Initialize Firebase
@@ -306,7 +305,6 @@ function downloadArticleHTML(article) {
   <link rel="stylesheet" href="${basePath}assets/css/components.css">
   <link rel="stylesheet" href="${basePath}assets/css/article.css">
   <link rel="stylesheet" href="${basePath}assets/css/responsive.css">
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4663943063143621" crossorigin="anonymous"></script>
   <link rel="icon" type="image/svg+xml" href="${basePath}assets/img/favicon.svg">
 </head>
 <body class="page-wrapper">
@@ -395,8 +393,7 @@ function getCategoryDisplayName(category) {
     'graduacao': 'Graduação',
     'pos-graduacao': 'Pós-graduação',
     'cursos-tecnicos': 'Cursos Técnicos',
-    'cursos-livres': 'Cursos Livres',
-    'universidades': 'Universidades'
+    'cursos-livres': 'Cursos Livres'
   };
   return names[category] || category;
 }

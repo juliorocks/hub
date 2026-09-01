@@ -2,6 +2,7 @@
 .claude/
 scripts/
 node_modules/
+.DS_Store
 
 # Arquivos de teste e debug
 debug*.mjs
@@ -24,7 +25,6 @@ verify-shots/
 !README.md
 llms.txt
 *.txt
-!ads.txt
 !robots.txt
 *.docx
 *.pdf

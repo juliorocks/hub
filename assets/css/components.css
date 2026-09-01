@@ -98,22 +98,6 @@
   font-size: var(--text-md);
 }
 
-/* CTA especial — afiliado */
-.btn--affiliate {
-  background: linear-gradient(135deg, var(--color-primary), var(--color-primary-dark));
-  color: white;
-  border-color: transparent;
-  font-size: var(--text-base);
-  height: 52px;
-  padding: 0 var(--space-8);
-  box-shadow: 0 4px 16px rgba(22, 163, 74, 0.3);
-}
-
-.btn--affiliate:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(22, 163, 74, 0.4);
-}
-
 .btn--full {
   width: 100%;
 }
@@ -1237,69 +1221,6 @@
   color: var(--color-text-secondary);
   line-height: var(--leading-relaxed);
   margin: 0;
-}
-
-/* =============================================
-   AD SLOTS — espaços para anúncios AdSense
-   ============================================= */
-
-/* Container genérico de anúncio — invisível por padrão */
-.ad-slot {
-  width: 100%;
-  overflow: hidden;
-  text-align: center;
-  /* Sem dimensões, sem fundo: não ocupa espaço enquanto o anúncio não carrega */
-}
-
-/* Label "Publicidade" — só aparece quando carregado */
-.ad-slot.is-loaded::before {
-  content: 'Publicidade';
-  display: block;
-  font-size: 10px;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  color: var(--color-text-muted);
-  margin-bottom: var(--space-2);
-}
-
-/* Horizontal — sem espaço até carregar */
-.ad-slot--horizontal {
-  margin-block: 0;
-}
-
-.ad-slot--horizontal.is-loaded {
-  margin-block: var(--space-8);
-}
-
-/* Retângulo médio */
-.ad-slot--rectangle {
-  max-width: 336px;
-  margin-inline: auto;
-}
-
-.ad-slot--rectangle.is-loaded {
-  margin-block: var(--space-8);
-}
-
-/* Sidebar */
-.ad-slot--sidebar {}
-
-.ad-slot--sidebar.is-loaded {
-  min-height: 250px;
-}
-
-/* Antes do footer */
-.ad-slot--footer {}
-
-.ad-slot--footer.is-loaded {
-  margin-block: var(--space-10);
-}
-
-/* Elemento ins do AdSense */
-.ad-slot ins.adsbygoogle {
-  display: block;
-  width: 100%;
 }
 
 /* ============================================

@@ -162,8 +162,7 @@ function getCategoryDisplayName(category) {
     'graduacao': 'Graduação',
     'pos-graduacao': 'Pós-graduação',
     'cursos-tecnicos': 'Cursos Técnicos',
-    'cursos-livres': 'Cursos Livres',
-    'universidades': 'Universidades'
+    'cursos-livres': 'Cursos Livres'
   };
   return names[category] || category;
 }

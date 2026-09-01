@@ -118,23 +118,15 @@ export function buildPage({
         ${content}
       </div>
     </article>
-
+${sidebarLinksHtml ? `
     <aside class="sidebar">
-      <div class="sidebar-widget">
-        <h3 class="sidebar-widget__title">Estudar com Desconto</h3>
-        <div style="display:flex;flex-direction:column;gap:var(--space-3);">
-          <a href="/pages/universidades/anhanguera.html" class="btn btn--affiliate" rel="noopener sponsored">Anhanguera, até 50% off</a>
-          <a href="/pages/universidades/unopar.html" class="btn btn--affiliate" rel="noopener sponsored">Unopar, até 50% off</a>
-          <a href="/pages/universidades/uniderp.html" class="btn btn--affiliate" rel="noopener sponsored">Uniderp, até 50% off</a>
-        </div>
-      </div>${sidebarLinksHtml ? `
       <div class="sidebar-widget">
         <h3 class="sidebar-widget__title">Cursos Relacionados</h3>
         <ul class="sidebar-links">
           ${sidebarLinksHtml}
         </ul>
-      </div>` : ''}
-    </aside>
+      </div>
+    </aside>` : ''}
   </main>
 
   <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-app.js"></script>

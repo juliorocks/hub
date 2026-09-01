@@ -139,7 +139,7 @@ function getFooterHTML(basePath) {
   </div>
   <div class="footer-bottom">
     <div class="container">
-      <p class="footer-bottom__copy">© 2026 Hub do Estudante. Links de parceiros podem gerar comissão para o portal.</p>
+      <p class="footer-bottom__copy">© 2026 Hub do Estudante. Portal editorial independente — conteúdo sem publicidade.</p>
     </div>
   </div>
 </footer>`;
@@ -201,7 +201,6 @@ const AREA_COLORS = {
   tecnicos:     '#EA580C', // laranja
   livres:       '#DB2777', // rosa
   carreiras:    '#059669', // verde
-  universidades:'#4F46E5', // índigo
 };
 
 // Mapa de padrões de URL para área
@@ -211,7 +210,6 @@ const AREA_URL_MAP = [
   { pattern: /\/tecnicos\//,           area: 'tecnicos' },
   { pattern: /\/cursos-livres\//,      area: 'livres' },
   { pattern: /\/carreiras\//,          area: 'carreiras' },
-  { pattern: /\/universidades\//,      area: 'universidades' },
 ];
 
 function detectArea() {
@@ -229,7 +227,7 @@ function wireActiveNav(area) {
   if (!area) return;
   const links = document.querySelectorAll('.nav-link');
   // Mapa área → índice do nav (0-based)
-  const areaIndex = { graduacao: 0, posgraduacao: 1, tecnicos: 2, livres: 3, carreiras: 4, universidades: 5 };
+  const areaIndex = { graduacao: 0, posgraduacao: 1, tecnicos: 2, livres: 3, carreiras: 4 };
   const idx = areaIndex[area];
   if (idx === undefined) return;
   links.forEach((link, i) => {

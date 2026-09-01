@@ -596,20 +596,6 @@ img { max-width: 100%; height: auto; }
     padding: var(--space-4);
   }
 
-  .affiliate-cta {
-    flex-direction: column;
-    align-items: flex-start;
-    padding: var(--space-5);
-  }
-
-  .affiliate-cta__action {
-    width: 100%;
-  }
-
-  .affiliate-cta__action .btn {
-    width: 100%;
-  }
-
   /* Category hero */
   .category-hero {
     padding-block: var(--space-10) var(--space-6);
@@ -956,7 +942,6 @@ img { max-width: 100%; height: auto; }
   .sidebar,
   .site-footer,
   .article-share,
-  .affiliate-cta,
   .cta-box,
   .listing-filters,
   .pagination,

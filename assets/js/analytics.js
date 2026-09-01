@@ -75,13 +75,12 @@ function trackReadTime() {
 }
 
 /**
- * Rastreia cliques em links externos (não-afiliados).
+ * Rastreia cliques em links externos.
  */
 function trackOutboundLinks() {
   document.addEventListener('click', (e) => {
     const link = e.target.closest('a[href]');
     if (!link) return;
-    if (link.dataset.affiliateClick) return; // já rastreado pelo affiliate.js
 
     try {
       const url = new URL(link.href);

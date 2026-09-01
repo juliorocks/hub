@@ -403,7 +403,6 @@ function renderArticle(a, section) {
   <link rel="stylesheet" href="/assets/css/components.css">
   <link rel="stylesheet" href="/assets/css/article.css">
   <link rel="stylesheet" href="/assets/css/responsive.css">
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4663943063143621" crossorigin="anonymous"></script>
 </head>
 <body class="page-wrapper" data-area="${area}" data-course="${a.slug}" data-course-name="${a.title}">
 
@@ -460,17 +459,6 @@ function renderArticle(a, section) {
         ${a.content || ''}
       </div>
     </article>
-
-    <aside class="sidebar">
-      <div class="sidebar-widget">
-        <h3 class="sidebar-widget__title">Estudar com Desconto</h3>
-        <div style="display:flex;flex-direction:column;gap:var(--space-3)">
-          <a href="/pages/universidades/anhanguera.html" class="btn btn--affiliate" rel="noopener sponsored">Anhanguera, até 50% off</a>
-          <a href="/pages/universidades/unopar.html" class="btn btn--affiliate" rel="noopener sponsored">Unopar, até 50% off</a>
-          <a href="/pages/universidades/uniderp.html" class="btn btn--affiliate" rel="noopener sponsored">Uniderp, até 50% off</a>
-        </div>
-      </div>
-    </aside>
   </main>
 
   <script src="/assets/js/components-loader.js"></script>
