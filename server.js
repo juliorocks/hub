@@ -61,12 +61,12 @@ app.use(express.urlencoded({ extended: true }));
 app.use((req, res, next) => {
   res.setHeader('Content-Security-Policy',
     "default-src 'self'; " +
-    "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://www.google-analytics.com https://connect.facebook.net https://www.gstatic.com https://www.gstatic.com/firebasejs/; " +
+    "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://www.google-analytics.com https://connect.facebook.net https://www.gstatic.com https://www.gstatic.com/firebasejs/ https://pagead2.googlesyndication.com https://*.googlesyndication.com https://partner.googleadservices.com https://tpc.googlesyndication.com https://www.google.com; " +
     "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; " +
     "font-src 'self' https://fonts.gstatic.com; " +
-    "img-src 'self' data: https://images.unsplash.com https://www.facebook.com https://www.google-analytics.com https://www.googletagmanager.com https://static.wixstatic.com https://parindocomvoce.com https://i.ibb.co https://faculdadesaomarcos.com.br https://institutooliver.com.br https://institutoolivercursos.com https://supletivoeja.perfectuead.com.br https://blog.baronieducar.com.br https://rbarquivos.apprbs.com.br https://moobi-sites-wp.s3.amazonaws.com https://cdn.prod.website-files.com; " +
-    "connect-src 'self' https://www.google-analytics.com https://analytics.google.com https://www.facebook.com https://connect.facebook.net https://graph.facebook.com https://*.firebaseio.com https://firestore.googleapis.com https://*.googleapis.com https://ipapi.co; " +
-    "frame-src 'self' https://video.wixstatic.com https://www.youtube.com https://player.vimeo.com; " +
+    "img-src 'self' data: https://images.unsplash.com https://www.facebook.com https://www.google-analytics.com https://www.googletagmanager.com https://static.wixstatic.com https://parindocomvoce.com https://i.ibb.co https://faculdadesaomarcos.com.br https://institutooliver.com.br https://institutoolivercursos.com https://supletivoeja.perfectuead.com.br https://blog.baronieducar.com.br https://rbarquivos.apprbs.com.br https://moobi-sites-wp.s3.amazonaws.com https://cdn.prod.website-files.com https://*.googlesyndication.com https://*.g.doubleclick.net https://www.google.com https://*.gstatic.com; " +
+    "connect-src 'self' https://www.google-analytics.com https://analytics.google.com https://www.facebook.com https://connect.facebook.net https://graph.facebook.com https://*.firebaseio.com https://firestore.googleapis.com https://*.googleapis.com https://ipapi.co https://*.googlesyndication.com https://*.g.doubleclick.net https://www.google.com https://*.adtrafficquality.google; " +
+    "frame-src 'self' https://video.wixstatic.com https://www.youtube.com https://player.vimeo.com https://googleads.g.doubleclick.net https://tpc.googlesyndication.com https://www.google.com https://*.safeframe.googlesyndication.com; " +
     "media-src 'self' https://video.wixstatic.com https://static.wixstatic.com https://parindocomvoce.com; " +
     "object-src 'none';"
   );
@@ -403,6 +403,7 @@ function renderArticle(a, section) {
   <link rel="stylesheet" href="/assets/css/components.css">
   <link rel="stylesheet" href="/assets/css/article.css">
   <link rel="stylesheet" href="/assets/css/responsive.css">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4663943063143621" crossorigin="anonymous"></script>
 </head>
 <body class="page-wrapper" data-area="${area}" data-course="${a.slug}" data-course-name="${a.title}">
 
