@@ -26,6 +26,7 @@ verify-shots/
 llms.txt
 *.txt
 !robots.txt
+!ads.txt
 *.docx
 *.pdf
 
