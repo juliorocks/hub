@@ -5,6 +5,7 @@ import { fileURLToPath } from 'url';
 import crypto from 'crypto';
 import admin from 'firebase-admin';
 import { HEADER_HTML, FOOTER_HTML } from './chrome-partials.mjs';
+import { REDIRECTS } from './redirects.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
@@ -219,6 +220,17 @@ app.post('/admin/rebuild-search-index', requireAdminAuth, async (req, res) => {
     console.error('[Search] rebuild error:', e.message);
     res.status(500).json({ error: e.message });
   }
+});
+
+// --- 301: consolida páginas duplicadas (Fase 2 remediação AdSense) ---
+app.use((req, res, next) => {
+  if (req.method !== 'GET' && req.method !== 'HEAD') return next();
+  let p = decodeURIComponent(req.path);
+  let target = REDIRECTS[p];
+  if (!target && p.endsWith('/')) target = REDIRECTS[p.slice(0, -1)];
+  if (!target && !p.endsWith('.html') && !p.endsWith('/')) target = REDIRECTS[p + '/'];
+  if (target && target !== p) return res.redirect(301, target);
+  next();
 });
 
 // --- Arquivos estáticos públicos ---

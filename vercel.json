@@ -8,6 +8,7 @@
         "includeFiles": [
           "index.html",
           "chrome-partials.mjs",
+          "redirects.mjs",
           "sobre.html",
           "politica-privacidade.html",
           "termos-de-uso.html",
