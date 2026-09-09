@@ -4,6 +4,7 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import crypto from 'crypto';
 import admin from 'firebase-admin';
+import { HEADER_HTML, FOOTER_HTML } from './chrome-partials.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
@@ -407,6 +408,8 @@ function renderArticle(a, section) {
 </head>
 <body class="page-wrapper" data-area="${area}" data-course="${a.slug}" data-course-name="${a.title}">
 
+  ${HEADER_HTML}
+
   <nav class="breadcrumb" aria-label="Breadcrumb">
     <div class="container">
       <ol class="breadcrumb__list" itemscope itemtype="https://schema.org/BreadcrumbList">
@@ -461,6 +464,8 @@ function renderArticle(a, section) {
       </div>
     </article>
   </main>
+
+  ${FOOTER_HTML}
 
   <script src="/assets/js/components-loader.js"></script>
   <script type="module" src="/assets/js/main.js"></script>

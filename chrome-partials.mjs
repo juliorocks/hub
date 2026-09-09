@@ -1,28 +1,13 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Cursos de Negócios e Administração | Hub do Estudante</title>
-  <meta name="description" content="Explore cursos de negócios e administração: Administração, Gestão, Empreendedorismo. Guias completos, carreira e salários.">
-  <link rel="canonical" href="https://www.hubdoestudante.com.br/graduacao/negocios/">
-  <meta name="robots" content="index, follow">
+/**
+ * chrome-partials.mjs — fonte única do header e footer server-side.
+ * Usado por scripts/patch-chrome.mjs (assa nos HTML estáticos) e por server.js (SSR de artigos).
+ * Links absolutos (/) — o site é sempre servido por server.js em produção.
+ */
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" onload="this.onload=null;this.rel='stylesheet'">
-  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"></noscript>
+export const ADSENSE_TAG =
+  '  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4663943063143621" crossorigin="anonymous"></script>';
 
-  <link rel="stylesheet" href="../../../assets/css/base.css">
-  <link rel="stylesheet" href="../../../assets/css/layout.css">
-  <link rel="stylesheet" href="../../../assets/css/components.css">
-  <link rel="stylesheet" href="../../../assets/css/listing.css">
-  <link rel="stylesheet" href="../../../assets/css/responsive.css">
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4663943063143621" crossorigin="anonymous"></script>
-</head>
-<body class="page-wrapper" data-area="graduacao">
-
-  <header class="site-header" role="banner" data-chrome="ssr">
+export const HEADER_HTML = `<header class="site-header" role="banner" data-chrome="ssr">
   <div class="header-top">
     <div class="container">
       <span>Portal de educação superior e profissional do Brasil</span>
@@ -86,66 +71,9 @@
     </div>
   </nav>
   <div class="site-nav-backdrop" id="site-nav-backdrop" aria-hidden="true"></div>
-</header>
+</header>`;
 
-
-  
-
-  <nav class="breadcrumb" aria-label="Breadcrumb">
-    <div class="container">
-      <ol class="breadcrumb__list" itemscope itemtype="https://schema.org/BreadcrumbList">
-        <li class="breadcrumb__item" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
-          <a href="../../../index.html" class="breadcrumb__link" itemprop="item"><span itemprop="name">Home</span></a><meta itemprop="position" content="1">
-        </li>
-        <li class="breadcrumb__item" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
-          <a href="../index.html" class="breadcrumb__link" itemprop="item"><span itemprop="name">Graduação</span></a><meta itemprop="position" content="2">
-        </li>
-        <li class="breadcrumb__item breadcrumb__item--current" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
-          <span itemprop="name">Negócios</span><meta itemprop="position" content="3">
-        </li>
-      </ol>
-    </div>
-  </nav>
-
-  <section class="category-hero">
-    <div class="container">
-      <div class="category-hero__content">
-        <div class="category-hero__meta">
-          <span class="badge badge--white">Graduação</span>
-        </div>
-        <h1 class="category-hero__title">Cursos de Negócios</h1>
-        <p class="category-hero__desc">Explore cursos de negócios e administração: Administração, Gestão, Empreendedorismo. Guias completos, carreira e salários.</p>
-      </div>
-    </div>
-  </section>
-
-  <main style="padding-block: var(--space-12);">
-    <div class="container">
-
-      <section style="margin-bottom: var(--space-12);">
-        <div class="section-header">
-          <h2 class="section-title">Cursos Disponíveis</h2>
-        </div>
-        <div class="grid-3">
-          <a href="administracao.html" class="card" style="text-decoration:none;">
-            <div class="card__body">
-              <div class="card__meta"><span class="content-type-badge content-type-badge--graduacao">Guia do Curso</span></div>
-              <h3 class="card__title">Administração</h3>
-              <p style="font-size:var(--text-sm); color:var(--color-text-secondary);">4 anos · EAD disponível · R$ 2k – R$ 7k/mês</p>
-            </div>
-          </a>
-        </div>
-      </section>
-
-    </div>
-  </main>
-
-  
-
-  <script src="../../../assets/js/components-loader.js"></script>
-  <script type="module" src="../../../assets/js/main.js"></script>
-
-  <footer class="site-footer" data-chrome="ssr">
+export const FOOTER_HTML = `<footer class="site-footer" data-chrome="ssr">
   <div class="footer-main">
     <div class="container">
       <div class="footer-grid">
@@ -181,7 +109,4 @@
       <p class="footer-bottom__copy">© 2026 Hub do Estudante. Portal editorial independente. Conteúdo gratuito mantido com publicidade do Google AdSense — os anúncios não influenciam a linha editorial.</p>
     </div>
   </div>
-</footer>
-
-</body>
-</html>
+</footer>`;

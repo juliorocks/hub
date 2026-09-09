@@ -40,8 +40,8 @@ function getHeaderHTML(basePath) {
       <span>Portal de educação superior e profissional do Brasil</span>
       <nav class="header-top-links">
         <a href="${basePath}sobre.html">Sobre</a>
-        <a href="#" onclick="return false">Anuncie</a>
-        <a href="#" onclick="return false">Contato</a>
+        <a href="${basePath}politica-privacidade.html">Privacidade</a>
+        <a href="${basePath}termos-de-uso.html">Termos</a>
       </nav>
     </div>
   </div>
@@ -97,7 +97,8 @@ function getHeaderHTML(basePath) {
         <li class="nav-item"><a href="${basePath}pages/pos-graduacao/index.html" class="nav-link">Pós-graduação</a></li>
         <li class="nav-item"><a href="${basePath}pages/cursos-tecnicos/index.html" class="nav-link">Técnicos</a></li>
         <li class="nav-item"><a href="${basePath}pages/cursos-livres/index.html" class="nav-link">Cursos Livres</a></li>
-        <li class="nav-item"><a href="${basePath}pages/carreiras/salarios/" class="nav-link">Carreiras & Salários</a></li>
+        <li class="nav-item"><a href="${basePath}pages/carreiras/index.html" class="nav-link">Carreiras & Salários</a></li>
+        <li class="nav-item"><a href="${basePath}pages/guias/index.html" class="nav-link">Guias</a></li>
         <li class="nav-item"><a href="${basePath}pages/enem-2026/index.html" class="nav-link" style="color:#38bdf8;font-weight:700;">ENEM 2026</a></li>
       </ul>
     </div>
@@ -113,7 +114,7 @@ function getFooterHTML(basePath) {
       <div class="footer-grid">
         <div>
           <p style="font-family: var(--font-body); font-size: var(--text-xl); color: white; font-weight: 700; margin-bottom: var(--space-3);">Hub do Estudante</p>
-          <p class="footer-brand__desc">Portal editorial independente de educação superior do Brasil.</p>
+          <p class="footer-brand__desc">Portal editorial independente de educação superior e profissional do Brasil.</p>
         </div>
         <div>
           <h3 class="footer-col__title">Cursos</h3>
@@ -122,7 +123,7 @@ function getFooterHTML(basePath) {
             <a href="${basePath}pages/pos-graduacao/index.html">Pós-graduação</a>
             <a href="${basePath}pages/cursos-tecnicos/index.html">Cursos Técnicos</a>
             <a href="${basePath}pages/cursos-livres/index.html">Cursos Livres</a>
-            <a href="${basePath}pages/carreiras/salarios/">Carreiras & Salários</a>
+            <a href="${basePath}pages/carreiras/index.html">Carreiras & Salários</a>
             <a href="${basePath}pages/enem-2026/index.html">ENEM 2026</a>
           </nav>
         </div>
@@ -130,6 +131,7 @@ function getFooterHTML(basePath) {
           <h3 class="footer-col__title">Institucional</h3>
           <nav class="footer-links">
             <a href="${basePath}sobre.html">Sobre</a>
+            <a href="${basePath}pages/guias/index.html">Guias</a>
             <a href="${basePath}politica-privacidade.html">Privacidade</a>
             <a href="${basePath}termos-de-uso.html">Termos de Uso</a>
           </nav>
@@ -139,7 +141,7 @@ function getFooterHTML(basePath) {
   </div>
   <div class="footer-bottom">
     <div class="container">
-      <p class="footer-bottom__copy">© 2026 Hub do Estudante. Portal editorial independente — conteúdo sem publicidade.</p>
+      <p class="footer-bottom__copy">© 2026 Hub do Estudante. Portal editorial independente. Conteúdo gratuito mantido com publicidade do Google AdSense — os anúncios não influenciam a linha editorial.</p>
     </div>
   </div>
 </footer>`;
@@ -248,31 +250,27 @@ function injectComponents() {
   try {
     const basePath = getBasePath();
 
-    // Injeta novo header no topo do body
-    const bodyFirst = document.body.firstChild;
-    const tempDiv = document.createElement('div');
-    tempDiv.innerHTML = getHeaderHTML(basePath);
-    document.body.insertBefore(tempDiv.firstElementChild, bodyFirst);
+    // Header/footer já vêm no HTML servido pelo build (patch-chrome.mjs).
+    // Só injeta via JS como fallback (ex.: abrir o arquivo via file:// em dev).
+    if (!document.querySelector('.site-header')) {
+      const tempDiv = document.createElement('div');
+      tempDiv.innerHTML = getHeaderHTML(basePath);
+      document.body.insertBefore(tempDiv.firstElementChild, document.body.firstChild);
+    }
 
-    // Injeta novo footer no final do body
-    const tempDiv2 = document.createElement('div');
-    tempDiv2.innerHTML = getFooterHTML(basePath);
-    document.body.appendChild(tempDiv2.firstElementChild);
+    if (!document.querySelector('.site-footer')) {
+      const tempDiv2 = document.createElement('div');
+      tempDiv2.innerHTML = getFooterHTML(basePath);
+      document.body.appendChild(tempDiv2.firstElementChild);
+    }
 
-    // Wire mobile navigation imediatamente após injeção
+    // Wire mobile navigation
     wireMobileNav();
 
     // Detecta área e aplica cor + nav ativo
     const area = detectArea();
     applyAreaColor(area);
     wireActiveNav(area);
-
-    // Injeta lead-form.js dinamicamente (carrega em todas as páginas)
-    if (!document.querySelector('script[src*="lead-form"]')) {
-      const leadScript = document.createElement('script');
-      leadScript.src = `${basePath}assets/js/lead-form.js`;
-      document.body.appendChild(leadScript);
-    }
 
     // Marca como carregado
     window.componentsLoaded = true;

@@ -7,6 +7,7 @@
       "config": {
         "includeFiles": [
           "index.html",
+          "chrome-partials.mjs",
           "sobre.html",
           "politica-privacidade.html",
           "termos-de-uso.html",
